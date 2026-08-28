@@ -1,0 +1,4 @@
+[submodule "UAIbotPy"]
+	path = UAIbotPy
+	url = git@github.com:UAIbot/UAIbotPy.git
+	branch = feat/gpu-holder
