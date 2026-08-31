@@ -1,0 +1,5029 @@
+{
+  "metadata": {
+    "name": "Casa terrea grande em L",
+    "front_direction": "-y",
+    "notes": [
+      "A base do L fica na frente: x=0..16, y=0..6.",
+      "A ala privativa sobe para os fundos: x=0..7, y=0..16.",
+      "Nao ha garagem e todas as portas sao apenas vaos sem folhas."
+    ],
+    "tolerance": 1e-06,
+    "wall_height": 2.8,
+    "wall_thickness": 0.14,
+    "available_architecture": [
+      "bay_window",
+      "column",
+      "door",
+      "double_door",
+      "flat_roof",
+      "floor",
+      "gable_roof",
+      "garage_door",
+      "porch_steps",
+      "railing",
+      "slab",
+      "stairs",
+      "wall",
+      "wall_with_door",
+      "wall_with_door_and_window",
+      "wall_with_double_door",
+      "wall_with_window",
+      "window"
+    ],
+    "available_furniture": [
+      "armchair",
+      "bed",
+      "bench",
+      "bookshelf",
+      "cabinet",
+      "chair",
+      "coffee_table",
+      "dining_table",
+      "dresser",
+      "filing_cabinet",
+      "floor_lamp",
+      "kitchen_counter",
+      "kitchen_island",
+      "monitor",
+      "nightstand",
+      "office_chair",
+      "office_desk",
+      "potted_plant",
+      "queen_bed",
+      "refrigerator",
+      "round_table",
+      "rug",
+      "side_table",
+      "single_bed",
+      "sofa",
+      "stool",
+      "stove",
+      "trash_bin",
+      "tv",
+      "tv_stand",
+      "wall_shelf",
+      "wardrobe",
+      "washing_machine"
+    ],
+    "available_props": [
+      "book",
+      "book_flat",
+      "book_row",
+      "book_stack",
+      "box_package",
+      "computer_setup",
+      "desk_lamp",
+      "desktop_tower",
+      "keyboard",
+      "monitor_prop",
+      "mouse",
+      "mousepad",
+      "mug",
+      "notebook",
+      "pen",
+      "pen_holder",
+      "router",
+      "speaker",
+      "speaker_pair",
+      "study_accessories",
+      "tabletop_clutter",
+      "webcam"
+    ],
+    "available_vehicles": [
+      "compact_crossover",
+      "work_pickup"
+    ],
+    "available_compositions": [
+      "bedside_corner",
+      "decorated_tv_stand",
+      "decorated_wall_shelf",
+      "filled_bookshelf",
+      "home_office_corner",
+      "pc_desk",
+      "reading_corner",
+      "study_desk"
+    ]
+  },
+  "footprint": {
+    "shape": "L",
+    "components": [
+      {
+        "id": "footprint_ala_frontal",
+        "kind": "footprint_component",
+        "limits": {
+          "x": [
+            0.0,
+            16.0
+          ],
+          "y": [
+            0.0,
+            6.0
+          ],
+          "z": [
+            0.0,
+            2.8
+          ]
+        },
+        "center": [
+          8.0,
+          3.0,
+          1.4
+        ],
+        "width": 16.0,
+        "depth": 6.0,
+        "area": 96.0
+      },
+      {
+        "id": "footprint_ala_privativa",
+        "kind": "footprint_component",
+        "limits": {
+          "x": [
+            0.0,
+            7.0
+          ],
+          "y": [
+            6.0,
+            16.0
+          ],
+          "z": [
+            0.0,
+            2.8
+          ]
+        },
+        "center": [
+          3.5,
+          11.0,
+          1.4
+        ],
+        "width": 7.0,
+        "depth": 10.0,
+        "area": 70.0
+      }
+    ],
+    "outer_polygon": [
+      [
+        0.0,
+        0.0
+      ],
+      [
+        16.0,
+        0.0
+      ],
+      [
+        16.0,
+        6.0
+      ],
+      [
+        7.0,
+        6.0
+      ],
+      [
+        7.0,
+        16.0
+      ],
+      [
+        0.0,
+        16.0
+      ]
+    ],
+    "area": 166.0
+  },
+  "rooms": [
+    {
+      "id": "escritorio",
+      "kind": "room",
+      "limits": {
+        "x": [
+          0.0,
+          3.8
+        ],
+        "y": [
+          0.0,
+          5.0
+        ],
+        "z": [
+          0.0,
+          2.8
+        ]
+      },
+      "center": [
+        1.9,
+        2.5,
+        1.4
+      ],
+      "width": 3.8,
+      "depth": 5.0,
+      "area": 19.0,
+      "label": "Escritorio",
+      "floor_type": "madeira_quente",
+      "walls": [
+        "parede_frente_escritorio",
+        "parede_oeste_escritorio",
+        "parede_escritorio_banheiros",
+        "parede_escritorio_circulacao"
+      ],
+      "access_openings": [
+        "vao_escritorio"
+      ],
+      "windows": [
+        "janela_frente_escritorio",
+        "janela_lateral_escritorio"
+      ]
+    },
+    {
+      "id": "banheiro_social",
+      "kind": "room",
+      "limits": {
+        "x": [
+          3.8,
+          5.4
+        ],
+        "y": [
+          0.0,
+          2.5
+        ],
+        "z": [
+          0.0,
+          2.8
+        ]
+      },
+      "center": [
+        4.6,
+        1.25,
+        1.4
+      ],
+      "width": 1.6,
+      "depth": 2.5,
+      "area": 4.0,
+      "label": "Banheiro social",
+      "floor_type": "ceramica_hidraulica",
+      "walls": [
+        "parede_frente_banheiro_social",
+        "parede_divisoria_banheiros",
+        "parede_banheiro_social_hall"
+      ],
+      "access_openings": [
+        "vao_banheiro_social"
+      ],
+      "windows": [
+        "janela_banheiro_social"
+      ]
+    },
+    {
+      "id": "banheiro_familia",
+      "kind": "room",
+      "limits": {
+        "x": [
+          3.8,
+          5.4
+        ],
+        "y": [
+          2.5,
+          5.0
+        ],
+        "z": [
+          0.0,
+          2.8
+        ]
+      },
+      "center": [
+        4.6,
+        3.75,
+        1.4
+      ],
+      "width": 1.6,
+      "depth": 2.5,
+      "area": 4.0,
+      "label": "Banheiro familia",
+      "floor_type": "ceramica_hidraulica",
+      "walls": [
+        "parede_divisoria_banheiros",
+        "parede_banheiro_familia_hall",
+        "parede_banheiro_familia_circulacao"
+      ],
+      "access_openings": [
+        "vao_banheiro_familia"
+      ],
+      "windows": []
+    },
+    {
+      "id": "circulacao_frontal",
+      "kind": "room",
+      "limits": {
+        "x": [
+          5.4,
+          7.0
+        ],
+        "y": [
+          0.0,
+          6.0
+        ],
+        "z": [
+          0.0,
+          2.8
+        ]
+      },
+      "center": [
+        6.2,
+        3.0,
+        1.4
+      ],
+      "width": 1.6,
+      "depth": 6.0,
+      "area": 9.6,
+      "label": "Circulacao frontal",
+      "floor_type": "porcelanato_claro",
+      "walls": [
+        "parede_frente_circulacao",
+        "parede_banheiro_social_hall",
+        "parede_banheiro_familia_hall",
+        "parede_hall_sala",
+        "parede_hall_jantar"
+      ],
+      "access_openings": [
+        "vao_banheiro_social",
+        "vao_banheiro_familia",
+        "vao_hall_sala",
+        "vao_hall_jantar"
+      ],
+      "windows": []
+    },
+    {
+      "id": "circulacao_transversal",
+      "kind": "room",
+      "limits": {
+        "x": [
+          0.0,
+          5.4
+        ],
+        "y": [
+          5.0,
+          6.0
+        ],
+        "z": [
+          0.0,
+          2.8
+        ]
+      },
+      "center": [
+        2.7,
+        5.5,
+        1.4
+      ],
+      "width": 5.4,
+      "depth": 1.0,
+      "area": 5.4,
+      "label": "Circulacao transversal",
+      "floor_type": "porcelanato_claro",
+      "walls": [
+        "parede_oeste_circulacao",
+        "parede_escritorio_circulacao",
+        "parede_banheiro_familia_circulacao",
+        "parede_quarto1_sul"
+      ],
+      "access_openings": [
+        "vao_escritorio"
+      ],
+      "windows": []
+    },
+    {
+      "id": "quarto_1",
+      "kind": "room",
+      "limits": {
+        "x": [
+          0.0,
+          5.4
+        ],
+        "y": [
+          6.0,
+          11.0
+        ],
+        "z": [
+          0.0,
+          2.8
+        ]
+      },
+      "center": [
+        2.7,
+        8.5,
+        1.4
+      ],
+      "width": 5.4,
+      "depth": 5.0,
+      "area": 27.0,
+      "label": "Quarto 1",
+      "floor_type": "madeira_quente",
+      "walls": [
+        "parede_oeste_quarto1",
+        "parede_quarto1_sul",
+        "parede_divisoria_quartos",
+        "parede_quarto1_corredor"
+      ],
+      "access_openings": [
+        "vao_quarto_1"
+      ],
+      "windows": [
+        "janela_oeste_quarto1"
+      ]
+    },
+    {
+      "id": "quarto_2",
+      "kind": "room",
+      "limits": {
+        "x": [
+          0.0,
+          5.4
+        ],
+        "y": [
+          11.0,
+          16.0
+        ],
+        "z": [
+          0.0,
+          2.8
+        ]
+      },
+      "center": [
+        2.7,
+        13.5,
+        1.4
+      ],
+      "width": 5.4,
+      "depth": 5.0,
+      "area": 27.0,
+      "label": "Quarto 2",
+      "floor_type": "madeira_quente",
+      "walls": [
+        "parede_norte_quarto2",
+        "parede_oeste_quarto2",
+        "parede_divisoria_quartos",
+        "parede_quarto2_corredor"
+      ],
+      "access_openings": [
+        "vao_quarto_2"
+      ],
+      "windows": [
+        "janela_norte_quarto2",
+        "janela_oeste_quarto2"
+      ]
+    },
+    {
+      "id": "corredor_privativo",
+      "kind": "room",
+      "limits": {
+        "x": [
+          5.4,
+          7.0
+        ],
+        "y": [
+          6.0,
+          16.0
+        ],
+        "z": [
+          0.0,
+          2.8
+        ]
+      },
+      "center": [
+        6.2,
+        11.0,
+        1.4
+      ],
+      "width": 1.6,
+      "depth": 10.0,
+      "area": 16.0,
+      "label": "Corredor privativo",
+      "floor_type": "porcelanato_claro",
+      "walls": [
+        "parede_leste_corredor",
+        "parede_norte_quarto2",
+        "parede_quarto1_corredor",
+        "parede_quarto2_corredor"
+      ],
+      "access_openings": [
+        "vao_saida_corredor_quintal",
+        "vao_quarto_1",
+        "vao_quarto_2"
+      ],
+      "windows": [
+        "janela_corredor_quintal"
+      ]
+    },
+    {
+      "id": "sala",
+      "kind": "room",
+      "limits": {
+        "x": [
+          7.0,
+          16.0
+        ],
+        "y": [
+          0.0,
+          3.3
+        ],
+        "z": [
+          0.0,
+          2.8
+        ]
+      },
+      "center": [
+        11.5,
+        1.65,
+        1.4
+      ],
+      "width": 9.0,
+      "depth": 3.3,
+      "area": 29.7,
+      "label": "Sala",
+      "floor_type": "porcelanato_claro",
+      "walls": [
+        "parede_frente_sala",
+        "parede_leste_sala",
+        "parede_hall_sala",
+        "parede_sala_jantar",
+        "parede_sala_cozinha"
+      ],
+      "access_openings": [
+        "vao_entrada_principal",
+        "vao_hall_sala",
+        "vao_sala_jantar"
+      ],
+      "windows": [
+        "janela_frente_sala",
+        "janela_leste_sala"
+      ]
+    },
+    {
+      "id": "sala_de_jantar",
+      "kind": "room",
+      "limits": {
+        "x": [
+          7.0,
+          12.2
+        ],
+        "y": [
+          3.3,
+          6.0
+        ],
+        "z": [
+          0.0,
+          2.8
+        ]
+      },
+      "center": [
+        9.6,
+        4.65,
+        1.4
+      ],
+      "width": 5.2,
+      "depth": 2.7,
+      "area": 14.04,
+      "label": "Sala de jantar",
+      "floor_type": "porcelanato_claro",
+      "walls": [
+        "parede_fundos_jantar",
+        "parede_hall_jantar",
+        "parede_sala_jantar",
+        "parede_jantar_cozinha"
+      ],
+      "access_openings": [
+        "vao_saida_jantar_quintal",
+        "vao_hall_jantar",
+        "vao_sala_jantar",
+        "vao_jantar_cozinha"
+      ],
+      "windows": [
+        "janela_fundos_jantar"
+      ]
+    },
+    {
+      "id": "cozinha",
+      "kind": "room",
+      "limits": {
+        "x": [
+          12.2,
+          16.0
+        ],
+        "y": [
+          3.3,
+          6.0
+        ],
+        "z": [
+          0.0,
+          2.8
+        ]
+      },
+      "center": [
+        14.1,
+        4.65,
+        1.4
+      ],
+      "width": 3.8,
+      "depth": 2.7,
+      "area": 10.26,
+      "label": "Cozinha",
+      "floor_type": "ceramica_cozinha",
+      "walls": [
+        "parede_leste_cozinha",
+        "parede_fundos_cozinha",
+        "parede_sala_cozinha",
+        "parede_jantar_cozinha"
+      ],
+      "access_openings": [
+        "vao_jantar_cozinha"
+      ],
+      "windows": [
+        "janela_leste_cozinha",
+        "janela_fundos_cozinha"
+      ]
+    }
+  ],
+  "walls": [
+    {
+      "id": "parede_frente_escritorio",
+      "type": "external",
+      "start": [
+        0.0,
+        0.0
+      ],
+      "end": [
+        3.8,
+        0.0
+      ],
+      "center": [
+        1.9,
+        0.0,
+        1.4
+      ],
+      "length": 3.8,
+      "height": 2.8,
+      "thickness": 0.14,
+      "axis": "x",
+      "orientation": "horizontal_x",
+      "yaw_rad": 0.0,
+      "rooms": [
+        "exterior_frente",
+        "escritorio"
+      ],
+      "door_openings": [],
+      "windows": [
+        "janela_frente_escritorio"
+      ]
+    },
+    {
+      "id": "parede_frente_banheiro_social",
+      "type": "external",
+      "start": [
+        3.8,
+        0.0
+      ],
+      "end": [
+        5.4,
+        0.0
+      ],
+      "center": [
+        4.6,
+        0.0,
+        1.4
+      ],
+      "length": 1.6,
+      "height": 2.8,
+      "thickness": 0.14,
+      "axis": "x",
+      "orientation": "horizontal_x",
+      "yaw_rad": 0.0,
+      "rooms": [
+        "exterior_frente",
+        "banheiro_social"
+      ],
+      "door_openings": [],
+      "windows": [
+        "janela_banheiro_social"
+      ]
+    },
+    {
+      "id": "parede_frente_circulacao",
+      "type": "external",
+      "start": [
+        5.4,
+        0.0
+      ],
+      "end": [
+        7.0,
+        0.0
+      ],
+      "center": [
+        6.2,
+        0.0,
+        1.4
+      ],
+      "length": 1.6,
+      "height": 2.8,
+      "thickness": 0.14,
+      "axis": "x",
+      "orientation": "horizontal_x",
+      "yaw_rad": 0.0,
+      "rooms": [
+        "exterior_frente",
+        "circulacao_frontal"
+      ],
+      "door_openings": [],
+      "windows": []
+    },
+    {
+      "id": "parede_frente_sala",
+      "type": "external",
+      "start": [
+        7.0,
+        0.0
+      ],
+      "end": [
+        16.0,
+        0.0
+      ],
+      "center": [
+        11.5,
+        0.0,
+        1.4
+      ],
+      "length": 9.0,
+      "height": 2.8,
+      "thickness": 0.14,
+      "axis": "x",
+      "orientation": "horizontal_x",
+      "yaw_rad": 0.0,
+      "rooms": [
+        "exterior_frente",
+        "sala"
+      ],
+      "door_openings": [
+        "vao_entrada_principal"
+      ],
+      "windows": [
+        "janela_frente_sala"
+      ]
+    },
+    {
+      "id": "parede_leste_sala",
+      "type": "external",
+      "start": [
+        16.0,
+        0.0
+      ],
+      "end": [
+        16.0,
+        3.3
+      ],
+      "center": [
+        16.0,
+        1.65,
+        1.4
+      ],
+      "length": 3.3,
+      "height": 2.8,
+      "thickness": 0.14,
+      "axis": "y",
+      "orientation": "vertical_y",
+      "yaw_rad": 1.5708,
+      "rooms": [
+        "exterior_leste",
+        "sala"
+      ],
+      "door_openings": [],
+      "windows": [
+        "janela_leste_sala"
+      ]
+    },
+    {
+      "id": "parede_leste_cozinha",
+      "type": "external",
+      "start": [
+        16.0,
+        3.3
+      ],
+      "end": [
+        16.0,
+        6.0
+      ],
+      "center": [
+        16.0,
+        4.65,
+        1.4
+      ],
+      "length": 2.7,
+      "height": 2.8,
+      "thickness": 0.14,
+      "axis": "y",
+      "orientation": "vertical_y",
+      "yaw_rad": 1.5708,
+      "rooms": [
+        "exterior_leste",
+        "cozinha"
+      ],
+      "door_openings": [],
+      "windows": [
+        "janela_leste_cozinha"
+      ]
+    },
+    {
+      "id": "parede_fundos_jantar",
+      "type": "external",
+      "start": [
+        7.0,
+        6.0
+      ],
+      "end": [
+        12.2,
+        6.0
+      ],
+      "center": [
+        9.6,
+        6.0,
+        1.4
+      ],
+      "length": 5.2,
+      "height": 2.8,
+      "thickness": 0.14,
+      "axis": "x",
+      "orientation": "horizontal_x",
+      "yaw_rad": 0.0,
+      "rooms": [
+        "quintal",
+        "sala_de_jantar"
+      ],
+      "door_openings": [
+        "vao_saida_jantar_quintal"
+      ],
+      "windows": [
+        "janela_fundos_jantar"
+      ]
+    },
+    {
+      "id": "parede_fundos_cozinha",
+      "type": "external",
+      "start": [
+        12.2,
+        6.0
+      ],
+      "end": [
+        16.0,
+        6.0
+      ],
+      "center": [
+        14.1,
+        6.0,
+        1.4
+      ],
+      "length": 3.8,
+      "height": 2.8,
+      "thickness": 0.14,
+      "axis": "x",
+      "orientation": "horizontal_x",
+      "yaw_rad": 0.0,
+      "rooms": [
+        "quintal",
+        "cozinha"
+      ],
+      "door_openings": [],
+      "windows": [
+        "janela_fundos_cozinha"
+      ]
+    },
+    {
+      "id": "parede_leste_corredor",
+      "type": "external",
+      "start": [
+        7.0,
+        6.0
+      ],
+      "end": [
+        7.0,
+        16.0
+      ],
+      "center": [
+        7.0,
+        11.0,
+        1.4
+      ],
+      "length": 10.0,
+      "height": 2.8,
+      "thickness": 0.14,
+      "axis": "y",
+      "orientation": "vertical_y",
+      "yaw_rad": 1.5708,
+      "rooms": [
+        "quintal",
+        "corredor_privativo"
+      ],
+      "door_openings": [
+        "vao_saida_corredor_quintal"
+      ],
+      "windows": [
+        "janela_corredor_quintal"
+      ]
+    },
+    {
+      "id": "parede_norte_quarto2",
+      "type": "external",
+      "start": [
+        0.0,
+        16.0
+      ],
+      "end": [
+        7.0,
+        16.0
+      ],
+      "center": [
+        3.5,
+        16.0,
+        1.4
+      ],
+      "length": 7.0,
+      "height": 2.8,
+      "thickness": 0.14,
+      "axis": "x",
+      "orientation": "horizontal_x",
+      "yaw_rad": 0.0,
+      "rooms": [
+        "exterior_norte",
+        "quarto_2",
+        "corredor_privativo"
+      ],
+      "door_openings": [],
+      "windows": [
+        "janela_norte_quarto2"
+      ]
+    },
+    {
+      "id": "parede_oeste_quarto2",
+      "type": "external",
+      "start": [
+        0.0,
+        11.0
+      ],
+      "end": [
+        0.0,
+        16.0
+      ],
+      "center": [
+        0.0,
+        13.5,
+        1.4
+      ],
+      "length": 5.0,
+      "height": 2.8,
+      "thickness": 0.14,
+      "axis": "y",
+      "orientation": "vertical_y",
+      "yaw_rad": 1.5708,
+      "rooms": [
+        "exterior_oeste",
+        "quarto_2"
+      ],
+      "door_openings": [],
+      "windows": [
+        "janela_oeste_quarto2"
+      ]
+    },
+    {
+      "id": "parede_oeste_quarto1",
+      "type": "external",
+      "start": [
+        0.0,
+        6.0
+      ],
+      "end": [
+        0.0,
+        11.0
+      ],
+      "center": [
+        0.0,
+        8.5,
+        1.4
+      ],
+      "length": 5.0,
+      "height": 2.8,
+      "thickness": 0.14,
+      "axis": "y",
+      "orientation": "vertical_y",
+      "yaw_rad": 1.5708,
+      "rooms": [
+        "exterior_oeste",
+        "quarto_1"
+      ],
+      "door_openings": [],
+      "windows": [
+        "janela_oeste_quarto1"
+      ]
+    },
+    {
+      "id": "parede_oeste_circulacao",
+      "type": "external",
+      "start": [
+        0.0,
+        5.0
+      ],
+      "end": [
+        0.0,
+        6.0
+      ],
+      "center": [
+        0.0,
+        5.5,
+        1.4
+      ],
+      "length": 1.0,
+      "height": 2.8,
+      "thickness": 0.14,
+      "axis": "y",
+      "orientation": "vertical_y",
+      "yaw_rad": 1.5708,
+      "rooms": [
+        "exterior_oeste",
+        "circulacao_transversal"
+      ],
+      "door_openings": [],
+      "windows": []
+    },
+    {
+      "id": "parede_oeste_escritorio",
+      "type": "external",
+      "start": [
+        0.0,
+        0.0
+      ],
+      "end": [
+        0.0,
+        5.0
+      ],
+      "center": [
+        0.0,
+        2.5,
+        1.4
+      ],
+      "length": 5.0,
+      "height": 2.8,
+      "thickness": 0.14,
+      "axis": "y",
+      "orientation": "vertical_y",
+      "yaw_rad": 1.5708,
+      "rooms": [
+        "exterior_oeste",
+        "escritorio"
+      ],
+      "door_openings": [],
+      "windows": [
+        "janela_lateral_escritorio"
+      ]
+    },
+    {
+      "id": "parede_escritorio_banheiros",
+      "type": "internal",
+      "start": [
+        3.8,
+        0.0
+      ],
+      "end": [
+        3.8,
+        5.0
+      ],
+      "center": [
+        3.8,
+        2.5,
+        1.4
+      ],
+      "length": 5.0,
+      "height": 2.8,
+      "thickness": 0.14,
+      "axis": "y",
+      "orientation": "vertical_y",
+      "yaw_rad": 1.5708,
+      "rooms": [
+        "escritorio",
+        "banheiros"
+      ],
+      "door_openings": [],
+      "windows": []
+    },
+    {
+      "id": "parede_divisoria_banheiros",
+      "type": "internal",
+      "start": [
+        3.8,
+        2.5
+      ],
+      "end": [
+        5.4,
+        2.5
+      ],
+      "center": [
+        4.6,
+        2.5,
+        1.4
+      ],
+      "length": 1.6,
+      "height": 2.8,
+      "thickness": 0.14,
+      "axis": "x",
+      "orientation": "horizontal_x",
+      "yaw_rad": 0.0,
+      "rooms": [
+        "banheiro_social",
+        "banheiro_familia"
+      ],
+      "door_openings": [],
+      "windows": []
+    },
+    {
+      "id": "parede_banheiro_social_hall",
+      "type": "internal",
+      "start": [
+        5.4,
+        0.0
+      ],
+      "end": [
+        5.4,
+        2.5
+      ],
+      "center": [
+        5.4,
+        1.25,
+        1.4
+      ],
+      "length": 2.5,
+      "height": 2.8,
+      "thickness": 0.14,
+      "axis": "y",
+      "orientation": "vertical_y",
+      "yaw_rad": 1.5708,
+      "rooms": [
+        "banheiro_social",
+        "circulacao_frontal"
+      ],
+      "door_openings": [
+        "vao_banheiro_social"
+      ],
+      "windows": []
+    },
+    {
+      "id": "parede_banheiro_familia_hall",
+      "type": "internal",
+      "start": [
+        5.4,
+        2.5
+      ],
+      "end": [
+        5.4,
+        5.0
+      ],
+      "center": [
+        5.4,
+        3.75,
+        1.4
+      ],
+      "length": 2.5,
+      "height": 2.8,
+      "thickness": 0.14,
+      "axis": "y",
+      "orientation": "vertical_y",
+      "yaw_rad": 1.5708,
+      "rooms": [
+        "banheiro_familia",
+        "circulacao_frontal"
+      ],
+      "door_openings": [
+        "vao_banheiro_familia"
+      ],
+      "windows": []
+    },
+    {
+      "id": "parede_escritorio_circulacao",
+      "type": "internal",
+      "start": [
+        0.0,
+        5.0
+      ],
+      "end": [
+        3.8,
+        5.0
+      ],
+      "center": [
+        1.9,
+        5.0,
+        1.4
+      ],
+      "length": 3.8,
+      "height": 2.8,
+      "thickness": 0.14,
+      "axis": "x",
+      "orientation": "horizontal_x",
+      "yaw_rad": 0.0,
+      "rooms": [
+        "escritorio",
+        "circulacao_transversal"
+      ],
+      "door_openings": [
+        "vao_escritorio"
+      ],
+      "windows": []
+    },
+    {
+      "id": "parede_banheiro_familia_circulacao",
+      "type": "internal",
+      "start": [
+        3.8,
+        5.0
+      ],
+      "end": [
+        5.4,
+        5.0
+      ],
+      "center": [
+        4.6,
+        5.0,
+        1.4
+      ],
+      "length": 1.6,
+      "height": 2.8,
+      "thickness": 0.14,
+      "axis": "x",
+      "orientation": "horizontal_x",
+      "yaw_rad": 0.0,
+      "rooms": [
+        "banheiro_familia",
+        "circulacao_transversal"
+      ],
+      "door_openings": [],
+      "windows": []
+    },
+    {
+      "id": "parede_quarto1_sul",
+      "type": "internal",
+      "start": [
+        0.0,
+        6.0
+      ],
+      "end": [
+        5.4,
+        6.0
+      ],
+      "center": [
+        2.7,
+        6.0,
+        1.4
+      ],
+      "length": 5.4,
+      "height": 2.8,
+      "thickness": 0.14,
+      "axis": "x",
+      "orientation": "horizontal_x",
+      "yaw_rad": 0.0,
+      "rooms": [
+        "quarto_1",
+        "circulacao_transversal"
+      ],
+      "door_openings": [],
+      "windows": []
+    },
+    {
+      "id": "parede_divisoria_quartos",
+      "type": "internal",
+      "start": [
+        0.0,
+        11.0
+      ],
+      "end": [
+        5.4,
+        11.0
+      ],
+      "center": [
+        2.7,
+        11.0,
+        1.4
+      ],
+      "length": 5.4,
+      "height": 2.8,
+      "thickness": 0.14,
+      "axis": "x",
+      "orientation": "horizontal_x",
+      "yaw_rad": 0.0,
+      "rooms": [
+        "quarto_1",
+        "quarto_2"
+      ],
+      "door_openings": [],
+      "windows": []
+    },
+    {
+      "id": "parede_quarto1_corredor",
+      "type": "internal",
+      "start": [
+        5.4,
+        6.0
+      ],
+      "end": [
+        5.4,
+        11.0
+      ],
+      "center": [
+        5.4,
+        8.5,
+        1.4
+      ],
+      "length": 5.0,
+      "height": 2.8,
+      "thickness": 0.14,
+      "axis": "y",
+      "orientation": "vertical_y",
+      "yaw_rad": 1.5708,
+      "rooms": [
+        "quarto_1",
+        "corredor_privativo"
+      ],
+      "door_openings": [
+        "vao_quarto_1"
+      ],
+      "windows": []
+    },
+    {
+      "id": "parede_quarto2_corredor",
+      "type": "internal",
+      "start": [
+        5.4,
+        11.0
+      ],
+      "end": [
+        5.4,
+        16.0
+      ],
+      "center": [
+        5.4,
+        13.5,
+        1.4
+      ],
+      "length": 5.0,
+      "height": 2.8,
+      "thickness": 0.14,
+      "axis": "y",
+      "orientation": "vertical_y",
+      "yaw_rad": 1.5708,
+      "rooms": [
+        "quarto_2",
+        "corredor_privativo"
+      ],
+      "door_openings": [
+        "vao_quarto_2"
+      ],
+      "windows": []
+    },
+    {
+      "id": "parede_hall_sala",
+      "type": "internal",
+      "start": [
+        7.0,
+        0.0
+      ],
+      "end": [
+        7.0,
+        3.3
+      ],
+      "center": [
+        7.0,
+        1.65,
+        1.4
+      ],
+      "length": 3.3,
+      "height": 2.8,
+      "thickness": 0.14,
+      "axis": "y",
+      "orientation": "vertical_y",
+      "yaw_rad": 1.5708,
+      "rooms": [
+        "circulacao_frontal",
+        "sala"
+      ],
+      "door_openings": [
+        "vao_hall_sala"
+      ],
+      "windows": []
+    },
+    {
+      "id": "parede_hall_jantar",
+      "type": "internal",
+      "start": [
+        7.0,
+        3.3
+      ],
+      "end": [
+        7.0,
+        6.0
+      ],
+      "center": [
+        7.0,
+        4.65,
+        1.4
+      ],
+      "length": 2.7,
+      "height": 2.8,
+      "thickness": 0.14,
+      "axis": "y",
+      "orientation": "vertical_y",
+      "yaw_rad": 1.5708,
+      "rooms": [
+        "circulacao_frontal",
+        "sala_de_jantar"
+      ],
+      "door_openings": [
+        "vao_hall_jantar"
+      ],
+      "windows": []
+    },
+    {
+      "id": "parede_sala_jantar",
+      "type": "internal",
+      "start": [
+        7.0,
+        3.3
+      ],
+      "end": [
+        12.2,
+        3.3
+      ],
+      "center": [
+        9.6,
+        3.3,
+        1.4
+      ],
+      "length": 5.2,
+      "height": 2.8,
+      "thickness": 0.14,
+      "axis": "x",
+      "orientation": "horizontal_x",
+      "yaw_rad": 0.0,
+      "rooms": [
+        "sala",
+        "sala_de_jantar"
+      ],
+      "door_openings": [
+        "vao_sala_jantar"
+      ],
+      "windows": []
+    },
+    {
+      "id": "parede_sala_cozinha",
+      "type": "internal",
+      "start": [
+        12.2,
+        3.3
+      ],
+      "end": [
+        16.0,
+        3.3
+      ],
+      "center": [
+        14.1,
+        3.3,
+        1.4
+      ],
+      "length": 3.8,
+      "height": 2.8,
+      "thickness": 0.14,
+      "axis": "x",
+      "orientation": "horizontal_x",
+      "yaw_rad": 0.0,
+      "rooms": [
+        "sala",
+        "cozinha"
+      ],
+      "door_openings": [],
+      "windows": []
+    },
+    {
+      "id": "parede_jantar_cozinha",
+      "type": "internal",
+      "start": [
+        12.2,
+        3.3
+      ],
+      "end": [
+        12.2,
+        6.0
+      ],
+      "center": [
+        12.2,
+        4.65,
+        1.4
+      ],
+      "length": 2.7,
+      "height": 2.8,
+      "thickness": 0.14,
+      "axis": "y",
+      "orientation": "vertical_y",
+      "yaw_rad": 1.5708,
+      "rooms": [
+        "sala_de_jantar",
+        "cozinha"
+      ],
+      "door_openings": [
+        "vao_jantar_cozinha"
+      ],
+      "windows": []
+    }
+  ],
+  "door_openings": [
+    {
+      "id": "vao_entrada_principal",
+      "kind": "door_opening_without_leaf",
+      "wall": "parede_frente_sala",
+      "center_along_wall": 8.85,
+      "width": 1.2,
+      "height": 2.15,
+      "bottom_z": 0.0,
+      "connects": [
+        "exterior_frente",
+        "sala"
+      ],
+      "has_physical_door": false,
+      "position": {
+        "world_center": [
+          8.85,
+          0.0,
+          1.075
+        ],
+        "local_offset_from_wall_center": -2.65
+      },
+      "limits": {
+        "x": [
+          8.25,
+          9.45
+        ],
+        "y": [
+          -0.07,
+          0.07
+        ],
+        "z": [
+          0.0,
+          2.15
+        ]
+      }
+    },
+    {
+      "id": "vao_saida_jantar_quintal",
+      "kind": "door_opening_without_leaf",
+      "wall": "parede_fundos_jantar",
+      "center_along_wall": 8.4,
+      "width": 1.4,
+      "height": 2.15,
+      "bottom_z": 0.0,
+      "connects": [
+        "sala_de_jantar",
+        "quintal"
+      ],
+      "has_physical_door": false,
+      "position": {
+        "world_center": [
+          8.4,
+          6.0,
+          1.075
+        ],
+        "local_offset_from_wall_center": -1.2
+      },
+      "limits": {
+        "x": [
+          7.7,
+          9.1
+        ],
+        "y": [
+          5.93,
+          6.07
+        ],
+        "z": [
+          0.0,
+          2.15
+        ]
+      }
+    },
+    {
+      "id": "vao_saida_corredor_quintal",
+      "kind": "door_opening_without_leaf",
+      "wall": "parede_leste_corredor",
+      "center_along_wall": 13.0,
+      "width": 1.1,
+      "height": 2.15,
+      "bottom_z": 0.0,
+      "connects": [
+        "corredor_privativo",
+        "quintal"
+      ],
+      "has_physical_door": false,
+      "position": {
+        "world_center": [
+          7.0,
+          13.0,
+          1.075
+        ],
+        "local_offset_from_wall_center": 2.0
+      },
+      "limits": {
+        "x": [
+          6.93,
+          7.07
+        ],
+        "y": [
+          12.45,
+          13.55
+        ],
+        "z": [
+          0.0,
+          2.15
+        ]
+      }
+    },
+    {
+      "id": "vao_banheiro_social",
+      "kind": "door_opening_without_leaf",
+      "wall": "parede_banheiro_social_hall",
+      "center_along_wall": 1.25,
+      "width": 0.8,
+      "height": 2.15,
+      "bottom_z": 0.0,
+      "connects": [
+        "banheiro_social",
+        "circulacao_frontal"
+      ],
+      "has_physical_door": false,
+      "position": {
+        "world_center": [
+          5.4,
+          1.25,
+          1.075
+        ],
+        "local_offset_from_wall_center": 0.0
+      },
+      "limits": {
+        "x": [
+          5.33,
+          5.47
+        ],
+        "y": [
+          0.85,
+          1.65
+        ],
+        "z": [
+          0.0,
+          2.15
+        ]
+      }
+    },
+    {
+      "id": "vao_banheiro_familia",
+      "kind": "door_opening_without_leaf",
+      "wall": "parede_banheiro_familia_hall",
+      "center_along_wall": 3.75,
+      "width": 0.8,
+      "height": 2.15,
+      "bottom_z": 0.0,
+      "connects": [
+        "banheiro_familia",
+        "circulacao_frontal"
+      ],
+      "has_physical_door": false,
+      "position": {
+        "world_center": [
+          5.4,
+          3.75,
+          1.075
+        ],
+        "local_offset_from_wall_center": 0.0
+      },
+      "limits": {
+        "x": [
+          5.33,
+          5.47
+        ],
+        "y": [
+          3.35,
+          4.15
+        ],
+        "z": [
+          0.0,
+          2.15
+        ]
+      }
+    },
+    {
+      "id": "vao_escritorio",
+      "kind": "door_opening_without_leaf",
+      "wall": "parede_escritorio_circulacao",
+      "center_along_wall": 2.15,
+      "width": 0.9,
+      "height": 2.15,
+      "bottom_z": 0.0,
+      "connects": [
+        "escritorio",
+        "circulacao_transversal"
+      ],
+      "has_physical_door": false,
+      "position": {
+        "world_center": [
+          2.15,
+          5.0,
+          1.075
+        ],
+        "local_offset_from_wall_center": 0.25
+      },
+      "limits": {
+        "x": [
+          1.7,
+          2.6
+        ],
+        "y": [
+          4.93,
+          5.07
+        ],
+        "z": [
+          0.0,
+          2.15
+        ]
+      }
+    },
+    {
+      "id": "vao_quarto_1",
+      "kind": "door_opening_without_leaf",
+      "wall": "parede_quarto1_corredor",
+      "center_along_wall": 8.5,
+      "width": 0.9,
+      "height": 2.15,
+      "bottom_z": 0.0,
+      "connects": [
+        "quarto_1",
+        "corredor_privativo"
+      ],
+      "has_physical_door": false,
+      "position": {
+        "world_center": [
+          5.4,
+          8.5,
+          1.075
+        ],
+        "local_offset_from_wall_center": 0.0
+      },
+      "limits": {
+        "x": [
+          5.33,
+          5.47
+        ],
+        "y": [
+          8.05,
+          8.95
+        ],
+        "z": [
+          0.0,
+          2.15
+        ]
+      }
+    },
+    {
+      "id": "vao_quarto_2",
+      "kind": "door_opening_without_leaf",
+      "wall": "parede_quarto2_corredor",
+      "center_along_wall": 13.5,
+      "width": 0.9,
+      "height": 2.15,
+      "bottom_z": 0.0,
+      "connects": [
+        "quarto_2",
+        "corredor_privativo"
+      ],
+      "has_physical_door": false,
+      "position": {
+        "world_center": [
+          5.4,
+          13.5,
+          1.075
+        ],
+        "local_offset_from_wall_center": 0.0
+      },
+      "limits": {
+        "x": [
+          5.33,
+          5.47
+        ],
+        "y": [
+          13.05,
+          13.95
+        ],
+        "z": [
+          0.0,
+          2.15
+        ]
+      }
+    },
+    {
+      "id": "vao_hall_sala",
+      "kind": "door_opening_without_leaf",
+      "wall": "parede_hall_sala",
+      "center_along_wall": 1.6,
+      "width": 1.2,
+      "height": 2.15,
+      "bottom_z": 0.0,
+      "connects": [
+        "circulacao_frontal",
+        "sala"
+      ],
+      "has_physical_door": false,
+      "position": {
+        "world_center": [
+          7.0,
+          1.6,
+          1.075
+        ],
+        "local_offset_from_wall_center": -0.05
+      },
+      "limits": {
+        "x": [
+          6.93,
+          7.07
+        ],
+        "y": [
+          1.0,
+          2.2
+        ],
+        "z": [
+          0.0,
+          2.15
+        ]
+      }
+    },
+    {
+      "id": "vao_hall_jantar",
+      "kind": "door_opening_without_leaf",
+      "wall": "parede_hall_jantar",
+      "center_along_wall": 4.65,
+      "width": 1.2,
+      "height": 2.15,
+      "bottom_z": 0.0,
+      "connects": [
+        "circulacao_frontal",
+        "sala_de_jantar"
+      ],
+      "has_physical_door": false,
+      "position": {
+        "world_center": [
+          7.0,
+          4.65,
+          1.075
+        ],
+        "local_offset_from_wall_center": 0.0
+      },
+      "limits": {
+        "x": [
+          6.93,
+          7.07
+        ],
+        "y": [
+          4.05,
+          5.25
+        ],
+        "z": [
+          0.0,
+          2.15
+        ]
+      }
+    },
+    {
+      "id": "vao_sala_jantar",
+      "kind": "door_opening_without_leaf",
+      "wall": "parede_sala_jantar",
+      "center_along_wall": 9.5,
+      "width": 2.2,
+      "height": 2.15,
+      "bottom_z": 0.0,
+      "connects": [
+        "sala",
+        "sala_de_jantar"
+      ],
+      "has_physical_door": false,
+      "position": {
+        "world_center": [
+          9.5,
+          3.3,
+          1.075
+        ],
+        "local_offset_from_wall_center": -0.1
+      },
+      "limits": {
+        "x": [
+          8.4,
+          10.6
+        ],
+        "y": [
+          3.23,
+          3.37
+        ],
+        "z": [
+          0.0,
+          2.15
+        ]
+      }
+    },
+    {
+      "id": "vao_jantar_cozinha",
+      "kind": "door_opening_without_leaf",
+      "wall": "parede_jantar_cozinha",
+      "center_along_wall": 4.65,
+      "width": 1.5,
+      "height": 2.15,
+      "bottom_z": 0.0,
+      "connects": [
+        "sala_de_jantar",
+        "cozinha"
+      ],
+      "has_physical_door": false,
+      "position": {
+        "world_center": [
+          12.2,
+          4.65,
+          1.075
+        ],
+        "local_offset_from_wall_center": 0.0
+      },
+      "limits": {
+        "x": [
+          12.13,
+          12.27
+        ],
+        "y": [
+          3.9,
+          5.4
+        ],
+        "z": [
+          0.0,
+          2.15
+        ]
+      }
+    }
+  ],
+  "windows": [
+    {
+      "id": "janela_frente_escritorio",
+      "wall": "parede_frente_escritorio",
+      "center_along_wall": 1.9,
+      "width": 1.6,
+      "height": 1.1,
+      "sill_height": 0.9,
+      "rooms": [
+        "escritorio"
+      ],
+      "position": {
+        "world_center": [
+          1.9,
+          0.0,
+          1.45
+        ],
+        "local_offset_from_wall_center": 0.0
+      },
+      "limits": {
+        "x": [
+          1.1,
+          2.7
+        ],
+        "y": [
+          -0.07,
+          0.07
+        ],
+        "z": [
+          0.9,
+          2.0
+        ]
+      }
+    },
+    {
+      "id": "janela_lateral_escritorio",
+      "wall": "parede_oeste_escritorio",
+      "center_along_wall": 2.55,
+      "width": 1.3,
+      "height": 1.1,
+      "sill_height": 0.9,
+      "rooms": [
+        "escritorio"
+      ],
+      "position": {
+        "world_center": [
+          0.0,
+          2.55,
+          1.45
+        ],
+        "local_offset_from_wall_center": 0.05
+      },
+      "limits": {
+        "x": [
+          -0.07,
+          0.07
+        ],
+        "y": [
+          1.9,
+          3.2
+        ],
+        "z": [
+          0.9,
+          2.0
+        ]
+      }
+    },
+    {
+      "id": "janela_banheiro_social",
+      "wall": "parede_frente_banheiro_social",
+      "center_along_wall": 4.6,
+      "width": 0.7,
+      "height": 1.1,
+      "sill_height": 0.9,
+      "rooms": [
+        "banheiro_social"
+      ],
+      "position": {
+        "world_center": [
+          4.6,
+          0.0,
+          1.45
+        ],
+        "local_offset_from_wall_center": 0.0
+      },
+      "limits": {
+        "x": [
+          4.25,
+          4.95
+        ],
+        "y": [
+          -0.07,
+          0.07
+        ],
+        "z": [
+          0.9,
+          2.0
+        ]
+      }
+    },
+    {
+      "id": "janela_frente_sala",
+      "wall": "parede_frente_sala",
+      "center_along_wall": 13.35,
+      "width": 2.0,
+      "height": 1.1,
+      "sill_height": 0.9,
+      "rooms": [
+        "sala"
+      ],
+      "position": {
+        "world_center": [
+          13.35,
+          0.0,
+          1.45
+        ],
+        "local_offset_from_wall_center": 1.85
+      },
+      "limits": {
+        "x": [
+          12.35,
+          14.35
+        ],
+        "y": [
+          -0.07,
+          0.07
+        ],
+        "z": [
+          0.9,
+          2.0
+        ]
+      }
+    },
+    {
+      "id": "janela_leste_sala",
+      "wall": "parede_leste_sala",
+      "center_along_wall": 1.75,
+      "width": 1.5,
+      "height": 1.1,
+      "sill_height": 0.9,
+      "rooms": [
+        "sala"
+      ],
+      "position": {
+        "world_center": [
+          16.0,
+          1.75,
+          1.45
+        ],
+        "local_offset_from_wall_center": 0.1
+      },
+      "limits": {
+        "x": [
+          15.93,
+          16.07
+        ],
+        "y": [
+          1.0,
+          2.5
+        ],
+        "z": [
+          0.9,
+          2.0
+        ]
+      }
+    },
+    {
+      "id": "janela_leste_cozinha",
+      "wall": "parede_leste_cozinha",
+      "center_along_wall": 4.75,
+      "width": 1.2,
+      "height": 1.1,
+      "sill_height": 0.9,
+      "rooms": [
+        "cozinha"
+      ],
+      "position": {
+        "world_center": [
+          16.0,
+          4.75,
+          1.45
+        ],
+        "local_offset_from_wall_center": 0.1
+      },
+      "limits": {
+        "x": [
+          15.93,
+          16.07
+        ],
+        "y": [
+          4.15,
+          5.35
+        ],
+        "z": [
+          0.9,
+          2.0
+        ]
+      }
+    },
+    {
+      "id": "janela_fundos_jantar",
+      "wall": "parede_fundos_jantar",
+      "center_along_wall": 11.2,
+      "width": 1.2,
+      "height": 1.1,
+      "sill_height": 0.9,
+      "rooms": [
+        "sala_de_jantar"
+      ],
+      "position": {
+        "world_center": [
+          11.2,
+          6.0,
+          1.45
+        ],
+        "local_offset_from_wall_center": 1.6
+      },
+      "limits": {
+        "x": [
+          10.6,
+          11.8
+        ],
+        "y": [
+          5.93,
+          6.07
+        ],
+        "z": [
+          0.9,
+          2.0
+        ]
+      }
+    },
+    {
+      "id": "janela_fundos_cozinha",
+      "wall": "parede_fundos_cozinha",
+      "center_along_wall": 14.1,
+      "width": 1.4,
+      "height": 1.1,
+      "sill_height": 0.9,
+      "rooms": [
+        "cozinha"
+      ],
+      "position": {
+        "world_center": [
+          14.1,
+          6.0,
+          1.45
+        ],
+        "local_offset_from_wall_center": 0.0
+      },
+      "limits": {
+        "x": [
+          13.4,
+          14.8
+        ],
+        "y": [
+          5.93,
+          6.07
+        ],
+        "z": [
+          0.9,
+          2.0
+        ]
+      }
+    },
+    {
+      "id": "janela_corredor_quintal",
+      "wall": "parede_leste_corredor",
+      "center_along_wall": 8.5,
+      "width": 1.2,
+      "height": 1.1,
+      "sill_height": 0.9,
+      "rooms": [
+        "corredor_privativo"
+      ],
+      "position": {
+        "world_center": [
+          7.0,
+          8.5,
+          1.45
+        ],
+        "local_offset_from_wall_center": -2.5
+      },
+      "limits": {
+        "x": [
+          6.93,
+          7.07
+        ],
+        "y": [
+          7.9,
+          9.1
+        ],
+        "z": [
+          0.9,
+          2.0
+        ]
+      }
+    },
+    {
+      "id": "janela_oeste_quarto1",
+      "wall": "parede_oeste_quarto1",
+      "center_along_wall": 8.5,
+      "width": 1.5,
+      "height": 1.1,
+      "sill_height": 0.9,
+      "rooms": [
+        "quarto_1"
+      ],
+      "position": {
+        "world_center": [
+          0.0,
+          8.5,
+          1.45
+        ],
+        "local_offset_from_wall_center": 0.0
+      },
+      "limits": {
+        "x": [
+          -0.07,
+          0.07
+        ],
+        "y": [
+          7.75,
+          9.25
+        ],
+        "z": [
+          0.9,
+          2.0
+        ]
+      }
+    },
+    {
+      "id": "janela_oeste_quarto2",
+      "wall": "parede_oeste_quarto2",
+      "center_along_wall": 13.5,
+      "width": 1.5,
+      "height": 1.1,
+      "sill_height": 0.9,
+      "rooms": [
+        "quarto_2"
+      ],
+      "position": {
+        "world_center": [
+          0.0,
+          13.5,
+          1.45
+        ],
+        "local_offset_from_wall_center": 0.0
+      },
+      "limits": {
+        "x": [
+          -0.07,
+          0.07
+        ],
+        "y": [
+          12.75,
+          14.25
+        ],
+        "z": [
+          0.9,
+          2.0
+        ]
+      }
+    },
+    {
+      "id": "janela_norte_quarto2",
+      "wall": "parede_norte_quarto2",
+      "center_along_wall": 2.7,
+      "width": 1.7,
+      "height": 1.1,
+      "sill_height": 0.9,
+      "rooms": [
+        "quarto_2"
+      ],
+      "position": {
+        "world_center": [
+          2.7,
+          16.0,
+          1.45
+        ],
+        "local_offset_from_wall_center": -0.8
+      },
+      "limits": {
+        "x": [
+          1.85,
+          3.55
+        ],
+        "y": [
+          15.93,
+          16.07
+        ],
+        "z": [
+          0.9,
+          2.0
+        ]
+      }
+    }
+  ],
+  "floors": [
+    {
+      "id": "piso_escritorio",
+      "room": "escritorio",
+      "floor_type": "madeira_quente",
+      "limits": {
+        "x": [
+          0.0,
+          3.8
+        ],
+        "y": [
+          0.0,
+          5.0
+        ],
+        "z": [
+          0.0,
+          2.8
+        ]
+      },
+      "center": [
+        1.9,
+        2.5,
+        1.4
+      ],
+      "width": 3.8,
+      "depth": 5.0,
+      "thickness": 0.06
+    },
+    {
+      "id": "piso_banheiro_social",
+      "room": "banheiro_social",
+      "floor_type": "ceramica_hidraulica",
+      "limits": {
+        "x": [
+          3.8,
+          5.4
+        ],
+        "y": [
+          0.0,
+          2.5
+        ],
+        "z": [
+          0.0,
+          2.8
+        ]
+      },
+      "center": [
+        4.6,
+        1.25,
+        1.4
+      ],
+      "width": 1.6,
+      "depth": 2.5,
+      "thickness": 0.06
+    },
+    {
+      "id": "piso_banheiro_familia",
+      "room": "banheiro_familia",
+      "floor_type": "ceramica_hidraulica",
+      "limits": {
+        "x": [
+          3.8,
+          5.4
+        ],
+        "y": [
+          2.5,
+          5.0
+        ],
+        "z": [
+          0.0,
+          2.8
+        ]
+      },
+      "center": [
+        4.6,
+        3.75,
+        1.4
+      ],
+      "width": 1.6,
+      "depth": 2.5,
+      "thickness": 0.06
+    },
+    {
+      "id": "piso_circulacao_frontal",
+      "room": "circulacao_frontal",
+      "floor_type": "porcelanato_claro",
+      "limits": {
+        "x": [
+          5.4,
+          7.0
+        ],
+        "y": [
+          0.0,
+          6.0
+        ],
+        "z": [
+          0.0,
+          2.8
+        ]
+      },
+      "center": [
+        6.2,
+        3.0,
+        1.4
+      ],
+      "width": 1.6,
+      "depth": 6.0,
+      "thickness": 0.06
+    },
+    {
+      "id": "piso_circulacao_transversal",
+      "room": "circulacao_transversal",
+      "floor_type": "porcelanato_claro",
+      "limits": {
+        "x": [
+          0.0,
+          5.4
+        ],
+        "y": [
+          5.0,
+          6.0
+        ],
+        "z": [
+          0.0,
+          2.8
+        ]
+      },
+      "center": [
+        2.7,
+        5.5,
+        1.4
+      ],
+      "width": 5.4,
+      "depth": 1.0,
+      "thickness": 0.06
+    },
+    {
+      "id": "piso_quarto_1",
+      "room": "quarto_1",
+      "floor_type": "madeira_quente",
+      "limits": {
+        "x": [
+          0.0,
+          5.4
+        ],
+        "y": [
+          6.0,
+          11.0
+        ],
+        "z": [
+          0.0,
+          2.8
+        ]
+      },
+      "center": [
+        2.7,
+        8.5,
+        1.4
+      ],
+      "width": 5.4,
+      "depth": 5.0,
+      "thickness": 0.06
+    },
+    {
+      "id": "piso_quarto_2",
+      "room": "quarto_2",
+      "floor_type": "madeira_quente",
+      "limits": {
+        "x": [
+          0.0,
+          5.4
+        ],
+        "y": [
+          11.0,
+          16.0
+        ],
+        "z": [
+          0.0,
+          2.8
+        ]
+      },
+      "center": [
+        2.7,
+        13.5,
+        1.4
+      ],
+      "width": 5.4,
+      "depth": 5.0,
+      "thickness": 0.06
+    },
+    {
+      "id": "piso_corredor_privativo",
+      "room": "corredor_privativo",
+      "floor_type": "porcelanato_claro",
+      "limits": {
+        "x": [
+          5.4,
+          7.0
+        ],
+        "y": [
+          6.0,
+          16.0
+        ],
+        "z": [
+          0.0,
+          2.8
+        ]
+      },
+      "center": [
+        6.2,
+        11.0,
+        1.4
+      ],
+      "width": 1.6,
+      "depth": 10.0,
+      "thickness": 0.06
+    },
+    {
+      "id": "piso_sala",
+      "room": "sala",
+      "floor_type": "porcelanato_claro",
+      "limits": {
+        "x": [
+          7.0,
+          16.0
+        ],
+        "y": [
+          0.0,
+          3.3
+        ],
+        "z": [
+          0.0,
+          2.8
+        ]
+      },
+      "center": [
+        11.5,
+        1.65,
+        1.4
+      ],
+      "width": 9.0,
+      "depth": 3.3,
+      "thickness": 0.06
+    },
+    {
+      "id": "piso_sala_de_jantar",
+      "room": "sala_de_jantar",
+      "floor_type": "porcelanato_claro",
+      "limits": {
+        "x": [
+          7.0,
+          12.2
+        ],
+        "y": [
+          3.3,
+          6.0
+        ],
+        "z": [
+          0.0,
+          2.8
+        ]
+      },
+      "center": [
+        9.6,
+        4.65,
+        1.4
+      ],
+      "width": 5.2,
+      "depth": 2.7,
+      "thickness": 0.06
+    },
+    {
+      "id": "piso_cozinha",
+      "room": "cozinha",
+      "floor_type": "ceramica_cozinha",
+      "limits": {
+        "x": [
+          12.2,
+          16.0
+        ],
+        "y": [
+          3.3,
+          6.0
+        ],
+        "z": [
+          0.0,
+          2.8
+        ]
+      },
+      "center": [
+        14.1,
+        4.65,
+        1.4
+      ],
+      "width": 3.8,
+      "depth": 2.7,
+      "thickness": 0.06
+    }
+  ],
+  "outdoor": {
+    "area_carro": {
+      "id": "area_carro",
+      "kind": "pavement",
+      "limits": {
+        "x": [
+          6.8,
+          15.0
+        ],
+        "y": [
+          -6.0,
+          -0.4
+        ],
+        "z": [
+          -0.04,
+          0.0
+        ]
+      },
+      "center": [
+        10.9,
+        -3.2,
+        -0.02
+      ],
+      "width": 8.2,
+      "depth": 5.6,
+      "area": 45.92
+    },
+    "piscina": {
+      "id": "piscina",
+      "kind": "pool",
+      "limits": {
+        "x": [
+          10.0,
+          16.2
+        ],
+        "y": [
+          10.2,
+          14.7
+        ],
+        "z": [
+          -0.18,
+          0.02
+        ]
+      },
+      "center": [
+        13.1,
+        12.45,
+        -0.08
+      ],
+      "width": 6.2,
+      "depth": 4.5,
+      "area": 27.9
+    },
+    "borda_piscina": {
+      "id": "borda_piscina",
+      "kind": "pool_coping",
+      "limits": {
+        "x": [
+          9.55,
+          16.65
+        ],
+        "y": [
+          9.75,
+          15.15
+        ],
+        "z": [
+          -0.04,
+          0.0
+        ]
+      },
+      "center": [
+        13.1,
+        12.45,
+        -0.02
+      ],
+      "width": 7.1,
+      "depth": 5.4,
+      "area": 38.34
+    },
+    "area_reuniao": {
+      "id": "area_reuniao",
+      "kind": "meeting_patio",
+      "limits": {
+        "x": [
+          10.0,
+          17.0
+        ],
+        "y": [
+          15.5,
+          19.5
+        ],
+        "z": [
+          -0.04,
+          0.0
+        ]
+      },
+      "center": [
+        13.5,
+        17.5,
+        -0.02
+      ],
+      "width": 7.0,
+      "depth": 4.0,
+      "area": 28.0
+    },
+    "grama_frente_lateral": {
+      "id": "grama_frente_lateral",
+      "kind": "grass",
+      "limits": {
+        "x": [
+          -2.0,
+          6.4
+        ],
+        "y": [
+          -6.0,
+          -0.4
+        ],
+        "z": [
+          -0.04,
+          0.0
+        ]
+      },
+      "center": [
+        2.2,
+        -3.2,
+        -0.02
+      ],
+      "width": 8.4,
+      "depth": 5.6,
+      "area": 47.04
+    },
+    "grama_lateral_oeste": {
+      "id": "grama_lateral_oeste",
+      "kind": "grass",
+      "limits": {
+        "x": [
+          -2.0,
+          0.0
+        ],
+        "y": [
+          -0.4,
+          22.0
+        ],
+        "z": [
+          -0.04,
+          0.0
+        ]
+      },
+      "center": [
+        -1.0,
+        10.8,
+        -0.02
+      ],
+      "width": 2.0,
+      "depth": 22.4,
+      "area": 44.8
+    },
+    "grama_fundos_ala": {
+      "id": "grama_fundos_ala",
+      "kind": "grass",
+      "limits": {
+        "x": [
+          0.0,
+          7.0
+        ],
+        "y": [
+          16.0,
+          22.0
+        ],
+        "z": [
+          -0.04,
+          0.0
+        ]
+      },
+      "center": [
+        3.5,
+        19.0,
+        -0.02
+      ],
+      "width": 7.0,
+      "depth": 6.0,
+      "area": 42.0
+    },
+    "grama_centro_quintal": {
+      "id": "grama_centro_quintal",
+      "kind": "grass",
+      "limits": {
+        "x": [
+          7.0,
+          20.0
+        ],
+        "y": [
+          6.0,
+          9.75
+        ],
+        "z": [
+          -0.04,
+          0.0
+        ]
+      },
+      "center": [
+        13.5,
+        7.875,
+        -0.02
+      ],
+      "width": 13.0,
+      "depth": 3.75,
+      "area": 48.75
+    },
+    "grama_lateral_piscina": {
+      "id": "grama_lateral_piscina",
+      "kind": "grass",
+      "limits": {
+        "x": [
+          7.0,
+          9.55
+        ],
+        "y": [
+          9.75,
+          20.0
+        ],
+        "z": [
+          -0.04,
+          0.0
+        ]
+      },
+      "center": [
+        8.275,
+        14.875,
+        -0.02
+      ],
+      "width": 2.55,
+      "depth": 10.25,
+      "area": 26.1375
+    },
+    "grama_leste_quintal": {
+      "id": "grama_leste_quintal",
+      "kind": "grass",
+      "limits": {
+        "x": [
+          17.0,
+          20.0
+        ],
+        "y": [
+          9.75,
+          22.0
+        ],
+        "z": [
+          -0.04,
+          0.0
+        ]
+      },
+      "center": [
+        18.5,
+        15.875,
+        -0.02
+      ],
+      "width": 3.0,
+      "depth": 12.25,
+      "area": 36.75
+    },
+    "grama_entre_piscina_patio": {
+      "id": "grama_entre_piscina_patio",
+      "kind": "grass",
+      "limits": {
+        "x": [
+          9.55,
+          17.0
+        ],
+        "y": [
+          15.15,
+          15.5
+        ],
+        "z": [
+          -0.04,
+          0.0
+        ]
+      },
+      "center": [
+        13.275,
+        15.325,
+        -0.02
+      ],
+      "width": 7.45,
+      "depth": 0.35,
+      "area": 2.6075
+    },
+    "grama_fundos_patio": {
+      "id": "grama_fundos_patio",
+      "kind": "grass",
+      "limits": {
+        "x": [
+          7.0,
+          20.0
+        ],
+        "y": [
+          19.5,
+          22.0
+        ],
+        "z": [
+          -0.04,
+          0.0
+        ]
+      },
+      "center": [
+        13.5,
+        20.75,
+        -0.02
+      ],
+      "width": 13.0,
+      "depth": 2.5,
+      "area": 32.5
+    }
+  },
+  "roof": [
+    {
+      "id": "telhado_ala_frontal",
+      "type": "gable_roof",
+      "aligned_wall_bounds": {
+        "x": [
+          0.0,
+          16.0
+        ],
+        "y": [
+          0.0,
+          6.0
+        ],
+        "z": [
+          2.8,
+          2.8
+        ]
+      },
+      "center": [
+        8.0,
+        3.0,
+        2.8
+      ],
+      "width": 6.0,
+      "depth": 16.0,
+      "yaw_rad": 1.5708,
+      "overhang": 0.35,
+      "pitch_deg": 24.0
+    },
+    {
+      "id": "telhado_ala_privativa",
+      "type": "gable_roof",
+      "aligned_wall_bounds": {
+        "x": [
+          0.0,
+          7.0
+        ],
+        "y": [
+          6.0,
+          16.0
+        ],
+        "z": [
+          2.8,
+          2.8
+        ]
+      },
+      "center": [
+        3.5,
+        11.0,
+        2.8
+      ],
+      "width": 7.0,
+      "depth": 10.0,
+      "yaw_rad": 0.0,
+      "overhang": 0.35,
+      "pitch_deg": 24.0
+    }
+  ],
+  "validation": {},
+  "furniture": {
+    "mesa_escritorio": {
+      "id": "mesa_escritorio",
+      "room": "escritorio",
+      "center": [
+        3.3,
+        3.45,
+        0.0
+      ],
+      "orientation": {
+        "yaw_rad": -1.5708,
+        "yaw_deg": -90.0
+      },
+      "dimensions": {
+        "width": 1.4,
+        "depth": 1.45,
+        "height": 0.95
+      },
+      "bounding_box": {
+        "x": [
+          2.2,
+          3.65
+        ],
+        "y": [
+          2.75,
+          4.15
+        ],
+        "z": [
+          0.0,
+          0.95
+        ]
+      },
+      "function": "compositions.create_composition",
+      "clearance": {
+        "wall": 0.11000000000000001,
+        "opening": 0.55,
+        "between_objects": 0.03
+      },
+      "params": {
+        "width": 1.4,
+        "depth": 0.7,
+        "include_book_stack": true,
+        "include_chair": true
+      },
+      "composition_type": "pc_desk",
+      "local_bounds": {
+        "x": [
+          -0.7,
+          0.7
+        ],
+        "y": [
+          -1.1,
+          0.35
+        ],
+        "z": [
+          0.0,
+          0.95
+        ]
+      }
+    },
+    "estante_escritorio": {
+      "id": "estante_escritorio",
+      "room": "escritorio",
+      "center": [
+        0.62,
+        4.73,
+        0.0
+      ],
+      "orientation": {
+        "yaw_rad": 0.0,
+        "yaw_deg": 0.0
+      },
+      "dimensions": {
+        "width": 0.9,
+        "depth": 0.32,
+        "height": 1.85
+      },
+      "bounding_box": {
+        "x": [
+          0.17,
+          1.07
+        ],
+        "y": [
+          4.57,
+          4.89
+        ],
+        "z": [
+          0.0,
+          1.85
+        ]
+      },
+      "function": "compositions.create_composition",
+      "clearance": {
+        "wall": 0.11000000000000001,
+        "opening": 0.55,
+        "between_objects": 0.03
+      },
+      "params": {
+        "width": 0.9,
+        "depth": 0.32,
+        "height": 1.85
+      },
+      "composition_type": "filled_bookshelf"
+    },
+    "arquivo_escritorio": {
+      "id": "arquivo_escritorio",
+      "room": "escritorio",
+      "center": [
+        3.42,
+        0.58,
+        0.0
+      ],
+      "orientation": {
+        "yaw_rad": 0.0,
+        "yaw_deg": 0.0
+      },
+      "dimensions": {
+        "width": 0.48,
+        "depth": 0.56,
+        "height": 0.72
+      },
+      "bounding_box": {
+        "x": [
+          3.18,
+          3.66
+        ],
+        "y": [
+          0.3,
+          0.86
+        ],
+        "z": [
+          0.0,
+          0.72
+        ]
+      },
+      "function": "furniture.create_item",
+      "clearance": {
+        "wall": 0.11000000000000001,
+        "opening": 0.55,
+        "between_objects": 0.03
+      },
+      "params": {
+        "width": 0.48,
+        "depth": 0.56,
+        "height": 0.72
+      },
+      "item_type": "filing_cabinet"
+    },
+    "sofa_sala": {
+      "id": "sofa_sala",
+      "room": "sala",
+      "center": [
+        12.6,
+        2.62,
+        0.0
+      ],
+      "orientation": {
+        "yaw_rad": 0.0,
+        "yaw_deg": 0.0
+      },
+      "dimensions": {
+        "width": 2.6,
+        "depth": 0.88,
+        "height": 0.88
+      },
+      "bounding_box": {
+        "x": [
+          11.3,
+          13.9
+        ],
+        "y": [
+          2.18,
+          3.06
+        ],
+        "z": [
+          0.0,
+          0.88
+        ]
+      },
+      "function": "furniture.create_item",
+      "clearance": {
+        "wall": 0.11000000000000001,
+        "opening": 0.55,
+        "between_objects": 0.03
+      },
+      "params": {
+        "width": 2.6,
+        "depth": 0.88
+      },
+      "item_type": "sofa"
+    },
+    "rack_tv_decorado_sala": {
+      "id": "rack_tv_decorado_sala",
+      "room": "sala",
+      "center": [
+        12.6,
+        0.36,
+        0.0
+      ],
+      "orientation": {
+        "yaw_rad": 0.0,
+        "yaw_deg": 0.0
+      },
+      "dimensions": {
+        "width": 1.6,
+        "depth": 0.42,
+        "height": 1.25
+      },
+      "bounding_box": {
+        "x": [
+          11.8,
+          13.4
+        ],
+        "y": [
+          0.15,
+          0.57
+        ],
+        "z": [
+          0.0,
+          1.25
+        ]
+      },
+      "function": "compositions.create_composition",
+      "clearance": {
+        "wall": 0.11000000000000001,
+        "opening": 0.55,
+        "between_objects": 0.03
+      },
+      "params": {
+        "width": 1.6,
+        "depth": 0.42,
+        "height": 0.48
+      },
+      "composition_type": "decorated_tv_stand"
+    },
+    "mesa_centro_sala": {
+      "id": "mesa_centro_sala",
+      "room": "sala",
+      "center": [
+        12.6,
+        1.48,
+        0.0
+      ],
+      "orientation": {
+        "yaw_rad": 0.0,
+        "yaw_deg": 0.0
+      },
+      "dimensions": {
+        "width": 1.1,
+        "depth": 0.6,
+        "height": 0.42
+      },
+      "bounding_box": {
+        "x": [
+          12.05,
+          13.15
+        ],
+        "y": [
+          1.18,
+          1.78
+        ],
+        "z": [
+          0.0,
+          0.42
+        ]
+      },
+      "function": "furniture.create_item",
+      "clearance": {
+        "wall": 0.11000000000000001,
+        "opening": 0.55,
+        "between_objects": 0.03
+      },
+      "params": {
+        "width": 1.1,
+        "depth": 0.6
+      },
+      "item_type": "coffee_table"
+    },
+    "poltrona_sala": {
+      "id": "poltrona_sala",
+      "room": "sala",
+      "center": [
+        14.95,
+        1.48,
+        0.0
+      ],
+      "orientation": {
+        "yaw_rad": -1.5708,
+        "yaw_deg": -90.0
+      },
+      "dimensions": {
+        "width": 0.9,
+        "depth": 0.85,
+        "height": 0.88
+      },
+      "bounding_box": {
+        "x": [
+          14.525,
+          15.375
+        ],
+        "y": [
+          1.03,
+          1.93
+        ],
+        "z": [
+          0.0,
+          0.88
+        ]
+      },
+      "function": "furniture.create_item",
+      "clearance": {
+        "wall": 0.11000000000000001,
+        "opening": 0.55,
+        "between_objects": 0.03
+      },
+      "params": {
+        "width": 0.9,
+        "depth": 0.85
+      },
+      "item_type": "armchair"
+    },
+    "mesa_jantar": {
+      "id": "mesa_jantar",
+      "room": "sala_de_jantar",
+      "center": [
+        10.2,
+        4.62,
+        0.0
+      ],
+      "orientation": {
+        "yaw_rad": 0.0,
+        "yaw_deg": 0.0
+      },
+      "dimensions": {
+        "width": 1.2,
+        "depth": 1.2,
+        "height": 0.75
+      },
+      "bounding_box": {
+        "x": [
+          9.6,
+          10.8
+        ],
+        "y": [
+          4.02,
+          5.22
+        ],
+        "z": [
+          0.0,
+          0.75
+        ]
+      },
+      "function": "furniture.create_item",
+      "clearance": {
+        "wall": 0.11000000000000001,
+        "opening": 0.55,
+        "between_objects": 0.03
+      },
+      "params": {
+        "radius": 0.6,
+        "height": 0.75
+      },
+      "item_type": "round_table"
+    },
+    "cadeira_jantar_oeste": {
+      "id": "cadeira_jantar_oeste",
+      "room": "sala_de_jantar",
+      "center": [
+        9.15,
+        4.62,
+        0.0
+      ],
+      "orientation": {
+        "yaw_rad": -1.5708,
+        "yaw_deg": -90.0
+      },
+      "dimensions": {
+        "width": 0.46,
+        "depth": 0.48,
+        "height": 0.9
+      },
+      "bounding_box": {
+        "x": [
+          8.91,
+          9.39
+        ],
+        "y": [
+          4.39,
+          4.85
+        ],
+        "z": [
+          0.0,
+          0.9
+        ]
+      },
+      "function": "furniture.create_item",
+      "clearance": {
+        "wall": 0.11000000000000001,
+        "opening": 0.55,
+        "between_objects": 0.03
+      },
+      "params": {
+        "width": 0.46,
+        "depth": 0.48
+      },
+      "item_type": "chair"
+    },
+    "cadeira_jantar_leste": {
+      "id": "cadeira_jantar_leste",
+      "room": "sala_de_jantar",
+      "center": [
+        11.25,
+        4.62,
+        0.0
+      ],
+      "orientation": {
+        "yaw_rad": 1.5708,
+        "yaw_deg": 90.0
+      },
+      "dimensions": {
+        "width": 0.46,
+        "depth": 0.48,
+        "height": 0.9
+      },
+      "bounding_box": {
+        "x": [
+          11.01,
+          11.49
+        ],
+        "y": [
+          4.39,
+          4.85
+        ],
+        "z": [
+          0.0,
+          0.9
+        ]
+      },
+      "function": "furniture.create_item",
+      "clearance": {
+        "wall": 0.11000000000000001,
+        "opening": 0.55,
+        "between_objects": 0.03
+      },
+      "params": {
+        "width": 0.46,
+        "depth": 0.48
+      },
+      "item_type": "chair"
+    },
+    "cadeira_jantar_norte": {
+      "id": "cadeira_jantar_norte",
+      "room": "sala_de_jantar",
+      "center": [
+        10.2,
+        5.55,
+        0.0
+      ],
+      "orientation": {
+        "yaw_rad": 3.1416,
+        "yaw_deg": 180.0
+      },
+      "dimensions": {
+        "width": 0.46,
+        "depth": 0.48,
+        "height": 0.9
+      },
+      "bounding_box": {
+        "x": [
+          9.97,
+          10.43
+        ],
+        "y": [
+          5.31,
+          5.79
+        ],
+        "z": [
+          0.0,
+          0.9
+        ]
+      },
+      "function": "furniture.create_item",
+      "clearance": {
+        "wall": 0.11000000000000001,
+        "opening": 0.55,
+        "between_objects": 0.03
+      },
+      "params": {
+        "width": 0.46,
+        "depth": 0.48
+      },
+      "item_type": "chair"
+    },
+    "geladeira_cozinha": {
+      "id": "geladeira_cozinha",
+      "room": "cozinha",
+      "center": [
+        15.42,
+        3.78,
+        0.0
+      ],
+      "orientation": {
+        "yaw_rad": 0.0,
+        "yaw_deg": 0.0
+      },
+      "dimensions": {
+        "width": 0.72,
+        "depth": 0.72,
+        "height": 1.82
+      },
+      "bounding_box": {
+        "x": [
+          15.06,
+          15.78
+        ],
+        "y": [
+          3.42,
+          4.14
+        ],
+        "z": [
+          0.0,
+          1.82
+        ]
+      },
+      "function": "furniture.create_item",
+      "clearance": {
+        "wall": 0.11000000000000001,
+        "opening": 0.55,
+        "between_objects": 0.03
+      },
+      "params": {
+        "width": 0.72,
+        "depth": 0.72,
+        "height": 1.82
+      },
+      "item_type": "refrigerator"
+    },
+    "fogao_cozinha": {
+      "id": "fogao_cozinha",
+      "room": "cozinha",
+      "center": [
+        14.35,
+        3.73,
+        0.0
+      ],
+      "orientation": {
+        "yaw_rad": 0.0,
+        "yaw_deg": 0.0
+      },
+      "dimensions": {
+        "width": 0.62,
+        "depth": 0.62,
+        "height": 0.9
+      },
+      "bounding_box": {
+        "x": [
+          14.04,
+          14.66
+        ],
+        "y": [
+          3.42,
+          4.04
+        ],
+        "z": [
+          0.0,
+          0.9
+        ]
+      },
+      "function": "furniture.create_item",
+      "clearance": {
+        "wall": 0.11000000000000001,
+        "opening": 0.55,
+        "between_objects": 0.03
+      },
+      "params": {
+        "width": 0.62,
+        "depth": 0.62,
+        "height": 0.9
+      },
+      "item_type": "stove"
+    },
+    "bancada_pia_cozinha": {
+      "id": "bancada_pia_cozinha",
+      "room": "cozinha",
+      "center": [
+        14.1,
+        5.56,
+        0.0
+      ],
+      "orientation": {
+        "yaw_rad": 0.0,
+        "yaw_deg": 0.0
+      },
+      "dimensions": {
+        "width": 1.8,
+        "depth": 0.62,
+        "height": 0.9
+      },
+      "bounding_box": {
+        "x": [
+          13.2,
+          15.0
+        ],
+        "y": [
+          5.25,
+          5.87
+        ],
+        "z": [
+          0.0,
+          0.9
+        ]
+      },
+      "function": "furniture.create_item",
+      "clearance": {
+        "wall": 0.11000000000000001,
+        "opening": 0.55,
+        "between_objects": 0.03
+      },
+      "params": {
+        "width": 1.8,
+        "depth": 0.62,
+        "height": 0.9
+      },
+      "item_type": "kitchen_counter",
+      "can_be_under_window": true
+    },
+    "armario_baixo_cozinha": {
+      "id": "armario_baixo_cozinha",
+      "room": "cozinha",
+      "center": [
+        15.66,
+        5.0,
+        0.0
+      ],
+      "orientation": {
+        "yaw_rad": 1.5708,
+        "yaw_deg": 90.0
+      },
+      "dimensions": {
+        "width": 0.8,
+        "depth": 0.42,
+        "height": 0.86
+      },
+      "bounding_box": {
+        "x": [
+          15.45,
+          15.87
+        ],
+        "y": [
+          4.6,
+          5.4
+        ],
+        "z": [
+          0.0,
+          0.86
+        ]
+      },
+      "function": "furniture.create_item",
+      "clearance": {
+        "wall": 0.11000000000000001,
+        "opening": 0.55,
+        "between_objects": 0.03
+      },
+      "params": {
+        "width": 0.8,
+        "depth": 0.42,
+        "height": 0.86
+      },
+      "item_type": "cabinet"
+    },
+    "cama_quarto_1": {
+      "id": "cama_quarto_1",
+      "room": "quarto_1",
+      "center": [
+        2.2,
+        9.82,
+        0.0
+      ],
+      "orientation": {
+        "yaw_rad": 0.0,
+        "yaw_deg": 0.0
+      },
+      "dimensions": {
+        "width": 1.58,
+        "depth": 1.98,
+        "height": 1.05
+      },
+      "bounding_box": {
+        "x": [
+          1.41,
+          2.99
+        ],
+        "y": [
+          8.83,
+          10.81
+        ],
+        "z": [
+          0.0,
+          1.05
+        ]
+      },
+      "function": "furniture.create_item",
+      "clearance": {
+        "wall": 0.11000000000000001,
+        "opening": 0.55,
+        "between_objects": 0.03
+      },
+      "params": {},
+      "item_type": "queen_bed"
+    },
+    "criado_quarto_1_oeste": {
+      "id": "criado_quarto_1_oeste",
+      "room": "quarto_1",
+      "center": [
+        1.12,
+        10.6,
+        0.0
+      ],
+      "orientation": {
+        "yaw_rad": 0.0,
+        "yaw_deg": 0.0
+      },
+      "dimensions": {
+        "width": 0.48,
+        "depth": 0.4,
+        "height": 0.55
+      },
+      "bounding_box": {
+        "x": [
+          0.88,
+          1.36
+        ],
+        "y": [
+          10.4,
+          10.8
+        ],
+        "z": [
+          0.0,
+          0.55
+        ]
+      },
+      "function": "furniture.create_item",
+      "clearance": {
+        "wall": 0.11000000000000001,
+        "opening": 0.55,
+        "between_objects": 0.03
+      },
+      "params": {
+        "width": 0.48,
+        "depth": 0.4,
+        "height": 0.55
+      },
+      "item_type": "nightstand"
+    },
+    "criado_quarto_1_leste": {
+      "id": "criado_quarto_1_leste",
+      "room": "quarto_1",
+      "center": [
+        3.28,
+        10.6,
+        0.0
+      ],
+      "orientation": {
+        "yaw_rad": 0.0,
+        "yaw_deg": 0.0
+      },
+      "dimensions": {
+        "width": 0.48,
+        "depth": 0.4,
+        "height": 0.55
+      },
+      "bounding_box": {
+        "x": [
+          3.04,
+          3.52
+        ],
+        "y": [
+          10.4,
+          10.8
+        ],
+        "z": [
+          0.0,
+          0.55
+        ]
+      },
+      "function": "furniture.create_item",
+      "clearance": {
+        "wall": 0.11000000000000001,
+        "opening": 0.55,
+        "between_objects": 0.03
+      },
+      "params": {
+        "width": 0.48,
+        "depth": 0.4,
+        "height": 0.55
+      },
+      "item_type": "nightstand"
+    },
+    "guarda_roupa_quarto_1": {
+      "id": "guarda_roupa_quarto_1",
+      "room": "quarto_1",
+      "center": [
+        4.98,
+        10.12,
+        0.0
+      ],
+      "orientation": {
+        "yaw_rad": -1.5708,
+        "yaw_deg": -90.0
+      },
+      "dimensions": {
+        "width": 1.45,
+        "depth": 0.58,
+        "height": 2.0
+      },
+      "bounding_box": {
+        "x": [
+          4.69,
+          5.27
+        ],
+        "y": [
+          9.395,
+          10.845
+        ],
+        "z": [
+          0.0,
+          2.0
+        ]
+      },
+      "function": "furniture.create_item",
+      "clearance": {
+        "wall": 0.11000000000000001,
+        "opening": 0.55,
+        "between_objects": 0.03
+      },
+      "params": {
+        "width": 1.45,
+        "depth": 0.58,
+        "height": 2.0
+      },
+      "item_type": "wardrobe"
+    },
+    "comoda_quarto_1": {
+      "id": "comoda_quarto_1",
+      "room": "quarto_1",
+      "center": [
+        1.2,
+        6.42,
+        0.0
+      ],
+      "orientation": {
+        "yaw_rad": 0.0,
+        "yaw_deg": 0.0
+      },
+      "dimensions": {
+        "width": 1.05,
+        "depth": 0.48,
+        "height": 0.82
+      },
+      "bounding_box": {
+        "x": [
+          0.675,
+          1.725
+        ],
+        "y": [
+          6.18,
+          6.66
+        ],
+        "z": [
+          0.0,
+          0.82
+        ]
+      },
+      "function": "furniture.create_item",
+      "clearance": {
+        "wall": 0.11000000000000001,
+        "opening": 0.55,
+        "between_objects": 0.03
+      },
+      "params": {
+        "width": 1.05,
+        "depth": 0.48,
+        "height": 0.82
+      },
+      "item_type": "dresser"
+    },
+    "mesa_pc_quarto_1": {
+      "id": "mesa_pc_quarto_1",
+      "room": "quarto_1",
+      "center": [
+        4.35,
+        6.5,
+        0.0
+      ],
+      "orientation": {
+        "yaw_rad": 3.1416,
+        "yaw_deg": 180.0
+      },
+      "dimensions": {
+        "width": 1.4,
+        "depth": 1.45,
+        "height": 0.95
+      },
+      "bounding_box": {
+        "x": [
+          3.65,
+          5.05
+        ],
+        "y": [
+          6.15,
+          7.6
+        ],
+        "z": [
+          0.0,
+          0.95
+        ]
+      },
+      "function": "compositions.create_composition",
+      "clearance": {
+        "wall": 0.11000000000000001,
+        "opening": 0.55,
+        "between_objects": 0.03
+      },
+      "params": {
+        "width": 1.4,
+        "depth": 0.7,
+        "include_book_stack": true,
+        "include_chair": true
+      },
+      "composition_type": "pc_desk",
+      "local_bounds": {
+        "x": [
+          -0.7,
+          0.7
+        ],
+        "y": [
+          -1.1,
+          0.35
+        ],
+        "z": [
+          0.0,
+          0.95
+        ]
+      }
+    },
+    "cama_quarto_2": {
+      "id": "cama_quarto_2",
+      "room": "quarto_2",
+      "center": [
+        2.18,
+        12.18,
+        0.0
+      ],
+      "orientation": {
+        "yaw_rad": 3.1416,
+        "yaw_deg": 180.0
+      },
+      "dimensions": {
+        "width": 1.58,
+        "depth": 1.98,
+        "height": 1.05
+      },
+      "bounding_box": {
+        "x": [
+          1.39,
+          2.97
+        ],
+        "y": [
+          11.19,
+          13.17
+        ],
+        "z": [
+          0.0,
+          1.05
+        ]
+      },
+      "function": "furniture.create_item",
+      "clearance": {
+        "wall": 0.11000000000000001,
+        "opening": 0.55,
+        "between_objects": 0.03
+      },
+      "params": {},
+      "item_type": "queen_bed"
+    },
+    "criado_quarto_2_oeste": {
+      "id": "criado_quarto_2_oeste",
+      "room": "quarto_2",
+      "center": [
+        1.1,
+        11.35,
+        0.0
+      ],
+      "orientation": {
+        "yaw_rad": 3.1416,
+        "yaw_deg": 180.0
+      },
+      "dimensions": {
+        "width": 0.48,
+        "depth": 0.4,
+        "height": 0.55
+      },
+      "bounding_box": {
+        "x": [
+          0.86,
+          1.34
+        ],
+        "y": [
+          11.15,
+          11.55
+        ],
+        "z": [
+          0.0,
+          0.55
+        ]
+      },
+      "function": "furniture.create_item",
+      "clearance": {
+        "wall": 0.11000000000000001,
+        "opening": 0.55,
+        "between_objects": 0.03
+      },
+      "params": {
+        "width": 0.48,
+        "depth": 0.4,
+        "height": 0.55
+      },
+      "item_type": "nightstand"
+    },
+    "criado_quarto_2_leste": {
+      "id": "criado_quarto_2_leste",
+      "room": "quarto_2",
+      "center": [
+        3.26,
+        11.35,
+        0.0
+      ],
+      "orientation": {
+        "yaw_rad": 3.1416,
+        "yaw_deg": 180.0
+      },
+      "dimensions": {
+        "width": 0.48,
+        "depth": 0.4,
+        "height": 0.55
+      },
+      "bounding_box": {
+        "x": [
+          3.02,
+          3.5
+        ],
+        "y": [
+          11.15,
+          11.55
+        ],
+        "z": [
+          0.0,
+          0.55
+        ]
+      },
+      "function": "furniture.create_item",
+      "clearance": {
+        "wall": 0.11000000000000001,
+        "opening": 0.55,
+        "between_objects": 0.03
+      },
+      "params": {
+        "width": 0.48,
+        "depth": 0.4,
+        "height": 0.55
+      },
+      "item_type": "nightstand"
+    },
+    "guarda_roupa_quarto_2": {
+      "id": "guarda_roupa_quarto_2",
+      "room": "quarto_2",
+      "center": [
+        5.0,
+        15.12,
+        0.0
+      ],
+      "orientation": {
+        "yaw_rad": -1.5708,
+        "yaw_deg": -90.0
+      },
+      "dimensions": {
+        "width": 1.45,
+        "depth": 0.58,
+        "height": 2.0
+      },
+      "bounding_box": {
+        "x": [
+          4.71,
+          5.29
+        ],
+        "y": [
+          14.395,
+          15.845
+        ],
+        "z": [
+          0.0,
+          2.0
+        ]
+      },
+      "function": "furniture.create_item",
+      "clearance": {
+        "wall": 0.11000000000000001,
+        "opening": 0.55,
+        "between_objects": 0.03
+      },
+      "params": {
+        "width": 1.45,
+        "depth": 0.58,
+        "height": 2.0
+      },
+      "item_type": "wardrobe"
+    },
+    "comoda_quarto_2": {
+      "id": "comoda_quarto_2",
+      "room": "quarto_2",
+      "center": [
+        4.2,
+        11.42,
+        0.0
+      ],
+      "orientation": {
+        "yaw_rad": 0.0,
+        "yaw_deg": 0.0
+      },
+      "dimensions": {
+        "width": 1.05,
+        "depth": 0.48,
+        "height": 0.82
+      },
+      "bounding_box": {
+        "x": [
+          3.675,
+          4.725
+        ],
+        "y": [
+          11.18,
+          11.66
+        ],
+        "z": [
+          0.0,
+          0.82
+        ]
+      },
+      "function": "furniture.create_item",
+      "clearance": {
+        "wall": 0.11000000000000001,
+        "opening": 0.55,
+        "between_objects": 0.03
+      },
+      "params": {
+        "width": 1.05,
+        "depth": 0.48,
+        "height": 0.82
+      },
+      "item_type": "dresser"
+    },
+    "mesa_pc_quarto_2": {
+      "id": "mesa_pc_quarto_2",
+      "room": "quarto_2",
+      "center": [
+        0.5,
+        15.0,
+        0.0
+      ],
+      "orientation": {
+        "yaw_rad": 1.5708,
+        "yaw_deg": 90.0
+      },
+      "dimensions": {
+        "width": 1.4,
+        "depth": 1.45,
+        "height": 0.95
+      },
+      "bounding_box": {
+        "x": [
+          0.15,
+          1.6
+        ],
+        "y": [
+          14.3,
+          15.7
+        ],
+        "z": [
+          0.0,
+          0.95
+        ]
+      },
+      "function": "compositions.create_composition",
+      "clearance": {
+        "wall": 0.11000000000000001,
+        "opening": 0.55,
+        "between_objects": 0.03
+      },
+      "params": {
+        "width": 1.4,
+        "depth": 0.7,
+        "include_book_stack": true,
+        "include_chair": true
+      },
+      "composition_type": "pc_desk",
+      "local_bounds": {
+        "x": [
+          -0.7,
+          0.7
+        ],
+        "y": [
+          -1.1,
+          0.35
+        ],
+        "z": [
+          0.0,
+          0.95
+        ]
+      }
+    },
+    "pia_banheiro_social": {
+      "id": "pia_banheiro_social",
+      "room": "banheiro_social",
+      "center": [
+        4.2,
+        0.36,
+        0.0
+      ],
+      "orientation": {
+        "yaw_rad": 0.0,
+        "yaw_deg": 0.0
+      },
+      "dimensions": {
+        "width": 0.55,
+        "depth": 0.42,
+        "height": 0.85
+      },
+      "bounding_box": {
+        "x": [
+          3.925,
+          4.475
+        ],
+        "y": [
+          0.15,
+          0.57
+        ],
+        "z": [
+          0.0,
+          0.85
+        ]
+      },
+      "function": "local.create_bathroom_vanity",
+      "clearance": {
+        "wall": 0.11000000000000001,
+        "opening": 0.55,
+        "between_objects": 0.03
+      },
+      "params": {
+        "width": 0.55,
+        "depth": 0.42,
+        "height": 0.85
+      },
+      "can_be_under_window": true
+    },
+    "vaso_banheiro_social": {
+      "id": "vaso_banheiro_social",
+      "room": "banheiro_social",
+      "center": [
+        4.18,
+        1.2,
+        0.0
+      ],
+      "orientation": {
+        "yaw_rad": 0.0,
+        "yaw_deg": 0.0
+      },
+      "dimensions": {
+        "width": 0.5,
+        "depth": 0.7,
+        "height": 0.78
+      },
+      "bounding_box": {
+        "x": [
+          3.93,
+          4.43
+        ],
+        "y": [
+          0.85,
+          1.55
+        ],
+        "z": [
+          0.0,
+          0.78
+        ]
+      },
+      "function": "local.create_toilet",
+      "clearance": {
+        "wall": 0.11000000000000001,
+        "opening": 0.55,
+        "between_objects": 0.03
+      },
+      "params": {
+        "width": 0.5,
+        "depth": 0.7,
+        "height": 0.78
+      }
+    },
+    "box_banheiro_social": {
+      "id": "box_banheiro_social",
+      "room": "banheiro_social",
+      "center": [
+        4.38,
+        2.0,
+        0.0
+      ],
+      "orientation": {
+        "yaw_rad": 0.0,
+        "yaw_deg": 0.0
+      },
+      "dimensions": {
+        "width": 0.78,
+        "depth": 0.76,
+        "height": 2.05
+      },
+      "bounding_box": {
+        "x": [
+          3.99,
+          4.77
+        ],
+        "y": [
+          1.62,
+          2.38
+        ],
+        "z": [
+          0.0,
+          2.05
+        ]
+      },
+      "function": "local.create_shower_box",
+      "clearance": {
+        "wall": 0.11000000000000001,
+        "opening": 0.55,
+        "between_objects": 0.03
+      },
+      "params": {
+        "width": 0.78,
+        "depth": 0.76,
+        "height": 2.05
+      }
+    },
+    "pia_banheiro_familia": {
+      "id": "pia_banheiro_familia",
+      "room": "banheiro_familia",
+      "center": [
+        4.2,
+        2.86,
+        0.0
+      ],
+      "orientation": {
+        "yaw_rad": 0.0,
+        "yaw_deg": 0.0
+      },
+      "dimensions": {
+        "width": 0.55,
+        "depth": 0.42,
+        "height": 0.85
+      },
+      "bounding_box": {
+        "x": [
+          3.925,
+          4.475
+        ],
+        "y": [
+          2.65,
+          3.07
+        ],
+        "z": [
+          0.0,
+          0.85
+        ]
+      },
+      "function": "local.create_bathroom_vanity",
+      "clearance": {
+        "wall": 0.11000000000000001,
+        "opening": 0.55,
+        "between_objects": 0.03
+      },
+      "params": {
+        "width": 0.55,
+        "depth": 0.42,
+        "height": 0.85
+      }
+    },
+    "vaso_banheiro_familia": {
+      "id": "vaso_banheiro_familia",
+      "room": "banheiro_familia",
+      "center": [
+        4.18,
+        3.7,
+        0.0
+      ],
+      "orientation": {
+        "yaw_rad": 0.0,
+        "yaw_deg": 0.0
+      },
+      "dimensions": {
+        "width": 0.5,
+        "depth": 0.7,
+        "height": 0.78
+      },
+      "bounding_box": {
+        "x": [
+          3.93,
+          4.43
+        ],
+        "y": [
+          3.35,
+          4.05
+        ],
+        "z": [
+          0.0,
+          0.78
+        ]
+      },
+      "function": "local.create_toilet",
+      "clearance": {
+        "wall": 0.11000000000000001,
+        "opening": 0.55,
+        "between_objects": 0.03
+      },
+      "params": {
+        "width": 0.5,
+        "depth": 0.7,
+        "height": 0.78
+      }
+    },
+    "box_banheiro_familia": {
+      "id": "box_banheiro_familia",
+      "room": "banheiro_familia",
+      "center": [
+        4.31,
+        4.5,
+        0.0
+      ],
+      "orientation": {
+        "yaw_rad": 0.0,
+        "yaw_deg": 0.0
+      },
+      "dimensions": {
+        "width": 0.72,
+        "depth": 0.74,
+        "height": 2.05
+      },
+      "bounding_box": {
+        "x": [
+          3.95,
+          4.67
+        ],
+        "y": [
+          4.13,
+          4.87
+        ],
+        "z": [
+          0.0,
+          2.05
+        ]
+      },
+      "function": "local.create_shower_box",
+      "clearance": {
+        "wall": 0.11000000000000001,
+        "opening": 0.55,
+        "between_objects": 0.03
+      },
+      "params": {
+        "width": 0.72,
+        "depth": 0.74,
+        "height": 2.05
+      }
+    },
+    "mesa_area_reuniao": {
+      "id": "mesa_area_reuniao",
+      "room": "area_reuniao",
+      "center": [
+        13.5,
+        17.55,
+        0.0
+      ],
+      "orientation": {
+        "yaw_rad": 0.0,
+        "yaw_deg": 0.0
+      },
+      "dimensions": {
+        "width": 1.3,
+        "depth": 1.3,
+        "height": 0.75
+      },
+      "bounding_box": {
+        "x": [
+          12.85,
+          14.15
+        ],
+        "y": [
+          16.9,
+          18.2
+        ],
+        "z": [
+          0.0,
+          0.75
+        ]
+      },
+      "function": "furniture.create_item",
+      "clearance": {
+        "edge": 0.08,
+        "between_objects": 0.03
+      },
+      "params": {
+        "radius": 0.65,
+        "height": 0.75
+      },
+      "item_type": "round_table"
+    },
+    "cadeira_reuniao_norte": {
+      "id": "cadeira_reuniao_norte",
+      "room": "area_reuniao",
+      "center": [
+        13.5,
+        18.65,
+        0.0
+      ],
+      "orientation": {
+        "yaw_rad": 3.1416,
+        "yaw_deg": 180.0
+      },
+      "dimensions": {
+        "width": 0.46,
+        "depth": 0.48,
+        "height": 0.9
+      },
+      "bounding_box": {
+        "x": [
+          13.27,
+          13.73
+        ],
+        "y": [
+          18.41,
+          18.89
+        ],
+        "z": [
+          0.0,
+          0.9
+        ]
+      },
+      "function": "furniture.create_item",
+      "clearance": {
+        "edge": 0.08,
+        "between_objects": 0.03
+      },
+      "params": {
+        "width": 0.46,
+        "depth": 0.48
+      },
+      "item_type": "chair"
+    },
+    "cadeira_reuniao_sul": {
+      "id": "cadeira_reuniao_sul",
+      "room": "area_reuniao",
+      "center": [
+        13.5,
+        16.45,
+        0.0
+      ],
+      "orientation": {
+        "yaw_rad": 0.0,
+        "yaw_deg": 0.0
+      },
+      "dimensions": {
+        "width": 0.46,
+        "depth": 0.48,
+        "height": 0.9
+      },
+      "bounding_box": {
+        "x": [
+          13.27,
+          13.73
+        ],
+        "y": [
+          16.21,
+          16.69
+        ],
+        "z": [
+          0.0,
+          0.9
+        ]
+      },
+      "function": "furniture.create_item",
+      "clearance": {
+        "edge": 0.08,
+        "between_objects": 0.03
+      },
+      "params": {
+        "width": 0.46,
+        "depth": 0.48
+      },
+      "item_type": "chair"
+    },
+    "cadeira_reuniao_leste": {
+      "id": "cadeira_reuniao_leste",
+      "room": "area_reuniao",
+      "center": [
+        14.6,
+        17.55,
+        0.0
+      ],
+      "orientation": {
+        "yaw_rad": 1.5708,
+        "yaw_deg": 90.0
+      },
+      "dimensions": {
+        "width": 0.46,
+        "depth": 0.48,
+        "height": 0.9
+      },
+      "bounding_box": {
+        "x": [
+          14.36,
+          14.84
+        ],
+        "y": [
+          17.32,
+          17.78
+        ],
+        "z": [
+          0.0,
+          0.9
+        ]
+      },
+      "function": "furniture.create_item",
+      "clearance": {
+        "edge": 0.08,
+        "between_objects": 0.03
+      },
+      "params": {
+        "width": 0.46,
+        "depth": 0.48
+      },
+      "item_type": "chair"
+    },
+    "cadeira_reuniao_oeste": {
+      "id": "cadeira_reuniao_oeste",
+      "room": "area_reuniao",
+      "center": [
+        12.4,
+        17.55,
+        0.0
+      ],
+      "orientation": {
+        "yaw_rad": -1.5708,
+        "yaw_deg": -90.0
+      },
+      "dimensions": {
+        "width": 0.46,
+        "depth": 0.48,
+        "height": 0.9
+      },
+      "bounding_box": {
+        "x": [
+          12.16,
+          12.64
+        ],
+        "y": [
+          17.32,
+          17.78
+        ],
+        "z": [
+          0.0,
+          0.9
+        ]
+      },
+      "function": "furniture.create_item",
+      "clearance": {
+        "edge": 0.08,
+        "between_objects": 0.03
+      },
+      "params": {
+        "width": 0.46,
+        "depth": 0.48
+      },
+      "item_type": "chair"
+    },
+    "banco_area_reuniao": {
+      "id": "banco_area_reuniao",
+      "room": "area_reuniao",
+      "center": [
+        13.5,
+        19.12,
+        0.0
+      ],
+      "orientation": {
+        "yaw_rad": 0.0,
+        "yaw_deg": 0.0
+      },
+      "dimensions": {
+        "width": 1.3,
+        "depth": 0.42,
+        "height": 0.45
+      },
+      "bounding_box": {
+        "x": [
+          12.85,
+          14.15
+        ],
+        "y": [
+          18.91,
+          19.33
+        ],
+        "z": [
+          0.0,
+          0.45
+        ]
+      },
+      "function": "furniture.create_item",
+      "clearance": {
+        "edge": 0.08,
+        "between_objects": 0.03
+      },
+      "params": {
+        "width": 1.3,
+        "depth": 0.42
+      },
+      "item_type": "bench"
+    },
+    "espreguicadeira_piscina_1": {
+      "id": "espreguicadeira_piscina_1",
+      "room": "area_piscina",
+      "center": [
+        8.32,
+        11.2,
+        0.0
+      ],
+      "orientation": {
+        "yaw_rad": 1.5708,
+        "yaw_deg": 90.0
+      },
+      "dimensions": {
+        "width": 1.65,
+        "depth": 0.48,
+        "height": 0.45
+      },
+      "bounding_box": {
+        "x": [
+          8.08,
+          8.56
+        ],
+        "y": [
+          10.375,
+          12.025
+        ],
+        "z": [
+          0.0,
+          0.45
+        ]
+      },
+      "function": "furniture.create_item",
+      "clearance": {
+        "edge": 0.08,
+        "between_objects": 0.03
+      },
+      "params": {
+        "width": 1.65,
+        "depth": 0.48,
+        "height": 0.45
+      },
+      "item_type": "bench"
+    },
+    "espreguicadeira_piscina_2": {
+      "id": "espreguicadeira_piscina_2",
+      "room": "area_piscina",
+      "center": [
+        8.32,
+        13.35,
+        0.0
+      ],
+      "orientation": {
+        "yaw_rad": 1.5708,
+        "yaw_deg": 90.0
+      },
+      "dimensions": {
+        "width": 1.65,
+        "depth": 0.48,
+        "height": 0.45
+      },
+      "bounding_box": {
+        "x": [
+          8.08,
+          8.56
+        ],
+        "y": [
+          12.525,
+          14.175
+        ],
+        "z": [
+          0.0,
+          0.45
+        ]
+      },
+      "function": "furniture.create_item",
+      "clearance": {
+        "edge": 0.08,
+        "between_objects": 0.03
+      },
+      "params": {
+        "width": 1.65,
+        "depth": 0.48,
+        "height": 0.45
+      },
+      "item_type": "bench"
+    },
+    "mesa_lateral_piscina": {
+      "id": "mesa_lateral_piscina",
+      "room": "area_piscina",
+      "center": [
+        9.05,
+        12.32,
+        0.0
+      ],
+      "orientation": {
+        "yaw_rad": 0.0,
+        "yaw_deg": 0.0
+      },
+      "dimensions": {
+        "width": 0.48,
+        "depth": 0.48,
+        "height": 0.52
+      },
+      "bounding_box": {
+        "x": [
+          8.81,
+          9.29
+        ],
+        "y": [
+          12.08,
+          12.56
+        ],
+        "z": [
+          0.0,
+          0.52
+        ]
+      },
+      "function": "furniture.create_item",
+      "clearance": {
+        "edge": 0.08,
+        "between_objects": 0.03
+      },
+      "params": {
+        "width": 0.48,
+        "depth": 0.48,
+        "height": 0.52
+      },
+      "item_type": "side_table"
+    },
+    "planta_piscina": {
+      "id": "planta_piscina",
+      "room": "area_piscina",
+      "center": [
+        17.8,
+        11.0,
+        0.0
+      ],
+      "orientation": {
+        "yaw_rad": 0.0,
+        "yaw_deg": 0.0
+      },
+      "dimensions": {
+        "width": 0.44,
+        "depth": 0.44,
+        "height": 0.94
+      },
+      "bounding_box": {
+        "x": [
+          17.58,
+          18.02
+        ],
+        "y": [
+          10.78,
+          11.22
+        ],
+        "z": [
+          0.0,
+          0.94
+        ]
+      },
+      "function": "furniture.create_item",
+      "clearance": {
+        "edge": 0.08,
+        "between_objects": 0.03
+      },
+      "params": {
+        "pot_radius": 0.16,
+        "pot_height": 0.24,
+        "plant_height": 0.7
+      },
+      "item_type": "potted_plant"
+    }
+  },
+  "vehicles": {
+    "caminhonete_carregada": {
+      "id": "caminhonete_carregada",
+      "area": "area_carro",
+      "center": [
+        10.9,
+        -3.15,
+        0.0
+      ],
+      "orientation": {
+        "yaw_rad": 0.0,
+        "yaw_deg": 0.0
+      },
+      "dimensions": {
+        "width": 1.98,
+        "depth": 5.25,
+        "height": 1.75
+      },
+      "bounding_box": {
+        "x": [
+          9.91,
+          11.89
+        ],
+        "y": [
+          -5.775,
+          -0.525
+        ],
+        "z": [
+          0.0,
+          1.75
+        ]
+      },
+      "function": "vehicles.create_vehicle",
+      "vehicle_type": "work_pickup",
+      "params": {
+        "include_cargo": true,
+        "body_color": "#2F5D7C"
+      },
+      "clearance": {
+        "edge": 0.1,
+        "opening": 0.75,
+        "between_objects": 0.2
+      }
+    },
+    "crossover_compacto": {
+      "id": "crossover_compacto",
+      "area": "area_carro",
+      "center": [
+        13.65,
+        -3.1,
+        0.0
+      ],
+      "orientation": {
+        "yaw_rad": 0.0,
+        "yaw_deg": 0.0
+      },
+      "dimensions": {
+        "width": 1.82,
+        "depth": 4.28,
+        "height": 1.55
+      },
+      "bounding_box": {
+        "x": [
+          12.74,
+          14.56
+        ],
+        "y": [
+          -5.24,
+          -0.96
+        ],
+        "z": [
+          0.0,
+          1.55
+        ]
+      },
+      "function": "vehicles.create_vehicle",
+      "vehicle_type": "compact_crossover",
+      "params": {
+        "body_color": "#8F3D36",
+        "include_roof_rails": true
+      },
+      "clearance": {
+        "edge": 0.1,
+        "opening": 0.75,
+        "between_objects": 0.2
+      }
+    }
+  }
+}
