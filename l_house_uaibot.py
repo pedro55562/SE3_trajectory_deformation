@@ -12,18 +12,14 @@ from __future__ import annotations
 
 import json
 import math
-import sys
 from pathlib import Path
 
 import numpy as np
 
+import uaibot as ub
+
 
 PROJECT_DIR = Path(__file__).resolve().parent
-UAI_DIR = PROJECT_DIR / "UAIbotPy"
-if str(UAI_DIR) not in sys.path:
-    sys.path.insert(0, str(UAI_DIR))
-
-import uaibot as ub
 
 from architecture import (
     available_architecture,
@@ -102,16 +98,50 @@ FURNITURE_LAYOUT = [
         "clearance": {"wall": INTERIOR_WALL_MARGIN, "opening": DOOR_CLEARANCE_DEPTH, "between_objects": MIN_OBJECT_GAP},
     },
     {
+        "id": "estante_escritorio2",
+        "room": "escritorio",
+        "center": [3.50, 2.2, 0.0],
+        "dimensions": [0.90, 0.32, 1.85],
+        "yaw": -np.pi/2,
+        "function": "compositions.create_composition",
+        "composition_type": "filled_bookshelf",
+        "params": {"width": 0.90, "depth": 0.32, "height": 1.85},
+        "clearance": {"wall": INTERIOR_WALL_MARGIN, "opening": DOOR_CLEARANCE_DEPTH, "between_objects": MIN_OBJECT_GAP},
+    },
+    {
         "id": "arquivo_escritorio",
         "room": "escritorio",
-        "center": [3.42, 0.58, 0.0],
+        "center": [3.42, 0.35, 0.0],
         "dimensions": [0.48, 0.56, 0.72],
-        "yaw": 0.0,
+        "yaw": - np.pi/2,
         "function": "furniture.create_item",
         "item_type": "filing_cabinet",
         "params": {"width": 0.48, "depth": 0.56, "height": 0.72},
         "clearance": {"wall": INTERIOR_WALL_MARGIN, "opening": DOOR_CLEARANCE_DEPTH, "between_objects": MIN_OBJECT_GAP},
     },
+    {
+        "id": "arquivo_escritorio2",
+        "room": "escritorio",
+        "center": [3.42, 0.83, 0.0],
+        "dimensions": [0.48, 0.56, 0.72],
+        "yaw": - np.pi/2,
+        "function": "furniture.create_item",
+        "item_type": "filing_cabinet",
+        "params": {"width": 0.48, "depth": 0.56, "height": 0.72},
+        "clearance": {"wall": INTERIOR_WALL_MARGIN, "opening": DOOR_CLEARANCE_DEPTH, "between_objects": MIN_OBJECT_GAP},
+    },
+    {
+        "id": "arquivo_escritorio3",
+        "room": "escritorio",
+        "center": [3.42, 1.31, 0.0],
+        "dimensions": [0.48, 0.56, 0.72],
+        "yaw": - np.pi/2,
+        "function": "furniture.create_item",
+        "item_type": "filing_cabinet",
+        "params": {"width": 0.48, "depth": 0.56, "height": 0.72},
+        "clearance": {"wall": INTERIOR_WALL_MARGIN, "opening": DOOR_CLEARANCE_DEPTH, "between_objects": MIN_OBJECT_GAP},
+    },
+
     {
         "id": "sofa_sala",
         "room": "sala",
@@ -1845,6 +1875,7 @@ def main():
     #validate_plan(plan)
     registry_path = save_registry(plan)
     objects = build_uaibot_objects(plan)
+    print(f"Gerados {len(objects)} objetos UAIbot.")
     html_path = save_simulation(objects)
     print_summary(plan, registry_path, html_path, len(objects))
 

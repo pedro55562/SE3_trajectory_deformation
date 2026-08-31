@@ -3138,17 +3138,61 @@
       },
       "composition_type": "filled_bookshelf"
     },
+    "estante_escritorio2": {
+      "id": "estante_escritorio2",
+      "room": "escritorio",
+      "center": [
+        3.5,
+        2.2,
+        0.0
+      ],
+      "orientation": {
+        "yaw_rad": -1.5708,
+        "yaw_deg": -90.0
+      },
+      "dimensions": {
+        "width": 0.9,
+        "depth": 0.32,
+        "height": 1.85
+      },
+      "bounding_box": {
+        "x": [
+          3.34,
+          3.66
+        ],
+        "y": [
+          1.75,
+          2.65
+        ],
+        "z": [
+          0.0,
+          1.85
+        ]
+      },
+      "function": "compositions.create_composition",
+      "clearance": {
+        "wall": 0.11000000000000001,
+        "opening": 0.55,
+        "between_objects": 0.03
+      },
+      "params": {
+        "width": 0.9,
+        "depth": 0.32,
+        "height": 1.85
+      },
+      "composition_type": "filled_bookshelf"
+    },
     "arquivo_escritorio": {
       "id": "arquivo_escritorio",
       "room": "escritorio",
       "center": [
         3.42,
-        0.58,
+        0.35,
         0.0
       ],
       "orientation": {
-        "yaw_rad": 0.0,
-        "yaw_deg": 0.0
+        "yaw_rad": -1.5708,
+        "yaw_deg": -90.0
       },
       "dimensions": {
         "width": 0.48,
@@ -3157,12 +3201,100 @@
       },
       "bounding_box": {
         "x": [
-          3.18,
-          3.66
+          3.14,
+          3.7
         ],
         "y": [
-          0.3,
-          0.86
+          0.11,
+          0.59
+        ],
+        "z": [
+          0.0,
+          0.72
+        ]
+      },
+      "function": "furniture.create_item",
+      "clearance": {
+        "wall": 0.11000000000000001,
+        "opening": 0.55,
+        "between_objects": 0.03
+      },
+      "params": {
+        "width": 0.48,
+        "depth": 0.56,
+        "height": 0.72
+      },
+      "item_type": "filing_cabinet"
+    },
+    "arquivo_escritorio2": {
+      "id": "arquivo_escritorio2",
+      "room": "escritorio",
+      "center": [
+        3.42,
+        0.83,
+        0.0
+      ],
+      "orientation": {
+        "yaw_rad": -1.5708,
+        "yaw_deg": -90.0
+      },
+      "dimensions": {
+        "width": 0.48,
+        "depth": 0.56,
+        "height": 0.72
+      },
+      "bounding_box": {
+        "x": [
+          3.14,
+          3.7
+        ],
+        "y": [
+          0.59,
+          1.07
+        ],
+        "z": [
+          0.0,
+          0.72
+        ]
+      },
+      "function": "furniture.create_item",
+      "clearance": {
+        "wall": 0.11000000000000001,
+        "opening": 0.55,
+        "between_objects": 0.03
+      },
+      "params": {
+        "width": 0.48,
+        "depth": 0.56,
+        "height": 0.72
+      },
+      "item_type": "filing_cabinet"
+    },
+    "arquivo_escritorio3": {
+      "id": "arquivo_escritorio3",
+      "room": "escritorio",
+      "center": [
+        3.42,
+        1.31,
+        0.0
+      ],
+      "orientation": {
+        "yaw_rad": -1.5708,
+        "yaw_deg": -90.0
+      },
+      "dimensions": {
+        "width": 0.48,
+        "depth": 0.56,
+        "height": 0.72
+      },
+      "bounding_box": {
+        "x": [
+          3.14,
+          3.7
+        ],
+        "y": [
+          1.07,
+          1.55
         ],
         "z": [
           0.0,
