@@ -425,7 +425,7 @@ FURNITURE_LAYOUT = [
         "room": "banheiro_social",
         "center": [4.20, 0.36, 0.0],
         "dimensions": [0.55, 0.42, 0.85],
-        "yaw": 0.0,
+        "yaw": np.pi,
         "function": "local.create_bathroom_vanity",
         "params": {"width": 0.55, "depth": 0.42, "height": 0.85},
         "can_be_under_window": True,
@@ -436,7 +436,7 @@ FURNITURE_LAYOUT = [
         "room": "banheiro_social",
         "center": [4.18, 1.20, 0.0],
         "dimensions": [0.50, 0.70, 0.78],
-        "yaw": 0.0,
+        "yaw": np.pi/2,
         "function": "local.create_toilet",
         "params": {"width": 0.50, "depth": 0.70, "height": 0.78},
         "clearance": {"wall": INTERIOR_WALL_MARGIN, "opening": DOOR_CLEARANCE_DEPTH, "between_objects": MIN_OBJECT_GAP},
@@ -456,7 +456,7 @@ FURNITURE_LAYOUT = [
         "room": "banheiro_familia",
         "center": [4.20, 2.86, 0.0],
         "dimensions": [0.55, 0.42, 0.85],
-        "yaw": 0.0,
+        "yaw": np.pi,
         "function": "local.create_bathroom_vanity",
         "params": {"width": 0.55, "depth": 0.42, "height": 0.85},
         "clearance": {"wall": INTERIOR_WALL_MARGIN, "opening": DOOR_CLEARANCE_DEPTH, "between_objects": MIN_OBJECT_GAP},
@@ -466,7 +466,7 @@ FURNITURE_LAYOUT = [
         "room": "banheiro_familia",
         "center": [4.18, 3.70, 0.0],
         "dimensions": [0.50, 0.70, 0.78],
-        "yaw": 0.0,
+        "yaw": np.pi/2,
         "function": "local.create_toilet",
         "params": {"width": 0.50, "depth": 0.70, "height": 0.78},
         "clearance": {"wall": INTERIOR_WALL_MARGIN, "opening": DOOR_CLEARANCE_DEPTH, "between_objects": MIN_OBJECT_GAP},
@@ -831,7 +831,7 @@ def build_plan_data():
 
     outdoor = {
         "area_carro": rect("area_carro", 6.8, 15.0, -6.0, -0.4, -OUTDOOR_THICKNESS, 0.0, "pavement"),
-        "piscina": rect("piscina", 10.0, 16.2, 10.2, 14.7, -0.18, 0.1, "pool"),
+        "piscina": rect("piscina", 10.0, 16.2, 10.2, 14.7, 0.02, 0.05, "pool"),
         "borda_piscina": rect("borda_piscina", 9.55, 16.65, 9.75, 15.15, -OUTDOOR_THICKNESS, 0.0, "pool_coping"),
         "area_reuniao": rect("area_reuniao", 10.0, 17.0, 15.5, 19.5, -OUTDOOR_THICKNESS, 0.0, "meeting_patio"),
         "grama_frente_lateral": rect("grama_frente_lateral", -2.0, 6.4, -6.0, -0.4, -OUTDOOR_THICKNESS, 0.0, "grass"),
@@ -1968,10 +1968,10 @@ def render_wall(wall, opening_by_id, window_by_id):
     )
 
 
-def add_floor(objects, data, name, floor_type, thickness):
+def add_floor(objects, data, name, floor_type, thickness, top_z=0.0):
     cx, cy, _ = data["center"]
     objects += create_floor(
-        htm=pose(cx, cy),
+        htm=pose(cx, cy, top_z),
         name=name,
         width=data["width"],
         depth=data["depth"],
@@ -1988,7 +1988,14 @@ def build_uaibot_objects(plan):
     outdoor = plan["outdoor"]
     add_floor(objects, outdoor["area_carro"], "pavimento_area_carro", "cimento_pavimentado", OUTDOOR_THICKNESS)
     add_floor(objects, outdoor["borda_piscina"], "borda_piscina", "borda_piscina", OUTDOOR_THICKNESS)
-    add_floor(objects, outdoor["piscina"], "agua_piscina", "agua_piscina", 0.06)
+    add_floor(
+        objects,
+        outdoor["piscina"],
+        "agua_piscina",
+        "agua_piscina",
+        0.03,
+        top_z=outdoor["piscina"]["limits"]["z"][1],
+    )
     add_floor(objects, outdoor["area_reuniao"], "deck_area_reuniao", "deck_convivio", OUTDOOR_THICKNESS)
     for item in outdoor.values():
         if item["kind"] == "grass":

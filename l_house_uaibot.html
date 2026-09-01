@@ -3,12 +3,12 @@
 .controller:hover{opacity:1 !important;}
 </style>
 <body>
-<div id='canvas_container_17882298791150813' style='width:960px;height:720px;position:relative'>
-<div id='loading_screen_17882298791150813' style='width:960px;height:720px;position:relative; background-color: #19bd39;text-align:center;align-items:center;display:flex;justify-content:center'> 
+<div id='canvas_container_17882313122115295' style='width:960px;height:720px;position:relative'>
+<div id='loading_screen_17882313122115295' style='width:960px;height:720px;position:relative; background-color: #19bd39;text-align:center;align-items:center;display:flex;justify-content:center'> 
  <img src='https://cdn.jsdelivr.net/gh/UAIbot/uaibot_data@master/SVG/logo_uai_bot.svg' style='width:200px;height:114px'/>
  </div>
 <script id='MathJax-script' async src='https://cdn.jsdelivr.net/npm/mathjax@3.0.1/es5/tex-mml-chtml.js'></script>
-<canvas id='scene_17882298791150813' width='960px' height='720px'></canvas>
+<canvas id='scene_17882313122115295' width='960px' height='720px'></canvas>
 <!-- USER DIVS GO HERE --><div class = 'controller' style='width:960px;height:30px;'></div>
 </div>
 
@@ -38,7 +38,7 @@ import { ParametricGeometry } from 'https://cdn.skypack.dev/three@0.135.0/exampl
 const delay = 500; 
  const maxTime = 0; 
  const cameraType= 'perspective'; 
- const sceneID= '17882298791150813'; 
+ const sceneID= '17882313122115295'; 
  const showWorldFrame=true; 
  const showGrid=true; 
  const backgroundColor='#F5F6FA'; 
@@ -753,12 +753,12 @@ if (showGrid) {
 
 //--------------- ADDING ELEMENTS TO THIS SCENE ---------------
 
-//BEGIN DECLARATION OF THE GROUP 'var_group_id_126065806421712'
+//BEGIN DECLARATION OF THE GROUP 'var_group_id_134894885614272'
 
 
-//BEGIN DECLARATION OF THE CYLINDER 'var_cylinder_id_126065806044784'
+//BEGIN DECLARATION OF THE CYLINDER 'var_cylinder_id_134894883793056'
 
-const material_var_cylinder_id_126065806044784 = new MeshPhysicalMaterial({
+const material_var_cylinder_id_134894883793056 = new MeshPhysicalMaterial({
 opacity: 1,
 transparent: false,
 aoMapIntensity: 1,
@@ -787,13 +787,13 @@ transmission: 0,
 });
 
 
-const var_var_cylinder_id_126065806044784 = new Cylinder(0.004,0.5,[[0, 0.0, 1.0, -0.0, 0.25, 0.0, 0.0, -1.0, 0.0, -1.0, 0.0, -0.0, 0.0, 0, 0, 0, 1]], material_var_cylinder_id_126065806044784);
-sceneElements.push(var_var_cylinder_id_126065806044784);
+const var_var_cylinder_id_134894883793056 = new Cylinder(0.004,0.5,[[0, 0.0, 1.0, -0.0, 0.25, 0.0, 0.0, -1.0, 0.0, -1.0, 0.0, -0.0, 0.0, 0, 0, 0, 1]], material_var_cylinder_id_134894883793056);
+sceneElements.push(var_var_cylinder_id_134894883793056);
 
 
-//BEGIN DECLARATION OF THE CYLINDER 'var_cylinder_id_126065806366272'
+//BEGIN DECLARATION OF THE CYLINDER 'var_cylinder_id_134894885778688'
 
-const material_var_cylinder_id_126065806366272 = new MeshPhysicalMaterial({
+const material_var_cylinder_id_134894885778688 = new MeshPhysicalMaterial({
 opacity: 1,
 transparent: false,
 aoMapIntensity: 1,
@@ -822,13 +822,13 @@ transmission: 0,
 });
 
 
-const var_var_cylinder_id_126065806366272 = new Cylinder(0.004,0.5,[[0, 1.0, 0.0, -0.0, 0.0, 0.0, 1.0, -0.0, 0.25, 0.0, 0.0, 1.0, 0.0, 0, 0, 0, 1]], material_var_cylinder_id_126065806366272);
-sceneElements.push(var_var_cylinder_id_126065806366272);
+const var_var_cylinder_id_134894885778688 = new Cylinder(0.004,0.5,[[0, 1.0, 0.0, -0.0, 0.0, 0.0, 1.0, -0.0, 0.25, 0.0, 0.0, 1.0, 0.0, 0, 0, 0, 1]], material_var_cylinder_id_134894885778688);
+sceneElements.push(var_var_cylinder_id_134894885778688);
 
 
-//BEGIN DECLARATION OF THE CYLINDER 'var_cylinder_id_126065806423536'
+//BEGIN DECLARATION OF THE CYLINDER 'var_cylinder_id_134894885613696'
 
-const material_var_cylinder_id_126065806423536 = new MeshPhysicalMaterial({
+const material_var_cylinder_id_134894885613696 = new MeshPhysicalMaterial({
 opacity: 1,
 transparent: false,
 aoMapIntensity: 1,
@@ -857,8 +857,8 @@ transmission: 0,
 });
 
 
-const var_var_cylinder_id_126065806423536 = new Cylinder(0.004,0.5,[[0, 1.0, 0.0, -0.0, 0.0, 0.0, 0.0, -1.0, 0.0, 0.0, 1.0, -0.0, 0.25, 0, 0, 0, 1]], material_var_cylinder_id_126065806423536);
-sceneElements.push(var_var_cylinder_id_126065806423536);
+const var_var_cylinder_id_134894885613696 = new Cylinder(0.004,0.5,[[0, 1.0, 0.0, -0.0, 0.0, 0.0, 0.0, -1.0, 0.0, 0.0, 1.0, -0.0, 0.25, 0, 0, 0, 1]], material_var_cylinder_id_134894885613696);
+sceneElements.push(var_var_cylinder_id_134894885613696);
 
 
 
@@ -1335,7 +1335,7 @@ transmission: 0,
 });
 
 
-const var_agua_piscina_body = new Box(6.2,0.06,4.5,[[0, 1.0, 0.0, -0.0, 13.1, 0.0, 0.0, -1.0, 12.45, 0.0, 1.0, -0.0, -0.03, 0, 0, 0, 1]], material_agua_piscina_body);
+const var_agua_piscina_body = new Box(6.2,0.03,4.5,[[0, 1.0, 0.0, -0.0, 13.1, 0.0, 0.0, -1.0, 12.45, 0.0, 1.0, -0.0, 0.035, 0, 0, 0, 1]], material_agua_piscina_body);
 sceneElements.push(var_agua_piscina_body);
 
 //BEGIN DECLARATION OF THE BOX 'deck_area_reuniao_body'
@@ -25067,7 +25067,7 @@ transmission: 0,
 });
 
 
-const var_pia_banheiro_social_cabinet = new Box(0.55,0.714,0.42,[[0, 1.0, 0.0, -0.0, 4.2, 0.0, 0.0, -1.0, 0.36, 0.0, 1.0, -0.0, 0.357, 0, 0, 0, 1]], material_pia_banheiro_social_cabinet);
+const var_pia_banheiro_social_cabinet = new Box(0.55,0.714,0.42,[[0, -1.0, 0.0, -0.0, 4.2, -0.0, 0.0, 1.0, 0.36, 0.0, 1.0, -0.0, 0.357, 0, 0, 0, 1]], material_pia_banheiro_social_cabinet);
 sceneElements.push(var_pia_banheiro_social_cabinet);
 
 //BEGIN DECLARATION OF THE BOX 'pia_banheiro_social_top'
@@ -25101,7 +25101,7 @@ transmission: 0,
 });
 
 
-const var_pia_banheiro_social_top = new Box(0.5900000000000001,0.05,0.45999999999999996,[[0, 1.0, 0.0, -0.0, 4.2, 0.0, 0.0, -1.0, 0.36, 0.0, 1.0, -0.0, 0.825, 0, 0, 0, 1]], material_pia_banheiro_social_top);
+const var_pia_banheiro_social_top = new Box(0.5900000000000001,0.05,0.45999999999999996,[[0, -1.0, 0.0, -0.0, 4.2, -0.0, 0.0, 1.0, 0.36, 0.0, 1.0, -0.0, 0.825, 0, 0, 0, 1]], material_pia_banheiro_social_top);
 sceneElements.push(var_pia_banheiro_social_top);
 
 //BEGIN DECLARATION OF THE BOX 'pia_banheiro_social_basin'
@@ -25135,7 +25135,7 @@ transmission: 0,
 });
 
 
-const var_pia_banheiro_social_basin = new Box(0.341,0.05,0.20159999999999997,[[0, 1.0, 0.0, -0.0, 4.2, 0.0, 0.0, -1.0, 0.339, 0.0, 1.0, -0.0, 0.875, 0, 0, 0, 1]], material_pia_banheiro_social_basin);
+const var_pia_banheiro_social_basin = new Box(0.341,0.05,0.20159999999999997,[[0, -1.0, 0.0, -0.0, 4.2, -0.0, 0.0, 1.0, 0.381, 0.0, 1.0, -0.0, 0.875, 0, 0, 0, 1]], material_pia_banheiro_social_basin);
 sceneElements.push(var_pia_banheiro_social_basin);
 
 //BEGIN DECLARATION OF THE CYLINDER 'pia_banheiro_social_drain'
@@ -25169,7 +25169,7 @@ transmission: 0,
 });
 
 
-const var_pia_banheiro_social_drain = new Cylinder(0.018,0.006,[[0, 1.0, 0.0, -0.0, 4.2, 0.0, 0.0, -1.0, 0.339, 0.0, 1.0, -0.0, 0.905, 0, 0, 0, 1]], material_pia_banheiro_social_drain);
+const var_pia_banheiro_social_drain = new Cylinder(0.018,0.006,[[0, -1.0, 0.0, -0.0, 4.2, -0.0, 0.0, 1.0, 0.381, 0.0, 1.0, -0.0, 0.905, 0, 0, 0, 1]], material_pia_banheiro_social_drain);
 sceneElements.push(var_pia_banheiro_social_drain);
 
 //BEGIN DECLARATION OF THE CYLINDER 'pia_banheiro_social_faucet'
@@ -25203,7 +25203,7 @@ transmission: 0,
 });
 
 
-const var_pia_banheiro_social_faucet = new Cylinder(0.012,0.12,[[0, 1.0, 0.0, -0.0, 4.2, 0.0, 0.0, -1.0, 0.4356, 0.0, 1.0, -0.0, 0.95, 0, 0, 0, 1]], material_pia_banheiro_social_faucet);
+const var_pia_banheiro_social_faucet = new Cylinder(0.012,0.12,[[0, -1.0, 0.0, -0.0, 4.2, -0.0, 0.0, 1.0, 0.2844, 0.0, 1.0, -0.0, 0.95, 0, 0, 0, 1]], material_pia_banheiro_social_faucet);
 sceneElements.push(var_pia_banheiro_social_faucet);
 
 //BEGIN DECLARATION OF THE BOX 'vaso_banheiro_social_tank'
@@ -25237,7 +25237,7 @@ transmission: 0,
 });
 
 
-const var_vaso_banheiro_social_tank = new Box(0.41,0.3276,0.126,[[0, 1.0, 0.0, -0.0, 4.18, 0.0, 0.0, -1.0, 1.41, 0.0, 1.0, -0.0, 0.4836, 0, 0, 0, 1]], material_vaso_banheiro_social_tank);
+const var_vaso_banheiro_social_tank = new Box(0.41,0.3276,0.126,[[0, -0.0, 0.0, 1.0, 3.97, 1.0, 0.0, 0.0, 1.2, 0.0, 1.0, -0.0, 0.4836, 0, 0, 0, 1]], material_vaso_banheiro_social_tank);
 sceneElements.push(var_vaso_banheiro_social_tank);
 
 //BEGIN DECLARATION OF THE BOX 'vaso_banheiro_social_base'
@@ -25271,7 +25271,7 @@ transmission: 0,
 });
 
 
-const var_vaso_banheiro_social_base = new Box(0.26,0.24960000000000002,0.33599999999999997,[[0, 1.0, 0.0, -0.0, 4.18, 0.0, 0.0, -1.0, 1.13, 0.0, 1.0, -0.0, 0.1248, 0, 0, 0, 1]], material_vaso_banheiro_social_base);
+const var_vaso_banheiro_social_base = new Box(0.26,0.24960000000000002,0.33599999999999997,[[0, -0.0, 0.0, 1.0, 4.25, 1.0, 0.0, 0.0, 1.2, 0.0, 1.0, -0.0, 0.1248, 0, 0, 0, 1]], material_vaso_banheiro_social_base);
 sceneElements.push(var_vaso_banheiro_social_base);
 
 //BEGIN DECLARATION OF THE CYLINDER 'vaso_banheiro_social_bowl'
@@ -25305,7 +25305,7 @@ transmission: 0,
 });
 
 
-const var_vaso_banheiro_social_bowl = new Cylinder(0.17,0.2028,[[0, 1.0, 0.0, -0.0, 4.18, 0.0, 0.0, -1.0, 1.116, 0.0, 1.0, -0.0, 0.2964, 0, 0, 0, 1]], material_vaso_banheiro_social_bowl);
+const var_vaso_banheiro_social_bowl = new Cylinder(0.17,0.2028,[[0, -0.0, 0.0, 1.0, 4.264, 1.0, 0.0, 0.0, 1.2, 0.0, 1.0, -0.0, 0.2964, 0, 0, 0, 1]], material_vaso_banheiro_social_bowl);
 sceneElements.push(var_vaso_banheiro_social_bowl);
 
 //BEGIN DECLARATION OF THE CYLINDER 'vaso_banheiro_social_seat'
@@ -25339,7 +25339,7 @@ transmission: 0,
 });
 
 
-const var_vaso_banheiro_social_seat = new Cylinder(0.18,0.035,[[0, 1.0, 0.0, -0.0, 4.18, 0.0, 0.0, -1.0, 1.116, 0.0, 1.0, -0.0, 0.4134, 0, 0, 0, 1]], material_vaso_banheiro_social_seat);
+const var_vaso_banheiro_social_seat = new Cylinder(0.18,0.035,[[0, -0.0, 0.0, 1.0, 4.264, 1.0, 0.0, 0.0, 1.2, 0.0, 1.0, -0.0, 0.4134, 0, 0, 0, 1]], material_vaso_banheiro_social_seat);
 sceneElements.push(var_vaso_banheiro_social_seat);
 
 //BEGIN DECLARATION OF THE BOX 'box_banheiro_social_base'
@@ -25577,7 +25577,7 @@ transmission: 0,
 });
 
 
-const var_pia_banheiro_familia_cabinet = new Box(0.55,0.714,0.42,[[0, 1.0, 0.0, -0.0, 4.2, 0.0, 0.0, -1.0, 2.86, 0.0, 1.0, -0.0, 0.357, 0, 0, 0, 1]], material_pia_banheiro_familia_cabinet);
+const var_pia_banheiro_familia_cabinet = new Box(0.55,0.714,0.42,[[0, -1.0, 0.0, -0.0, 4.2, -0.0, 0.0, 1.0, 2.86, 0.0, 1.0, -0.0, 0.357, 0, 0, 0, 1]], material_pia_banheiro_familia_cabinet);
 sceneElements.push(var_pia_banheiro_familia_cabinet);
 
 //BEGIN DECLARATION OF THE BOX 'pia_banheiro_familia_top'
@@ -25611,7 +25611,7 @@ transmission: 0,
 });
 
 
-const var_pia_banheiro_familia_top = new Box(0.5900000000000001,0.05,0.45999999999999996,[[0, 1.0, 0.0, -0.0, 4.2, 0.0, 0.0, -1.0, 2.86, 0.0, 1.0, -0.0, 0.825, 0, 0, 0, 1]], material_pia_banheiro_familia_top);
+const var_pia_banheiro_familia_top = new Box(0.5900000000000001,0.05,0.45999999999999996,[[0, -1.0, 0.0, -0.0, 4.2, -0.0, 0.0, 1.0, 2.86, 0.0, 1.0, -0.0, 0.825, 0, 0, 0, 1]], material_pia_banheiro_familia_top);
 sceneElements.push(var_pia_banheiro_familia_top);
 
 //BEGIN DECLARATION OF THE BOX 'pia_banheiro_familia_basin'
@@ -25645,7 +25645,7 @@ transmission: 0,
 });
 
 
-const var_pia_banheiro_familia_basin = new Box(0.341,0.05,0.20159999999999997,[[0, 1.0, 0.0, -0.0, 4.2, 0.0, 0.0, -1.0, 2.839, 0.0, 1.0, -0.0, 0.875, 0, 0, 0, 1]], material_pia_banheiro_familia_basin);
+const var_pia_banheiro_familia_basin = new Box(0.341,0.05,0.20159999999999997,[[0, -1.0, 0.0, -0.0, 4.2, -0.0, 0.0, 1.0, 2.881, 0.0, 1.0, -0.0, 0.875, 0, 0, 0, 1]], material_pia_banheiro_familia_basin);
 sceneElements.push(var_pia_banheiro_familia_basin);
 
 //BEGIN DECLARATION OF THE CYLINDER 'pia_banheiro_familia_drain'
@@ -25679,7 +25679,7 @@ transmission: 0,
 });
 
 
-const var_pia_banheiro_familia_drain = new Cylinder(0.018,0.006,[[0, 1.0, 0.0, -0.0, 4.2, 0.0, 0.0, -1.0, 2.839, 0.0, 1.0, -0.0, 0.905, 0, 0, 0, 1]], material_pia_banheiro_familia_drain);
+const var_pia_banheiro_familia_drain = new Cylinder(0.018,0.006,[[0, -1.0, 0.0, -0.0, 4.2, -0.0, 0.0, 1.0, 2.881, 0.0, 1.0, -0.0, 0.905, 0, 0, 0, 1]], material_pia_banheiro_familia_drain);
 sceneElements.push(var_pia_banheiro_familia_drain);
 
 //BEGIN DECLARATION OF THE CYLINDER 'pia_banheiro_familia_faucet'
@@ -25713,7 +25713,7 @@ transmission: 0,
 });
 
 
-const var_pia_banheiro_familia_faucet = new Cylinder(0.012,0.12,[[0, 1.0, 0.0, -0.0, 4.2, 0.0, 0.0, -1.0, 2.9356, 0.0, 1.0, -0.0, 0.95, 0, 0, 0, 1]], material_pia_banheiro_familia_faucet);
+const var_pia_banheiro_familia_faucet = new Cylinder(0.012,0.12,[[0, -1.0, 0.0, -0.0, 4.2, -0.0, 0.0, 1.0, 2.7844, 0.0, 1.0, -0.0, 0.95, 0, 0, 0, 1]], material_pia_banheiro_familia_faucet);
 sceneElements.push(var_pia_banheiro_familia_faucet);
 
 //BEGIN DECLARATION OF THE BOX 'vaso_banheiro_familia_tank'
@@ -25747,7 +25747,7 @@ transmission: 0,
 });
 
 
-const var_vaso_banheiro_familia_tank = new Box(0.41,0.3276,0.126,[[0, 1.0, 0.0, -0.0, 4.18, 0.0, 0.0, -1.0, 3.91, 0.0, 1.0, -0.0, 0.4836, 0, 0, 0, 1]], material_vaso_banheiro_familia_tank);
+const var_vaso_banheiro_familia_tank = new Box(0.41,0.3276,0.126,[[0, -0.0, 0.0, 1.0, 3.97, 1.0, 0.0, 0.0, 3.7, 0.0, 1.0, -0.0, 0.4836, 0, 0, 0, 1]], material_vaso_banheiro_familia_tank);
 sceneElements.push(var_vaso_banheiro_familia_tank);
 
 //BEGIN DECLARATION OF THE BOX 'vaso_banheiro_familia_base'
@@ -25781,7 +25781,7 @@ transmission: 0,
 });
 
 
-const var_vaso_banheiro_familia_base = new Box(0.26,0.24960000000000002,0.33599999999999997,[[0, 1.0, 0.0, -0.0, 4.18, 0.0, 0.0, -1.0, 3.63, 0.0, 1.0, -0.0, 0.1248, 0, 0, 0, 1]], material_vaso_banheiro_familia_base);
+const var_vaso_banheiro_familia_base = new Box(0.26,0.24960000000000002,0.33599999999999997,[[0, -0.0, 0.0, 1.0, 4.25, 1.0, 0.0, 0.0, 3.7, 0.0, 1.0, -0.0, 0.1248, 0, 0, 0, 1]], material_vaso_banheiro_familia_base);
 sceneElements.push(var_vaso_banheiro_familia_base);
 
 //BEGIN DECLARATION OF THE CYLINDER 'vaso_banheiro_familia_bowl'
@@ -25815,7 +25815,7 @@ transmission: 0,
 });
 
 
-const var_vaso_banheiro_familia_bowl = new Cylinder(0.17,0.2028,[[0, 1.0, 0.0, -0.0, 4.18, 0.0, 0.0, -1.0, 3.616, 0.0, 1.0, -0.0, 0.2964, 0, 0, 0, 1]], material_vaso_banheiro_familia_bowl);
+const var_vaso_banheiro_familia_bowl = new Cylinder(0.17,0.2028,[[0, -0.0, 0.0, 1.0, 4.264, 1.0, 0.0, 0.0, 3.7, 0.0, 1.0, -0.0, 0.2964, 0, 0, 0, 1]], material_vaso_banheiro_familia_bowl);
 sceneElements.push(var_vaso_banheiro_familia_bowl);
 
 //BEGIN DECLARATION OF THE CYLINDER 'vaso_banheiro_familia_seat'
@@ -25849,7 +25849,7 @@ transmission: 0,
 });
 
 
-const var_vaso_banheiro_familia_seat = new Cylinder(0.18,0.035,[[0, 1.0, 0.0, -0.0, 4.18, 0.0, 0.0, -1.0, 3.616, 0.0, 1.0, -0.0, 0.4134, 0, 0, 0, 1]], material_vaso_banheiro_familia_seat);
+const var_vaso_banheiro_familia_seat = new Cylinder(0.18,0.035,[[0, -0.0, 0.0, 1.0, 4.264, 1.0, 0.0, 0.0, 3.7, 0.0, 1.0, -0.0, 0.4134, 0, 0, 0, 1]], material_vaso_banheiro_familia_seat);
 sceneElements.push(var_vaso_banheiro_familia_seat);
 
 //BEGIN DECLARATION OF THE BOX 'box_banheiro_familia_base'
