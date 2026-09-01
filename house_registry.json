@@ -2702,13 +2702,13 @@
         ],
         "z": [
           -0.18,
-          0.02
+          0.1
         ]
       },
       "center": [
         13.1,
         12.45,
-        -0.08
+        -0.04
       ],
       "width": 6.2,
       "depth": 4.5,
@@ -3534,13 +3534,13 @@
       "id": "cadeira_jantar_oeste",
       "room": "sala_de_jantar",
       "center": [
-        9.15,
+        9.6,
         4.62,
         0.0
       ],
       "orientation": {
-        "yaw_rad": -1.5708,
-        "yaw_deg": -90.0
+        "yaw_rad": 1.5708,
+        "yaw_deg": 90.0
       },
       "dimensions": {
         "width": 0.46,
@@ -3549,8 +3549,8 @@
       },
       "bounding_box": {
         "x": [
-          8.91,
-          9.39
+          9.36,
+          9.84
         ],
         "y": [
           4.39,
@@ -3577,13 +3577,13 @@
       "id": "cadeira_jantar_leste",
       "room": "sala_de_jantar",
       "center": [
-        11.25,
+        10.75,
         4.62,
         0.0
       ],
       "orientation": {
-        "yaw_rad": 1.5708,
-        "yaw_deg": 90.0
+        "yaw_rad": -1.5708,
+        "yaw_deg": -90.0
       },
       "dimensions": {
         "width": 0.46,
@@ -3592,8 +3592,8 @@
       },
       "bounding_box": {
         "x": [
-          11.01,
-          11.49
+          10.51,
+          10.99
         ],
         "y": [
           4.39,
@@ -3621,7 +3621,50 @@
       "room": "sala_de_jantar",
       "center": [
         10.2,
-        5.55,
+        5.25,
+        0.0
+      ],
+      "orientation": {
+        "yaw_rad": 0.0,
+        "yaw_deg": 0.0
+      },
+      "dimensions": {
+        "width": 0.46,
+        "depth": 0.48,
+        "height": 0.9
+      },
+      "bounding_box": {
+        "x": [
+          9.97,
+          10.43
+        ],
+        "y": [
+          5.01,
+          5.49
+        ],
+        "z": [
+          0.0,
+          0.9
+        ]
+      },
+      "function": "furniture.create_item",
+      "clearance": {
+        "wall": 0.11000000000000001,
+        "opening": 0.55,
+        "between_objects": 0.03
+      },
+      "params": {
+        "width": 0.46,
+        "depth": 0.48
+      },
+      "item_type": "chair"
+    },
+    "cadeira_jantar_sul": {
+      "id": "cadeira_jantar_sul",
+      "room": "sala_de_jantar",
+      "center": [
+        10.2,
+        4.0,
         0.0
       ],
       "orientation": {
@@ -3639,8 +3682,8 @@
           10.43
         ],
         "y": [
-          5.31,
-          5.79
+          3.76,
+          4.24
         ],
         "z": [
           0.0,
@@ -3668,8 +3711,8 @@
         0.0
       ],
       "orientation": {
-        "yaw_rad": 0.0,
-        "yaw_deg": 0.0
+        "yaw_rad": 3.1416,
+        "yaw_deg": 180.0
       },
       "dimensions": {
         "width": 0.72,
@@ -3712,8 +3755,8 @@
         0.0
       ],
       "orientation": {
-        "yaw_rad": 0.0,
-        "yaw_deg": 0.0
+        "yaw_rad": 3.1416,
+        "yaw_deg": 180.0
       },
       "dimensions": {
         "width": 0.62,
@@ -3801,8 +3844,8 @@
         0.0
       ],
       "orientation": {
-        "yaw_rad": 1.5708,
-        "yaw_deg": 90.0
+        "yaw_rad": -1.5708,
+        "yaw_deg": -90.0
       },
       "dimensions": {
         "width": 0.8,
@@ -4017,8 +4060,8 @@
         0.0
       ],
       "orientation": {
-        "yaw_rad": 0.0,
-        "yaw_deg": 0.0
+        "yaw_rad": 3.1416,
+        "yaw_deg": 180.0
       },
       "dimensions": {
         "width": 1.05,
@@ -4292,8 +4335,8 @@
         0.0
       ],
       "orientation": {
-        "yaw_rad": 0.0,
-        "yaw_deg": 0.0
+        "yaw_rad": 3.1416,
+        "yaw_deg": 180.0
       },
       "dimensions": {
         "width": 1.05,
@@ -4696,8 +4739,8 @@
         0.0
       ],
       "orientation": {
-        "yaw_rad": 3.1416,
-        "yaw_deg": 180.0
+        "yaw_rad": 0.0,
+        "yaw_deg": 0.0
       },
       "dimensions": {
         "width": 0.46,
@@ -4738,8 +4781,8 @@
         0.0
       ],
       "orientation": {
-        "yaw_rad": 0.0,
-        "yaw_deg": 0.0
+        "yaw_rad": 3.1416,
+        "yaw_deg": 180.0
       },
       "dimensions": {
         "width": 0.46,
@@ -4780,8 +4823,8 @@
         0.0
       ],
       "orientation": {
-        "yaw_rad": 1.5708,
-        "yaw_deg": 90.0
+        "yaw_rad": -1.5708,
+        "yaw_deg": -90.0
       },
       "dimensions": {
         "width": 0.46,
@@ -4822,8 +4865,8 @@
         0.0
       ],
       "orientation": {
-        "yaw_rad": -1.5708,
-        "yaw_deg": -90.0
+        "yaw_rad": 1.5708,
+        "yaw_deg": 90.0
       },
       "dimensions": {
         "width": 0.46,
@@ -4854,48 +4897,6 @@
         "depth": 0.48
       },
       "item_type": "chair"
-    },
-    "banco_area_reuniao": {
-      "id": "banco_area_reuniao",
-      "room": "area_reuniao",
-      "center": [
-        13.5,
-        19.12,
-        0.0
-      ],
-      "orientation": {
-        "yaw_rad": 0.0,
-        "yaw_deg": 0.0
-      },
-      "dimensions": {
-        "width": 1.3,
-        "depth": 0.42,
-        "height": 0.45
-      },
-      "bounding_box": {
-        "x": [
-          12.85,
-          14.15
-        ],
-        "y": [
-          18.91,
-          19.33
-        ],
-        "z": [
-          0.0,
-          0.45
-        ]
-      },
-      "function": "furniture.create_item",
-      "clearance": {
-        "edge": 0.08,
-        "between_objects": 0.03
-      },
-      "params": {
-        "width": 1.3,
-        "depth": 0.42
-      },
-      "item_type": "bench"
     },
     "espreguicadeira_piscina_1": {
       "id": "espreguicadeira_piscina_1",
@@ -4982,92 +4983,6 @@
         "height": 0.45
       },
       "item_type": "bench"
-    },
-    "mesa_lateral_piscina": {
-      "id": "mesa_lateral_piscina",
-      "room": "area_piscina",
-      "center": [
-        9.05,
-        12.32,
-        0.0
-      ],
-      "orientation": {
-        "yaw_rad": 0.0,
-        "yaw_deg": 0.0
-      },
-      "dimensions": {
-        "width": 0.48,
-        "depth": 0.48,
-        "height": 0.52
-      },
-      "bounding_box": {
-        "x": [
-          8.81,
-          9.29
-        ],
-        "y": [
-          12.08,
-          12.56
-        ],
-        "z": [
-          0.0,
-          0.52
-        ]
-      },
-      "function": "furniture.create_item",
-      "clearance": {
-        "edge": 0.08,
-        "between_objects": 0.03
-      },
-      "params": {
-        "width": 0.48,
-        "depth": 0.48,
-        "height": 0.52
-      },
-      "item_type": "side_table"
-    },
-    "planta_piscina": {
-      "id": "planta_piscina",
-      "room": "area_piscina",
-      "center": [
-        17.8,
-        11.0,
-        0.0
-      ],
-      "orientation": {
-        "yaw_rad": 0.0,
-        "yaw_deg": 0.0
-      },
-      "dimensions": {
-        "width": 0.44,
-        "depth": 0.44,
-        "height": 0.94
-      },
-      "bounding_box": {
-        "x": [
-          17.58,
-          18.02
-        ],
-        "y": [
-          10.78,
-          11.22
-        ],
-        "z": [
-          0.0,
-          0.94
-        ]
-      },
-      "function": "furniture.create_item",
-      "clearance": {
-        "edge": 0.08,
-        "between_objects": 0.03
-      },
-      "params": {
-        "pot_radius": 0.16,
-        "pot_height": 0.24,
-        "plant_height": 0.7
-      },
-      "item_type": "potted_plant"
     }
   },
   "vehicles": {
@@ -5155,6 +5070,86 @@
         "edge": 0.1,
         "opening": 0.75,
         "between_objects": 0.2
+      }
+    }
+  },
+  "trees": {
+    "arvore_1": {
+      "id": "arvore_1",
+      "center": [
+        2.5,
+        -4.0,
+        0.0
+      ],
+      "orientation": {
+        "yaw_rad": 0.0,
+        "yaw_deg": 0.0
+      },
+      "dimensions": {
+        "width": 6.0,
+        "depth": 6.0,
+        "height": 8.0
+      },
+      "bounding_box": {
+        "x": [
+          -0.5,
+          5.5
+        ],
+        "y": [
+          -7.0,
+          -1.0
+        ],
+        "z": [
+          0.0,
+          8.0
+        ]
+      },
+      "function": "local.create_large_tree",
+      "params": {
+        "height": 8.0,
+        "crown_radius": 3.0,
+        "trunk_radius": 0.45,
+        "branches_per_level": 5,
+        "seed": 7
+      }
+    },
+    "arvore_2": {
+      "id": "arvore_2",
+      "center": [
+        18.4,
+        11.0,
+        0.0
+      ],
+      "orientation": {
+        "yaw_rad": 0.0,
+        "yaw_deg": 0.0
+      },
+      "dimensions": {
+        "width": 6.0,
+        "depth": 6.0,
+        "height": 8.0
+      },
+      "bounding_box": {
+        "x": [
+          15.4,
+          21.4
+        ],
+        "y": [
+          8.0,
+          14.0
+        ],
+        "z": [
+          0.0,
+          8.0
+        ]
+      },
+      "function": "local.create_large_tree",
+      "params": {
+        "height": 8.0,
+        "crown_radius": 3.0,
+        "trunk_radius": 0.45,
+        "branches_per_level": 5,
+        "seed": 7
       }
     }
   }

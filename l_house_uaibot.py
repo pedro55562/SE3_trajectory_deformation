@@ -200,18 +200,7 @@ FURNITURE_LAYOUT = [
     {
         "id": "cadeira_jantar_oeste",
         "room": "sala_de_jantar",
-        "center": [9.15, 4.62, 0.0],
-        "dimensions": [0.46, 0.48, 0.90],
-        "yaw": -math.pi / 2,
-        "function": "furniture.create_item",
-        "item_type": "chair",
-        "params": {"width": 0.46, "depth": 0.48},
-        "clearance": {"wall": INTERIOR_WALL_MARGIN, "opening": DOOR_CLEARANCE_DEPTH, "between_objects": MIN_OBJECT_GAP},
-    },
-    {
-        "id": "cadeira_jantar_leste",
-        "room": "sala_de_jantar",
-        "center": [11.25, 4.62, 0.0],
+        "center": [9.6, 4.62, 0.0],
         "dimensions": [0.46, 0.48, 0.90],
         "yaw": math.pi / 2,
         "function": "furniture.create_item",
@@ -220,11 +209,33 @@ FURNITURE_LAYOUT = [
         "clearance": {"wall": INTERIOR_WALL_MARGIN, "opening": DOOR_CLEARANCE_DEPTH, "between_objects": MIN_OBJECT_GAP},
     },
     {
+        "id": "cadeira_jantar_leste",
+        "room": "sala_de_jantar",
+        "center": [10.75, 4.62, 0.0],
+        "dimensions": [0.46, 0.48, 0.90],
+        "yaw": -math.pi / 2,
+        "function": "furniture.create_item",
+        "item_type": "chair",
+        "params": {"width": 0.46, "depth": 0.48},
+        "clearance": {"wall": INTERIOR_WALL_MARGIN, "opening": DOOR_CLEARANCE_DEPTH, "between_objects": MIN_OBJECT_GAP},
+    },
+    {
         "id": "cadeira_jantar_norte",
         "room": "sala_de_jantar",
-        "center": [10.20, 5.55, 0.0],
+        "center": [10.20, 5.25, 0.0],
         "dimensions": [0.46, 0.48, 0.90],
-        "yaw": math.pi,
+        "yaw": 0,
+        "function": "furniture.create_item",
+        "item_type": "chair",
+        "params": {"width": 0.46, "depth": 0.48},
+        "clearance": {"wall": INTERIOR_WALL_MARGIN, "opening": DOOR_CLEARANCE_DEPTH, "between_objects": MIN_OBJECT_GAP},
+    },
+    {
+        "id": "cadeira_jantar_sul",
+        "room": "sala_de_jantar",
+        "center": [10.20, 4, 0.0],
+        "dimensions": [0.46, 0.48, 0.90],
+        "yaw": np.pi,
         "function": "furniture.create_item",
         "item_type": "chair",
         "params": {"width": 0.46, "depth": 0.48},
@@ -235,7 +246,7 @@ FURNITURE_LAYOUT = [
         "room": "cozinha",
         "center": [15.42, 3.78, 0.0],
         "dimensions": [0.72, 0.72, 1.82],
-        "yaw": 0.0,
+        "yaw": np.pi,
         "function": "furniture.create_item",
         "item_type": "refrigerator",
         "params": {"width": 0.72, "depth": 0.72, "height": 1.82},
@@ -246,7 +257,7 @@ FURNITURE_LAYOUT = [
         "room": "cozinha",
         "center": [14.35, 3.73, 0.0],
         "dimensions": [0.62, 0.62, 0.90],
-        "yaw": 0.0,
+        "yaw": np.pi,
         "function": "furniture.create_item",
         "item_type": "stove",
         "params": {"width": 0.62, "depth": 0.62, "height": 0.90},
@@ -269,7 +280,7 @@ FURNITURE_LAYOUT = [
         "room": "cozinha",
         "center": [15.66, 5.00, 0.0],
         "dimensions": [0.80, 0.42, 0.86],
-        "yaw": math.pi / 2,
+        "yaw": -math.pi / 2,
         "function": "furniture.create_item",
         "item_type": "cabinet",
         "params": {"width": 0.80, "depth": 0.42, "height": 0.86},
@@ -324,7 +335,7 @@ FURNITURE_LAYOUT = [
         "room": "quarto_1",
         "center": [1.20, 6.42, 0.0],
         "dimensions": [1.05, 0.48, 0.82],
-        "yaw": 0.0,
+        "yaw": np.pi,
         "function": "furniture.create_item",
         "item_type": "dresser",
         "params": {"width": 1.05, "depth": 0.48, "height": 0.82},
@@ -391,7 +402,7 @@ FURNITURE_LAYOUT = [
         "room": "quarto_2",
         "center": [4.20, 11.42, 0.0],
         "dimensions": [1.05, 0.48, 0.82],
-        "yaw": 0.0,
+        "yaw": np.pi,
         "function": "furniture.create_item",
         "item_type": "dresser",
         "params": {"width": 1.05, "depth": 0.48, "height": 0.82},
@@ -486,7 +497,7 @@ FURNITURE_LAYOUT = [
         "room": "area_reuniao",
         "center": [13.50, 18.65, 0.0],
         "dimensions": [0.46, 0.48, 0.90],
-        "yaw": math.pi,
+        "yaw": 0,
         "function": "furniture.create_item",
         "item_type": "chair",
         "params": {"width": 0.46, "depth": 0.48},
@@ -497,7 +508,7 @@ FURNITURE_LAYOUT = [
         "room": "area_reuniao",
         "center": [13.50, 16.45, 0.0],
         "dimensions": [0.46, 0.48, 0.90],
-        "yaw": 0.0,
+        "yaw": math.pi,
         "function": "furniture.create_item",
         "item_type": "chair",
         "params": {"width": 0.46, "depth": 0.48},
@@ -508,7 +519,7 @@ FURNITURE_LAYOUT = [
         "room": "area_reuniao",
         "center": [14.60, 17.55, 0.0],
         "dimensions": [0.46, 0.48, 0.90],
-        "yaw": math.pi / 2,
+        "yaw": -math.pi / 2,
         "function": "furniture.create_item",
         "item_type": "chair",
         "params": {"width": 0.46, "depth": 0.48},
@@ -519,21 +530,10 @@ FURNITURE_LAYOUT = [
         "room": "area_reuniao",
         "center": [12.40, 17.55, 0.0],
         "dimensions": [0.46, 0.48, 0.90],
-        "yaw": -math.pi / 2,
+        "yaw": math.pi / 2,
         "function": "furniture.create_item",
         "item_type": "chair",
         "params": {"width": 0.46, "depth": 0.48},
-        "clearance": {"edge": OUTDOOR_EDGE_MARGIN, "between_objects": MIN_OBJECT_GAP},
-    },
-    {
-        "id": "banco_area_reuniao",
-        "room": "area_reuniao",
-        "center": [13.50, 19.12, 0.0],
-        "dimensions": [1.30, 0.42, 0.45],
-        "yaw": 0.0,
-        "function": "furniture.create_item",
-        "item_type": "bench",
-        "params": {"width": 1.30, "depth": 0.42},
         "clearance": {"edge": OUTDOOR_EDGE_MARGIN, "between_objects": MIN_OBJECT_GAP},
     },
     {
@@ -556,28 +556,6 @@ FURNITURE_LAYOUT = [
         "function": "furniture.create_item",
         "item_type": "bench",
         "params": {"width": 1.65, "depth": 0.48, "height": 0.45},
-        "clearance": {"edge": OUTDOOR_EDGE_MARGIN, "between_objects": MIN_OBJECT_GAP},
-    },
-    {
-        "id": "mesa_lateral_piscina",
-        "room": "area_piscina",
-        "center": [9.05, 12.32, 0.0],
-        "dimensions": [0.48, 0.48, 0.52],
-        "yaw": 0.0,
-        "function": "furniture.create_item",
-        "item_type": "side_table",
-        "params": {"width": 0.48, "depth": 0.48, "height": 0.52},
-        "clearance": {"edge": OUTDOOR_EDGE_MARGIN, "between_objects": MIN_OBJECT_GAP},
-    },
-    {
-        "id": "planta_piscina",
-        "room": "area_piscina",
-        "center": [17.80, 11.00, 0.0],
-        "dimensions": [0.44, 0.44, 0.94],
-        "yaw": 0.0,
-        "function": "furniture.create_item",
-        "item_type": "potted_plant",
-        "params": {"pot_radius": 0.16, "pot_height": 0.24, "plant_height": 0.70},
         "clearance": {"edge": OUTDOOR_EDGE_MARGIN, "between_objects": MIN_OBJECT_GAP},
     },
 ]
@@ -605,6 +583,38 @@ VEHICLE_LAYOUT = [
         "vehicle_type": "compact_crossover",
         "params": {"body_color": "#8F3D36", "include_roof_rails": True},
         "clearance": {"edge": 0.10, "opening": 0.75, "between_objects": 0.20},
+    },
+]
+
+
+TREE_LAYOUT = [
+    {
+        "id": "arvore_1",
+        "center": [2.5, -4.0, 0.0],
+        "dimensions": [6.0, 6.0, 8.0],
+        "yaw": 0.0,
+        "function": "local.create_large_tree",
+        "params": {
+            "height": 8.0,
+            "crown_radius": 3.0,
+            "trunk_radius": 0.45,
+            "branches_per_level": 5,
+            "seed": 7,
+        },
+    },
+    {
+        "id": "arvore_2",
+        "center": [18.40, 11.00, 0.0],
+        "dimensions": [6.0, 6.0, 8.0],
+        "yaw": 0.0,
+        "function": "local.create_large_tree",
+        "params": {
+            "height": 8.0,
+            "crown_radius": 3.0,
+            "trunk_radius": 0.45,
+            "branches_per_level": 5,
+            "seed": 7,
+        },
     },
 ]
 
@@ -821,7 +831,7 @@ def build_plan_data():
 
     outdoor = {
         "area_carro": rect("area_carro", 6.8, 15.0, -6.0, -0.4, -OUTDOOR_THICKNESS, 0.0, "pavement"),
-        "piscina": rect("piscina", 10.0, 16.2, 10.2, 14.7, -0.18, 0.02, "pool"),
+        "piscina": rect("piscina", 10.0, 16.2, 10.2, 14.7, -0.18, 0.1, "pool"),
         "borda_piscina": rect("borda_piscina", 9.55, 16.65, 9.75, 15.15, -OUTDOOR_THICKNESS, 0.0, "pool_coping"),
         "area_reuniao": rect("area_reuniao", 10.0, 17.0, 15.5, 19.5, -OUTDOOR_THICKNESS, 0.0, "meeting_patio"),
         "grama_frente_lateral": rect("grama_frente_lateral", -2.0, 6.4, -6.0, -0.4, -OUTDOOR_THICKNESS, 0.0, "grass"),
@@ -914,6 +924,7 @@ def build_plan_data():
     enrich_openings_and_windows(plan)
     plan["furniture"] = build_furniture_registry(plan)
     plan["vehicles"] = build_vehicle_registry(plan)
+    plan["trees"] = build_tree_registry(plan)
     return plan
 
 
@@ -1088,6 +1099,29 @@ def build_vehicle_registry(plan):
             "vehicle_type": item["vehicle_type"],
             "params": item["params"],
             "clearance": item["clearance"],
+        }
+    return registry
+
+
+def build_tree_registry(plan):
+    registry = {}
+    for item in TREE_LAYOUT:
+        bbox = rotated_bbox(item["center"], item["dimensions"], item["yaw"])
+        registry[item["id"]] = {
+            "id": item["id"],
+            "center": [r2(v) for v in item["center"]],
+            "orientation": {
+                "yaw_rad": r2(item["yaw"]),
+                "yaw_deg": r2(math.degrees(item["yaw"])),
+            },
+            "dimensions": {
+                "width": r2(item["dimensions"][0]),
+                "depth": r2(item["dimensions"][1]),
+                "height": r2(item["dimensions"][2]),
+            },
+            "bounding_box": bbox,
+            "function": item["function"],
+            "params": item["params"],
         }
     return registry
 
@@ -1553,6 +1587,238 @@ def local_cylinder_y(name, htm, xyz, radius, length, color, opacity=1.0):
     )
 
 
+def tree_base_htm(htm):
+    return np.eye(4) if htm is None else htm
+
+
+def tree_segment_htm(p0, p1):
+    p0 = np.asarray(p0, dtype=float)
+    p1 = np.asarray(p1, dtype=float)
+
+    direction = p1 - p0
+    length = np.linalg.norm(direction)
+    if length < 1e-9:
+        raise ValueError("Cylinder segment must have nonzero length.")
+
+    z_axis = direction / length
+    helper = np.array([0.0, 0.0, 1.0])
+    if abs(np.dot(z_axis, helper)) > 0.95:
+        helper = np.array([1.0, 0.0, 0.0])
+
+    x_axis = np.cross(helper, z_axis)
+    x_axis /= np.linalg.norm(x_axis)
+    y_axis = np.cross(z_axis, x_axis)
+
+    transform = np.eye(4)
+    transform[0:3, 0] = x_axis
+    transform[0:3, 1] = y_axis
+    transform[0:3, 2] = z_axis
+    transform[0:3, 3] = 0.5 * (p0 + p1)
+    return transform, length
+
+
+def tree_cylinder_between(name, htm, p0, p1, radius, color, opacity=1.0):
+    local_htm, length = tree_segment_htm(p0, p1)
+    return ub.Cylinder(
+        name=name,
+        htm=tree_base_htm(htm) @ local_htm,
+        radius=radius,
+        height=length,
+        color=color,
+        opacity=opacity,
+    )
+
+
+def tree_ball(name, htm, xyz, radius, color, opacity=1.0):
+    return ub.Ball(
+        name=name,
+        htm=tree_base_htm(htm) @ ub.Utils.trn(xyz),
+        radius=radius,
+        color=color,
+        opacity=opacity,
+    )
+
+
+def create_large_tree(
+    htm=None,
+    name="large_tree",
+    height=8.0,
+    crown_radius=3.0,
+    trunk_radius=0.45,
+    branches_per_level=5,
+    include_foliage=True,
+    seed=7,
+    trunk_color="#6B4423",
+    branch_color="#76502B",
+    leaf_colors=(
+        "#2E7D32",
+        "#388E3C",
+        "#43A047",
+        "#2F6F35",
+    ),
+):
+    if height <= 0:
+        raise ValueError("'height' must be positive.")
+    if crown_radius <= 0:
+        raise ValueError("'crown_radius' must be positive.")
+    if trunk_radius <= 0:
+        raise ValueError("'trunk_radius' must be positive.")
+
+    rng = np.random.default_rng(seed)
+    objs = []
+
+    trunk_points = np.array([
+        [0.00, 0.00, 0.00 * height],
+        [0.03, -0.01, 0.19 * height],
+        [-0.04, 0.04, 0.37 * height],
+        [0.05, 0.01, 0.54 * height],
+        [-0.03, -0.04, 0.69 * height],
+        [0.00, 0.00, 0.82 * height],
+    ])
+    trunk_radii = trunk_radius * np.array([1.00, 0.91, 0.80, 0.67, 0.52])
+
+    for i in range(len(trunk_points) - 1):
+        objs.append(
+            tree_cylinder_between(
+                f"{name}_trunk_{i + 1}",
+                htm,
+                trunk_points[i],
+                trunk_points[i + 1],
+                trunk_radii[i],
+                trunk_color,
+            )
+        )
+
+    level_z = np.array([0.38, 0.48, 0.58, 0.67, 0.75]) * height
+    level_scale = [1.00, 1.00, 0.94, 0.84, 0.72]
+    foliage_centers = []
+    branch_id = 0
+    twig_id = 0
+
+    for level, (z0, scale) in enumerate(zip(level_z, level_scale)):
+        angle_offset = level * 0.61
+        for j in range(branches_per_level):
+            branch_id += 1
+            theta = (
+                2 * np.pi * j / branches_per_level
+                + angle_offset
+                + rng.uniform(-0.20, 0.20)
+            )
+            horizontal = crown_radius * scale * rng.uniform(0.74, 1.00)
+            rise = height * rng.uniform(0.055, 0.11)
+            p0 = np.array([
+                rng.uniform(-0.05, 0.05),
+                rng.uniform(-0.05, 0.05),
+                z0,
+            ])
+            p1 = p0 + np.array([
+                horizontal * np.cos(theta),
+                horizontal * np.sin(theta),
+                rise,
+            ])
+            branch_radius = trunk_radius * (0.36 - 0.035 * level)
+
+            objs.append(
+                tree_cylinder_between(
+                    f"{name}_branch_{branch_id}",
+                    htm,
+                    p0,
+                    p1,
+                    branch_radius,
+                    branch_color,
+                )
+            )
+            foliage_centers.append(p1)
+
+            for side in (-1.0, 1.0):
+                twig_id += 1
+                start_ratio = rng.uniform(0.52, 0.68)
+                q0 = p0 + start_ratio * (p1 - p0)
+                twig_angle = theta + side * rng.uniform(0.38, 0.70)
+                twig_length = horizontal * rng.uniform(0.34, 0.50)
+                twig_rise = height * rng.uniform(0.025, 0.070)
+                q1 = q0 + np.array([
+                    twig_length * np.cos(twig_angle),
+                    twig_length * np.sin(twig_angle),
+                    twig_rise,
+                ])
+
+                objs.append(
+                    tree_cylinder_between(
+                        f"{name}_twig_{twig_id}",
+                        htm,
+                        q0,
+                        q1,
+                        branch_radius * 0.52,
+                        branch_color,
+                    )
+                )
+                foliage_centers.append(q1)
+
+    top_origin = np.array([0.0, 0.0, 0.70 * height])
+    for i in range(7):
+        theta = 2 * np.pi * i / 7 + 0.25
+        radial = crown_radius * rng.uniform(0.30, 0.55)
+        p1 = np.array([
+            radial * np.cos(theta),
+            radial * np.sin(theta),
+            height * rng.uniform(0.88, 0.98),
+        ])
+
+        objs.append(
+            tree_cylinder_between(
+                f"{name}_top_branch_{i + 1}",
+                htm,
+                top_origin,
+                p1,
+                trunk_radius * 0.18,
+                branch_color,
+            )
+        )
+        foliage_centers.append(p1)
+
+    if include_foliage:
+        leaf_id = 0
+        for center in foliage_centers:
+            leaf_id += 1
+            radius = rng.uniform(0.46, 0.68) * crown_radius / 3.0
+            offset = np.array([
+                rng.uniform(-0.16, 0.16),
+                rng.uniform(-0.16, 0.16),
+                rng.uniform(-0.05, 0.22),
+            ]) * crown_radius
+            objs.append(
+                tree_ball(
+                    f"{name}_leaf_cluster_{leaf_id}",
+                    htm,
+                    center + offset,
+                    radius,
+                    leaf_colors[leaf_id % len(leaf_colors)],
+                )
+            )
+
+        inner_count = 18
+        for i in range(inner_count):
+            theta = 2 * np.pi * i / inner_count + rng.uniform(-0.15, 0.15)
+            radial = crown_radius * rng.uniform(0.18, 0.66)
+            center = np.array([
+                radial * np.cos(theta),
+                radial * np.sin(theta),
+                height * rng.uniform(0.62, 0.91),
+            ])
+            objs.append(
+                tree_ball(
+                    f"{name}_inner_leaf_{i + 1}",
+                    htm,
+                    center,
+                    rng.uniform(0.52, 0.76) * crown_radius / 3.0,
+                    leaf_colors[i % len(leaf_colors)],
+                )
+            )
+
+    return objs
+
+
 def create_bathroom_vanity(htm=None, name="bathroom_vanity", width=0.55, depth=0.42, height=0.85):
     base = np.eye(4) if htm is None else htm
     objs = [
@@ -1625,6 +1891,22 @@ def render_vehicles(plan):
     objects = []
     for item in plan.get("vehicles", {}).values():
         objects += render_vehicle_item(item)
+    return objects
+
+
+def render_tree_item(item):
+    htm = pose(item["center"][0], item["center"][1], item["center"][2], item["orientation"]["yaw_rad"])
+    params = item.get("params", {}).copy()
+    function_name = item["function"]
+    if function_name == "local.create_large_tree":
+        return create_large_tree(htm=htm, name=item["id"], **params)
+    raise ValueError(f"Funcao de arvore desconhecida: {function_name}")
+
+
+def render_trees(plan):
+    objects = []
+    for item in plan.get("trees", {}).values():
+        objects += render_tree_item(item)
     return objects
 
 
@@ -1706,7 +1988,7 @@ def build_uaibot_objects(plan):
     outdoor = plan["outdoor"]
     add_floor(objects, outdoor["area_carro"], "pavimento_area_carro", "cimento_pavimentado", OUTDOOR_THICKNESS)
     add_floor(objects, outdoor["borda_piscina"], "borda_piscina", "borda_piscina", OUTDOOR_THICKNESS)
-    add_floor(objects, outdoor["piscina"], "agua_piscina", "agua_piscina", 0.03)
+    add_floor(objects, outdoor["piscina"], "agua_piscina", "agua_piscina", 0.06)
     add_floor(objects, outdoor["area_reuniao"], "deck_area_reuniao", "deck_convivio", OUTDOOR_THICKNESS)
     for item in outdoor.values():
         if item["kind"] == "grass":
@@ -1741,6 +2023,7 @@ def build_uaibot_objects(plan):
 
     objects += render_furniture(plan)
     objects += render_vehicles(plan)
+    objects += render_trees(plan)
 
     return objects
 
@@ -1865,6 +2148,16 @@ def print_summary(plan, registry_path, html_path, object_count):
             f"bbox={item['bounding_box']} params={item['params']}"
         )
 
+    print("\n-- Arvores --")
+    for item in plan.get("trees", {}).values():
+        dims = item["dimensions"]
+        print(
+            f"{item['id']}: funcao={item['function']} centro={item['center']} "
+            f"yaw={item['orientation']['yaw_rad']} "
+            f"dim={dims['width']}x{dims['depth']}x{dims['height']} "
+            f"bbox={item['bounding_box']} params={item['params']}"
+        )
+
     print("\n-- Validacao --")
     print(json.dumps(plan["validation"], indent=2, ensure_ascii=False))
 
@@ -1877,7 +2170,7 @@ def main():
     objects = build_uaibot_objects(plan)
     print(f"Gerados {len(objects)} objetos UAIbot.")
     html_path = save_simulation(objects)
-    print_summary(plan, registry_path, html_path, len(objects))
+    # print_summary(plan, registry_path, html_path, len(objects))
 
 
 if __name__ == "__main__":
