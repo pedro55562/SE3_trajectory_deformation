@@ -1,0 +1,504 @@
+"""Benchmark and validate opt-in implementation-level GPU optimizations."""
+
+from __future__ import annotations
+
+import argparse
+import gc
+import statistics
+import sys
+from collections import defaultdict
+from pathlib import Path
+
+import numpy as np
+import torch
+from torch.profiler import ProfilerActivity, profile
+
+
+PROJECT_DIR = Path(__file__).resolve().parents[1]
+UAIBOT_DIR = PROJECT_DIR / "UAIbotPy"
+for path in (PROJECT_DIR, UAIBOT_DIR):
+    if str(path) not in sys.path:
+        sys.path.insert(0, str(path))
+
+import benchmark_gpu_house_distance as base
+from gpu_distance_bottlenecks import ErrorAccumulator, _build_caches, _cuda_time
+from uaibot.gpu.distance import (
+    holder_distance_optimized,
+    holder_distance_with_grad_optimized,
+    se3_generators_cached,
+)
+
+
+def _dtype_batch(batch, dtype: torch.dtype):
+    if dtype == torch.float32:
+        vertices, edges, normals = batch.vertices, batch.edges, batch.normals
+    elif dtype == torch.float64:
+        vertices, edges, normals = (
+            batch.vertices_f64,
+            batch.edges_f64,
+            batch.normals_f64,
+        )
+    else:
+        raise ValueError(f"Unsupported dtype: {dtype}")
+    return base.GeometryBatch(
+        indices=batch.indices,
+        vertices=vertices,
+        edges=edges,
+        normals=normals,
+        device_indices=batch.device_indices,
+    )
+
+
+def _query_at(batch, index: int):
+    return base.GeometryBatch(
+        indices=[index],
+        vertices=batch.vertices[index : index + 1],
+        edges=batch.edges[index : index + 1],
+        normals=batch.normals[index : index + 1],
+    )
+
+
+class Variant:
+    def __init__(
+        self,
+        name,
+        compute_dtype,
+        compiled,
+        output_dtype,
+        cached_pose,
+        compiled_pose,
+        houses_source,
+        queries_source,
+        object_count,
+    ):
+        self.name = name
+        self.compute_dtype = compute_dtype
+        self.compiled = compiled
+        self.output_dtype = output_dtype
+        self.cached_pose = cached_pose
+        self.compiled_pose = compiled_pose
+        self.object_count = object_count
+        self.houses_compute = [
+            _dtype_batch(batch, compute_dtype) for batch in houses_source
+        ]
+        self.queries_compute = _dtype_batch(queries_source, compute_dtype)
+        self.houses_pose = [
+            _dtype_batch(
+                batch,
+                output_dtype if output_dtype is not None else compute_dtype,
+            )
+            for batch in houses_source
+        ]
+        self.queries_pose = _dtype_batch(
+            queries_source,
+            output_dtype if output_dtype is not None else compute_dtype,
+        )
+        self.generators = se3_generators_cached(
+            self.queries_pose.vertices.device, self.queries_pose.vertices.dtype
+        )
+        self.static_pose = (
+            base._build_static_pose_cache(self.houses_pose, self.generators)
+            if cached_pose
+            else None
+        )
+
+    def queries(self, index):
+        return _query_at(self.queries_compute, index), _query_at(
+            self.queries_pose, index
+        )
+
+    def distance(self, query_compute, gamma, eps):
+        return [
+            holder_distance_optimized(
+                query_compute.vertices,
+                query_compute.edges,
+                query_compute.normals,
+                house.vertices,
+                house.edges,
+                house.normals,
+                gamma,
+                eps,
+                compile_aggregation=self.compiled,
+            )
+            for house in self.houses_compute
+        ]
+
+    def pnv(self, query_compute, gamma, eps):
+        results = []
+        for compute_house, pose_house in zip(
+            self.houses_compute, self.houses_pose
+        ):
+            distance, grad = holder_distance_with_grad_optimized(
+                query_compute.vertices,
+                query_compute.edges,
+                query_compute.normals,
+                compute_house.vertices,
+                compute_house.edges,
+                compute_house.normals,
+                gamma,
+                eps,
+                dtype=self.compute_dtype,
+                output_dtype=self.output_dtype,
+                compile_aggregation=self.compiled,
+            )
+            results.append(base.PNVResult(pose_house, distance, grad))
+        return results
+
+    def pose(self, query_pose, results):
+        if self.cached_pose:
+            return base._vectorized_pose_gradients_cached(
+                query_pose,
+                results,
+                self.static_pose,
+                self.object_count,
+                self.generators,
+                self.compiled_pose,
+            )
+        return base._vectorized_pose_gradients(
+            query_pose, results, self.object_count
+        )
+
+    def full(self, index, gamma, eps):
+        query_compute, query_pose = self.queries(index)
+        results = self.pnv(query_compute, gamma, eps)
+        pose = self.pose(query_pose, results)
+        return results, pose
+
+
+class ReferenceVariant:
+    name = "reference_production"
+
+    def __init__(self, houses, queries, object_count):
+        self.houses = houses
+        self.queries_source = queries
+        self.object_count = object_count
+
+    def queries(self, index):
+        query = base._query_at(self.queries_source, index)
+        return query, query
+
+    def distance(self, query_compute, gamma, eps):
+        return base._distance_only(query_compute, self.houses, gamma, eps)
+
+    def pnv(self, query_compute, gamma, eps):
+        return base._distance_and_pnv_gradient(
+            query_compute, self.houses, gamma, eps
+        )
+
+    def pose(self, query_pose, results):
+        return base._vectorized_pose_gradients(
+            query_pose, results, self.object_count
+        )
+
+    def full(self, index, gamma, eps):
+        query_compute, query_pose = self.queries(index)
+        results = self.pnv(query_compute, gamma, eps)
+        pose = self.pose(query_pose, results)
+        return results, pose
+
+
+def benchmark_variant(variant, query_count, warmup, repeats, gamma, eps):
+    for index in range(warmup):
+        query_compute, query_pose = variant.queries(index % query_count)
+        variant.distance(query_compute, gamma, eps)
+        results = variant.pnv(query_compute, gamma, eps)
+        variant.pose(query_pose, results)
+    torch.cuda.synchronize()
+
+    times = defaultdict(list)
+    for index in range(repeats):
+        query_compute, query_pose = variant.queries(index % query_count)
+        elapsed, _ = _cuda_time(
+            lambda: variant.distance(query_compute, gamma, eps)
+        )
+        times["distance"].append(elapsed)
+        elapsed, results = _cuda_time(
+            lambda: variant.pnv(query_compute, gamma, eps)
+        )
+        times["pnv"].append(elapsed)
+        elapsed, _ = _cuda_time(lambda: variant.pose(query_pose, results))
+        times["pose"].append(elapsed)
+        elapsed, _ = _cuda_time(
+            lambda: variant.full(index % query_count, gamma, eps)
+        )
+        times["full"].append(elapsed)
+    return times
+
+
+def _time_summary(values):
+    return (
+        statistics.fmean(values),
+        statistics.median(values),
+        statistics.pstdev(values),
+    )
+
+
+def print_benchmarks(all_times):
+    print("\nCUDA-event timings (ms):")
+    print("  variant                      stage       mean    median       std")
+    for variant_name, times in all_times.items():
+        for stage in ("distance", "pnv", "pose", "full"):
+            mean, median, std = _time_summary(times[stage])
+            print(
+                f"  {variant_name:28s} {stage:9s} "
+                f"{mean:9.3f} {median:9.3f} {std:9.3f}"
+            )
+
+
+def _profile_variant(variant, gamma, eps):
+    variant.full(0, gamma, eps)
+    torch.cuda.synchronize()
+    gc.collect()
+    torch.cuda.empty_cache()
+    torch.cuda.reset_peak_memory_stats()
+    starting_memory = torch.cuda.memory_allocated()
+    with profile(
+        activities=[ProfilerActivity.CPU, ProfilerActivity.CUDA],
+        record_shapes=False,
+        profile_memory=True,
+        with_stack=False,
+    ) as prof:
+        outputs = variant.full(0, gamma, eps)
+        torch.cuda.synchronize()
+
+    keys = prof.key_averages()
+    pow_events = [event for event in keys if event.key == "aten::pow"]
+    pow_us = sum(
+        float(getattr(event, "self_device_time_total", 0.0) or 0.0)
+        for event in pow_events
+    )
+    cuda_events = [
+        event
+        for event in prof.events()
+        if str(getattr(event, "device_type", "")).endswith("CUDA")
+    ]
+    kernel_cuda_us = sum(
+        float(
+            getattr(event, "self_device_time_total", 0.0)
+            or getattr(event, "device_time_total", 0.0)
+            or 0.0
+        )
+        for event in cuda_events
+    )
+    peak_delta = torch.cuda.max_memory_allocated() - starting_memory
+    peak_absolute = torch.cuda.max_memory_allocated()
+    del outputs
+    return {
+        "self_cuda_ms": kernel_cuda_us / 1000.0,
+        "kernel_count": len(cuda_events),
+        "pow_calls": sum(event.count for event in pow_events),
+        "pow_cuda_ms": pow_us / 1000.0,
+        "peak_delta_mib": peak_delta / 2**20,
+        "resident_mib": starting_memory / 2**20,
+        "peak_absolute_mib": peak_absolute / 2**20,
+    }
+
+
+def compare_outputs(actual, reference, accumulators):
+    actual_results, actual_pose = actual
+    reference_results, reference_pose = reference
+    for actual_result, reference_result in zip(actual_results, reference_results):
+        accumulators["distance"].update(
+            actual_result.distances, reference_result.distances
+        )
+        accumulators["grad_pnv"].update(
+            actual_result.grad_pnv, reference_result.grad_pnv
+        )
+    accumulators["se3_query"].update(actual_pose[0], reference_pose[0])
+    accumulators["se3_house"].update(actual_pose[1], reference_pose[1])
+
+
+def validate_variants(reference, variants, query_count, gamma, eps):
+    accumulators = {
+        variant.name: {
+            "distance": ErrorAccumulator(),
+            "grad_pnv": ErrorAccumulator(),
+            "se3_query": ErrorAccumulator(),
+            "se3_house": ErrorAccumulator(),
+        }
+        for variant in variants
+    }
+    near_counts = {"1e-2": 0, "1e-3": 0, "1e-4": 0}
+    for index in range(query_count):
+        reference_output = reference.full(index, gamma, eps)
+        minimum_absolute = min(
+            result.distances.abs().min().item()
+            for result in reference_output[0]
+        )
+        for label, threshold in (("1e-2", 1e-2), ("1e-3", 1e-3), ("1e-4", 1e-4)):
+            near_counts[label] += minimum_absolute <= threshold
+        for variant in variants:
+            compare_outputs(
+                variant.full(index, gamma, eps),
+                reference_output,
+                accumulators[variant.name],
+            )
+    torch.cuda.synchronize()
+    print(f"\nValidation over {query_count} cached random configurations")
+    print(f"  near-contact counts by min |distance|: {near_counts}")
+    print("  variant/output                  mean_abs      max_abs     mean_rel      max_rel")
+    for variant in variants:
+        for output_name, accumulator in accumulators[variant.name].items():
+            summary = accumulator.summary()
+            print(
+                f"  {variant.name + '/' + output_name:31s} "
+                f"{summary['mean_abs']:12.4e} {summary['max_abs']:12.4e} "
+                f"{summary['mean_rel']:12.4e} {summary['max_rel']:12.4e} "
+                f"nonfinite(actual/ref/mismatch)="
+                f"{summary['actual_nonfinite']}/"
+                f"{summary['reference_nonfinite']}/"
+                f"{summary['nonfinite_mismatch']}"
+            )
+
+
+def parse_args():
+    parser = argparse.ArgumentParser(description=__doc__)
+    parser.add_argument("--queries", type=int, default=64)
+    parser.add_argument("--warmup", type=int, default=3)
+    parser.add_argument("--repeats", type=int, default=15)
+    parser.add_argument("--gamma", type=float, default=base.GAMMA)
+    parser.add_argument("--epsilon", type=float, default=base.EPSILON)
+    parser.add_argument("--skip-validation", action="store_true")
+    parser.add_argument("--skip-profiler", action="store_true")
+    parser.add_argument(
+        "--selection",
+        choices=("all", "reference", "final"),
+        default="all",
+        help="Limit timing/profiling to a reference-only or final-only process.",
+    )
+    return parser.parse_args()
+
+
+def main():
+    args = parse_args()
+    if not torch.cuda.is_available():
+        raise RuntimeError("CUDA is required")
+    if min(args.queries, args.warmup, args.repeats) <= 0:
+        raise ValueError("query and repeat counts must be positive")
+
+    print(f"GPU: {torch.cuda.get_device_name(0)}")
+    print(f"PyTorch: {torch.__version__}; CUDA: {torch.version.cuda}")
+    objects, _, _, houses, queries = _build_caches(
+        max(args.queries, args.warmup), torch.device("cuda")
+    )
+    object_count = len(objects)
+    reference = ReferenceVariant(houses, queries, object_count)
+    variants = [
+        Variant(
+            "optimized_eager_f64",
+            torch.float64,
+            False,
+            torch.float32,
+            False,
+            False,
+            houses,
+            queries,
+            object_count,
+        ),
+        Variant(
+            "optimized_compiled_f64",
+            torch.float64,
+            True,
+            torch.float32,
+            False,
+            False,
+            houses,
+            queries,
+            object_count,
+        ),
+        Variant(
+            "optimized_eager_f32",
+            torch.float32,
+            False,
+            None,
+            False,
+            False,
+            houses,
+            queries,
+            object_count,
+        ),
+        Variant(
+            "optimized_compiled_f32",
+            torch.float32,
+            True,
+            None,
+            False,
+            False,
+            houses,
+            queries,
+            object_count,
+        ),
+        Variant(
+            "optimized_compiled_f32_cached",
+            torch.float32,
+            True,
+            None,
+            True,
+            False,
+            houses,
+            queries,
+            object_count,
+        ),
+        Variant(
+            "optimized_f32_cached_compiled_pose",
+            torch.float32,
+            True,
+            None,
+            True,
+            True,
+            houses,
+            queries,
+            object_count,
+        ),
+    ]
+
+    selected = [reference, *variants]
+    if args.selection == "reference":
+        selected = [reference]
+    elif args.selection == "final":
+        selected = [variants[-2]]
+
+    all_times = {}
+    for variant in selected:
+        print(f"Benchmarking {variant.name}...", flush=True)
+        all_times[variant.name] = benchmark_variant(
+            variant,
+            args.queries,
+            args.warmup,
+            args.repeats,
+            args.gamma,
+            args.epsilon,
+        )
+    print_benchmarks(all_times)
+
+    if not args.skip_profiler:
+        print("\nProfiler summary for full cached queries:")
+        print(
+            "  variant                      CUDA ms   kernels  pow calls    pow ms  "
+            "resident MiB  peak MiB  query delta MiB"
+        )
+        for variant in selected:
+            result = _profile_variant(variant, args.gamma, args.epsilon)
+            print(
+                f"  {variant.name:28s} {result['self_cuda_ms']:9.3f} "
+                f"{result['kernel_count']:9d} {result['pow_calls']:10d} "
+                f"{result['pow_cuda_ms']:9.3f} {result['resident_mib']:12.3f} "
+                f"{result['peak_absolute_mib']:9.3f} {result['peak_delta_mib']:15.3f}"
+            )
+
+    if not args.skip_validation:
+        validation_variants = variants if args.selection == "all" else []
+        if args.selection == "final":
+            validation_variants = [variants[-2]]
+        if validation_variants:
+            validate_variants(
+                reference,
+                validation_variants,
+                args.queries,
+                args.gamma,
+                args.epsilon,
+            )
+
+
+if __name__ == "__main__":
+    main()

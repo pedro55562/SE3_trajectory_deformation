@@ -32,6 +32,7 @@ from uaibot.gpu.distance import (
     holder_distance_with_grad,
     pnv_grad_SE3,
     se3_generators,
+    se3_generators_cached,
 )
 from uaibot.gpu.geometry import extract_VEF
 
@@ -151,6 +152,37 @@ class PNVResult:
     house: GeometryBatch
     distances: torch.Tensor
     grad_pnv: torch.Tensor
+
+
+@dataclass
+class StaticPoseBatch:
+    """Query-independent tensors used by the optimized SE(3) chain rule."""
+
+    geometry: GeometryBatch
+    directions_h: torch.Tensor
+    vertices_h: torch.Tensor
+    prod_b_s_b: torch.Tensor
+
+
+def _build_static_pose_cache(
+    house_batches: list[GeometryBatch], generators: torch.Tensor
+) -> list[StaticPoseBatch]:
+    caches = []
+    for house in house_batches:
+        directions = torch.cat((house.edges, house.normals), dim=1)
+        directions_h = torch.cat(
+            (directions, torch.zeros_like(directions[..., :1])), dim=-1
+        )
+        vertices_h = torch.cat(
+            (house.vertices, torch.ones_like(house.vertices[..., :1])), dim=-1
+        )
+        prod_b_s_b = torch.einsum(
+            "mdi,gij,mvj->mdvg", directions_h, generators, vertices_h
+        )
+        caches.append(
+            StaticPoseBatch(house, directions_h, vertices_h, prod_b_s_b)
+        )
+    return caches
 
 
 def _synchronize(device: torch.device) -> None:
@@ -372,6 +404,82 @@ def _vectorized_group_pose_gradient(
     return pair_grad_a, pair_grad_b
 
 
+def _vectorized_group_pose_gradient_cached(
+    query: GeometryBatch,
+    result: PNVResult,
+    static: StaticPoseBatch,
+    generators: torch.Tensor,
+) -> tuple[torch.Tensor, torch.Tensor]:
+    """Equivalent SE(3) contraction reusing query-independent house tensors."""
+    house = static.geometry
+    vertices_a = query.vertices[0]
+    edges_a = query.edges[0]
+    normals_a = query.normals[0]
+
+    vertex_count_a = vertices_a.shape[0]
+    vertex_count_b = house.vertices.shape[1]
+    edge_count_a = edges_a.shape[0]
+    edge_count_b = house.edges.shape[1]
+    face_count_a = normals_a.shape[0]
+    face_count_b = house.normals.shape[1]
+
+    weights_a, weights_b = _split_direction_weights(
+        result.grad_pnv,
+        edge_count_a,
+        edge_count_b,
+        face_count_a,
+        face_count_b,
+        vertex_count_a,
+        vertex_count_b,
+    )
+    directions_a = torch.cat((edges_a, normals_a), dim=0)
+    directions_a_h = torch.cat(
+        (directions_a, torch.zeros_like(directions_a[:, :1])), dim=-1
+    )
+    vertices_a_h = torch.cat(
+        (vertices_a, torch.ones_like(vertices_a[:, :1])), dim=-1
+    )
+
+    generators_t = generators.transpose(-1, -2)
+    prod_a_s_a = torch.einsum(
+        "di,gij,vj->dvg", directions_a_h, generators, vertices_a_h
+    )
+    prod_a_st_b = torch.einsum(
+        "di,gji,mvj->mdvg", directions_a_h, generators_t, static.vertices_h
+    )
+    prod_b_s_a = torch.einsum(
+        "mdi,gij,vj->mdvg", static.directions_h, generators, vertices_a_h
+    )
+    prod_b_st_a = torch.einsum(
+        "mdi,gji,vj->mdvg", static.directions_h, generators_t, vertices_a_h
+    )
+
+    a_self = torch.einsum("mdab,dag->mg", weights_a, prod_a_s_a)
+    a_cross = torch.einsum("mdab,mdbg->mg", weights_a, prod_a_st_b)
+    b_from_a = torch.einsum("mdab,mdag->mg", weights_b, prod_b_s_a)
+    b_from_a_t = torch.einsum("mdab,mdag->mg", weights_b, prod_b_st_a)
+    b_self = torch.einsum("mdab,mdbg->mg", weights_b, static.prod_b_s_b)
+
+    pair_grad_a = 2.0 * a_self - a_cross + b_from_a
+    pair_grad_b = -a_cross + b_from_a_t - 2.0 * b_self
+    return pair_grad_a, pair_grad_b
+
+
+_compiled_pose_group = None
+
+
+def _get_compiled_pose_group():
+    """Lazily compile the fixed-shape cached SE(3) group contraction."""
+    global _compiled_pose_group
+    if _compiled_pose_group is None:
+        _compiled_pose_group = torch.compile(
+            _vectorized_group_pose_gradient_cached,
+            fullgraph=True,
+            mode="reduce-overhead",
+        )
+    return _compiled_pose_group
+
+
 def _vectorized_pose_gradients(
     query: GeometryBatch,
     pnv_results: list[PNVResult],
@@ -390,6 +498,37 @@ def _vectorized_pose_gradients(
         )
         grad_a[0] += pair_grad_a.sum(dim=0)
         grad_b.index_copy_(0, result.house.device_indices, pair_grad_b)
+    return grad_a, grad_b
+
+
+def _vectorized_pose_gradients_cached(
+    query: GeometryBatch,
+    pnv_results: list[PNVResult],
+    static_batches: list[StaticPoseBatch],
+    house_object_count: int,
+    generators: torch.Tensor | None = None,
+    compile_groups: bool = False,
+) -> tuple[torch.Tensor, torch.Tensor]:
+    """Optimized pose-gradient path with an explicit static-house cache."""
+    device = query.vertices.device
+    if generators is None:
+        generators = se3_generators_cached(device, query.vertices.dtype)
+    grad_a = torch.zeros(1, 6, dtype=query.vertices.dtype, device=device)
+    grad_b = torch.zeros(
+        house_object_count, 6, dtype=query.vertices.dtype, device=device
+    )
+
+    group_operation = (
+        _get_compiled_pose_group()
+        if compile_groups
+        else _vectorized_group_pose_gradient_cached
+    )
+    for result, static in zip(pnv_results, static_batches):
+        pair_grad_a, pair_grad_b = group_operation(
+            query, result, static, generators
+        )
+        grad_a[0] += pair_grad_a.sum(dim=0)
+        grad_b.index_copy_(0, static.geometry.device_indices, pair_grad_b)
     return grad_a, grad_b
 
 
