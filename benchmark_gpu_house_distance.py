@@ -376,31 +376,18 @@ def _vectorized_group_pose_gradient(
         (vertices_b, torch.ones_like(vertices_b[..., :1])), dim=-1
     )
 
-    generators_t = generators.transpose(-1, -2)
-    prod_a_s_a = torch.einsum(
-        "di,gij,vj->dvg", directions_a_h, generators, vertices_a_h
-    )
-    prod_a_st_b = torch.einsum(
-        "di,gji,mvj->mdvg", directions_a_h, generators_t, vertices_b_h
+    prod_a_s_b = torch.einsum(
+        "di,gij,mvj->mdvg", directions_a_h, generators, vertices_b_h
     )
     prod_b_s_a = torch.einsum(
         "mdi,gij,vj->mdvg", directions_b_h, generators, vertices_a_h
     )
-    prod_b_st_a = torch.einsum(
-        "mdi,gji,vj->mdvg", directions_b_h, generators_t, vertices_a_h
-    )
-    prod_b_s_b = torch.einsum(
-        "mdi,gij,mvj->mdvg", directions_b_h, generators, vertices_b_h
-    )
 
-    a_self = torch.einsum("mdab,dag->mg", weights_a, prod_a_s_a)
-    a_cross = torch.einsum("mdab,mdbg->mg", weights_a, prod_a_st_b)
+    a_from_b = torch.einsum("mdab,mdbg->mg", weights_a, prod_a_s_b)
     b_from_a = torch.einsum("mdab,mdag->mg", weights_b, prod_b_s_a)
-    b_from_a_t = torch.einsum("mdab,mdag->mg", weights_b, prod_b_st_a)
-    b_self = torch.einsum("mdab,mdbg->mg", weights_b, prod_b_s_b)
 
-    pair_grad_a = 2.0 * a_self - a_cross + b_from_a
-    pair_grad_b = -a_cross + b_from_a_t - 2.0 * b_self
+    pair_grad_a = a_from_b + b_from_a
+    pair_grad_b = -pair_grad_a
     return pair_grad_a, pair_grad_b
 
 
@@ -440,28 +427,18 @@ def _vectorized_group_pose_gradient_cached(
         (vertices_a, torch.ones_like(vertices_a[:, :1])), dim=-1
     )
 
-    generators_t = generators.transpose(-1, -2)
-    prod_a_s_a = torch.einsum(
-        "di,gij,vj->dvg", directions_a_h, generators, vertices_a_h
-    )
-    prod_a_st_b = torch.einsum(
-        "di,gji,mvj->mdvg", directions_a_h, generators_t, static.vertices_h
+    prod_a_s_b = torch.einsum(
+        "di,gij,mvj->mdvg", directions_a_h, generators, static.vertices_h
     )
     prod_b_s_a = torch.einsum(
         "mdi,gij,vj->mdvg", static.directions_h, generators, vertices_a_h
     )
-    prod_b_st_a = torch.einsum(
-        "mdi,gji,vj->mdvg", static.directions_h, generators_t, vertices_a_h
-    )
 
-    a_self = torch.einsum("mdab,dag->mg", weights_a, prod_a_s_a)
-    a_cross = torch.einsum("mdab,mdbg->mg", weights_a, prod_a_st_b)
+    a_from_b = torch.einsum("mdab,mdbg->mg", weights_a, prod_a_s_b)
     b_from_a = torch.einsum("mdab,mdag->mg", weights_b, prod_b_s_a)
-    b_from_a_t = torch.einsum("mdab,mdag->mg", weights_b, prod_b_st_a)
-    b_self = torch.einsum("mdab,mdbg->mg", weights_b, static.prod_b_s_b)
 
-    pair_grad_a = 2.0 * a_self - a_cross + b_from_a
-    pair_grad_b = -a_cross + b_from_a_t - 2.0 * b_self
+    pair_grad_a = a_from_b + b_from_a
+    pair_grad_b = -pair_grad_a
     return pair_grad_a, pair_grad_b
 
 

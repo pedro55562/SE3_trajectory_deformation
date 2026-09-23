@@ -417,12 +417,12 @@ def se3_generators():
     """Return the six 4x4 SE(3) Lie algebra generators.
 
     Shape: (6, 4, 4). The ordering is:
-      S[0] = rotation about x-axis   (angular velocity ω_x)
-      S[1] = rotation about y-axis   (angular velocity ω_y)
-      S[2] = rotation about z-axis   (angular velocity ω_z)
-      S[3] = translation along x-axis (linear velocity v_x)
-      S[4] = translation along y-axis (linear velocity v_y)
-      S[5] = translation along z-axis (linear velocity v_z)
+      S[0] = translation along x-axis (linear velocity v_x)
+      S[1] = translation along y-axis (linear velocity v_y)
+      S[2] = translation along z-axis (linear velocity v_z)
+      S[3] = rotation about x-axis   (angular velocity ω_x)
+      S[4] = rotation about y-axis   (angular velocity ω_y)
+      S[5] = rotation about z-axis   (angular velocity ω_z)
     """
     S = torch.zeros(6, 4, 4)
     # Translation generators
@@ -431,14 +431,14 @@ def se3_generators():
     S[2, 2, 3] = 1.0  # z translation
     # Rotation generators (skew-symmetric)
     # x-axis rotation
-    S[3, 0, 1] = -1.0
-    S[3, 1, 0] = 1.0
+    S[3, 1, 2] = -1.0
+    S[3, 2, 1] = 1.0
     # y-axis rotation
     S[4, 0, 2] = 1.0
     S[4, 2, 0] = -1.0
     # z-axis rotation
-    S[5, 1, 2] = -1.0
-    S[5, 2, 1] = 1.0
+    S[5, 0, 1] = -1.0
+    S[5, 1, 0] = 1.0
     return S
 
 
@@ -491,7 +491,7 @@ def pnv_grad_SE3(normals_A, vertices_A, normals_B, vertices_B, S=None):
             Gradient of pnv w.r.t. pose B for normals from B.
     """
     if S is None:
-        S = se3_generators().to(normals_A.device)
+        S = se3_generators().to(device=normals_A.device, dtype=normals_A.dtype)
 
     # Convert to homogeneous coordinates
     nA_h = torch.cat(
@@ -507,36 +507,22 @@ def pnv_grad_SE3(normals_A, vertices_A, normals_B, vertices_B, S=None):
         [vertices_B, torch.ones_like(vertices_B[..., :1])], dim=-1
     )  # (V_B,4)
 
-    # Precompute transposed generators
-    S_t = S.transpose(-1, -2)  # (6,4,4) with indices (g,j,i)
+    # Under left perturbations, pnv = n^T(a-b) has a compact derivative.
+    # If n belongs to A, its rotation cancels the motion of a, leaving
+    # n^T S b. If n belongs to B, A only moves a, leaving n^T S a. A common
+    # left perturbation is a rigid world-frame motion, so the B derivative is
+    # the negative of the A derivative in both cases.
+    prod_nA_S_vB = torch.einsum("fi,gij,vj->fvg", nA_h, S, vB_h)
+    prod_nB_S_vA = torch.einsum("fi,gij,vj->fvg", nB_h, S, vA_h)
 
-    # Compute fundamental products with generator index g
-    # Compute fundamental products using einsum
-    # n^T S_i v (i: basis index, f: normal index, v: vertex index)
-    prod_nA_S_vA = torch.einsum("fi,gij,vj->fvg", nA_h, S, vA_h)  # (F_A, V_A, 6)
-    prod_nA_St_vB = torch.einsum("fi,gji,vj->fvg", nA_h, S_t, vB_h)  # (F_A, V_B, 6)
-    prod_nB_S_vA = torch.einsum("fi,gij,vj->fvg", nB_h, S, vA_h)  # (F_B, V_A, 6)
-    prod_nB_St_vA = torch.einsum("fi,gji,vj->fvg", nB_h, S_t, vA_h)  # (F_B, V_A, 6)
-    prod_nB_S_vB = torch.einsum("fi,gij,vj->fvg", nB_h, S, vB_h)  # (F_B, V_B, 6)
-
-    # Expand dimensions to combine over (V_A, V_B)
-    # For n from A:
-    #   grad_HA = 2 * nA^T S a_A - nA^T S^T b_B
-    grad_HA_nA = (
-        2.0 * prod_nA_S_vA[:, :, None, :] - prod_nA_St_vB[:, None, :, :]
-    )  # (F_A, V_A, V_B, 6)
-    #   grad_HB = - nA^T S b_B
-    grad_HB_nA = -prod_nA_St_vB[:, None, :, :]
-
-    # For n from B:
-    #   grad_HA = nB^T S a_A
-    grad_HA_nB = prod_nB_S_vA[:, :, None, :]  # (F_B, V_A, V_B, 6)
-    #   grad_HB = nB^T S^T a_A - nB^T S^T b_B - nB^T S b_B
-    grad_HB_nB = (
-        prod_nB_St_vA[:, :, None, :]
-        # - prod_nB_St_vB[:, None, :, :]
-        - 2.0 * prod_nB_S_vB[:, None, :, :]
+    grad_HA_nA = prod_nA_S_vB[:, None, :, :].expand(
+        -1, vertices_A.shape[0], -1, -1
     )
+    grad_HB_nA = -grad_HA_nA
+    grad_HA_nB = prod_nB_S_vA[:, :, None, :].expand(
+        -1, -1, vertices_B.shape[0], -1
+    )
+    grad_HB_nB = -grad_HA_nB
 
     return {
         "nA_grad_HA": grad_HA_nA,
