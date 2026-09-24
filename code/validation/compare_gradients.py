@@ -12,7 +12,7 @@ from pathlib import Path
 import numpy as np
 
 
-PROJECT_DIR = Path(__file__).resolve().parents[1]
+PROJECT_DIR = Path(__file__).resolve().parents[2]
 UAIBOT_DIR = PROJECT_DIR / "UAIbotPy"
 for path in (PROJECT_DIR, UAIBOT_DIR):
     if str(path) not in sys.path:

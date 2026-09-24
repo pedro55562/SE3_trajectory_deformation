@@ -12,16 +12,20 @@ from __future__ import annotations
 
 import json
 import math
+import sys
 from pathlib import Path
 
 import numpy as np
 
+PROJECT_DIR = Path(__file__).resolve().parent
+REPOSITORY_DIR = PROJECT_DIR.parent
+for path in (REPOSITORY_DIR, REPOSITORY_DIR / "UAIbotPy"):
+    if str(path) not in sys.path:
+        sys.path.insert(0, str(path))
+
 import uaibot as ub
 
-
-PROJECT_DIR = Path(__file__).resolve().parent
-
-from architecture import (
+from house.architecture import (
     available_architecture,
     create_floor,
     create_gable_roof,
@@ -31,10 +35,10 @@ from architecture import (
     create_wall_with_door_and_window,
     create_wall_with_window,
 )
-from compositions import available_compositions, create_composition
-from furniture import available_items, create_item
-from props import available_props
-from vehicles import available_vehicles, create_vehicle
+from house.compositions import available_compositions, create_composition
+from house.furniture import available_items, create_item
+from house.props import available_props
+from house.vehicles import available_vehicles, create_vehicle
 
 
 EPS = 1e-6
@@ -2039,8 +2043,10 @@ def save_simulation(objects):
     sim = ub.Simulation(
         objects
     )
-    sim.save(str(PROJECT_DIR), "l_house_uaibot")
-    return PROJECT_DIR / "l_house_uaibot.html"
+    html_dir = REPOSITORY_DIR / "code" / "html"
+    html_dir.mkdir(parents=True, exist_ok=True)
+    sim.save(str(html_dir), "l_house_uaibot")
+    return html_dir / "l_house_uaibot.html"
 
 
 def assert_geometry_matches_source_registry(plan):

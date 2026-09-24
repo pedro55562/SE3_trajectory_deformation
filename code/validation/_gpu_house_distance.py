@@ -1,26 +1,18 @@
-"""Benchmark GPU distance/gradient queries against the L-shaped house.
-
-The script profiles one-time geometry setup separately, then benchmarks three
-cached-query modes. House construction, primitive conversion, random sampling,
-pose construction, and CUDA warm-up remain outside the benchmark statistics.
-"""
+"""House geometry batching and corrected SE(3) pose-gradient helpers."""
 
 from __future__ import annotations
 
-import argparse
 import math
-import statistics
 import sys
 from collections import defaultdict
 from dataclasses import dataclass
 from pathlib import Path
-from time import perf_counter
 
 import numpy as np
 
 
-# Use the checked-out UAIbotPy submodule, including its feat/gpu-holder code.
-PROJECT_DIR = Path(__file__).resolve().parent
+# Use the current local UAIbotPy GPU implementation.
+PROJECT_DIR = Path(__file__).resolve().parents[2]
 UAIBOT_DIR = PROJECT_DIR / "UAIbotPy"
 if str(UAIBOT_DIR) not in sys.path:
     sys.path.insert(0, str(UAIBOT_DIR))
@@ -30,7 +22,6 @@ import uaibot as ub
 from uaibot.gpu.distance import (
     holder_distance,
     holder_distance_with_grad,
-    pnv_grad_SE3,
     se3_generators,
     se3_generators_cached,
 )
@@ -38,12 +29,10 @@ from uaibot.gpu.geometry import extract_VEF
 
 # l_house_uaibot exposes the existing house construction in two stages.  The
 # alias makes the construction entry point explicit without copying any of it.
-from l_house_uaibot import build_plan_data
-from l_house_uaibot import build_uaibot_objects as create_house
+from house.l_house_uaibot import build_plan_data
+from house.l_house_uaibot import build_uaibot_objects as create_house
 
 
-N = 1000
-RANDOM_SEED = 0
 GAMMA = 2.0
 EPSILON = 1e-3
 
@@ -184,19 +173,6 @@ def _build_static_pose_cache(
         )
     return caches
 
-
-def _synchronize(device: torch.device) -> None:
-    if device.type == "cuda":
-        torch.cuda.synchronize(device)
-
-
-def _timed(device: torch.device, operation):
-    """Time an operation, including all asynchronous CUDA work it launches."""
-    _synchronize(device)
-    start = perf_counter()
-    result = operation()
-    _synchronize(device)
-    return perf_counter() - start, result
 
 
 def _group_and_stack(components) -> list[GeometryBatch]:
@@ -507,321 +483,3 @@ def _vectorized_pose_gradients_cached(
         grad_a[0] += pair_grad_a.sum(dim=0)
         grad_b.index_copy_(0, static.geometry.device_indices, pair_grad_b)
     return grad_a, grad_b
-
-
-def _legacy_python_pose_gradients(
-    query: GeometryBatch,
-    pnv_results: list[PNVResult],
-    house_object_count: int,
-) -> tuple[torch.Tensor, torch.Tensor]:
-    """The original per-pair SE(3) loop, retained only for profiling/checking."""
-    device = query.vertices.device
-    grad_a = torch.zeros(1, 6, dtype=torch.float32, device=device)
-    grad_b = torch.zeros(house_object_count, 6, dtype=torch.float32, device=device)
-
-    vertices_a = query.vertices[0]
-    edges_a = query.edges[0]
-    normals_a = query.normals[0]
-    dirs_a = torch.cat((edges_a, normals_a), dim=0)
-    vertex_count_a = vertices_a.shape[0]
-    edge_count_a = edges_a.shape[0]
-    face_count_a = normals_a.shape[0]
-
-    for result in pnv_results:
-        house = result.house
-        edge_count_b = house.edges.shape[1]
-        face_count_b = house.normals.shape[1]
-        vertex_count_b = house.vertices.shape[1]
-        direction_count = result.grad_pnv.shape[2]
-
-        for local_index, global_index in enumerate(house.indices):
-            vertices_b = house.vertices[local_index]
-            edges_b = house.edges[local_index]
-            normals_b = house.normals[local_index]
-            dirs_b = torch.cat((edges_b, normals_b), dim=0)
-            pnv_grads = pnv_grad_SE3(
-                normals_A=dirs_a,
-                vertices_A=vertices_a,
-                normals_B=dirs_b,
-                vertices_B=vertices_b,
-            )
-
-            pair_grad_a = torch.zeros(
-                direction_count,
-                vertex_count_a,
-                vertex_count_b,
-                6,
-                device=device,
-            )
-            pair_grad_b = torch.zeros_like(pair_grad_a)
-            a_edge_neg = edge_count_a + edge_count_b
-            b_edge_neg = 2 * edge_count_a + edge_count_b
-            a_face = 2 * edge_count_a + 2 * edge_count_b
-            b_face = a_face + face_count_a
-
-            pair_grad_a[:edge_count_a] = pnv_grads["nA_grad_HA"][:edge_count_a]
-            pair_grad_b[:edge_count_a] = pnv_grads["nA_grad_HB"][:edge_count_a]
-            pair_grad_a[edge_count_a:a_edge_neg] = pnv_grads["nB_grad_HA"][
-                :edge_count_b
-            ]
-            pair_grad_b[edge_count_a:a_edge_neg] = pnv_grads["nB_grad_HB"][
-                :edge_count_b
-            ]
-            pair_grad_a[a_edge_neg:b_edge_neg] = -pnv_grads["nA_grad_HA"][
-                :edge_count_a
-            ]
-            pair_grad_b[a_edge_neg:b_edge_neg] = -pnv_grads["nA_grad_HB"][
-                :edge_count_a
-            ]
-            pair_grad_a[b_edge_neg:a_face] = -pnv_grads["nB_grad_HA"][
-                :edge_count_b
-            ]
-            pair_grad_b[b_edge_neg:a_face] = -pnv_grads["nB_grad_HB"][
-                :edge_count_b
-            ]
-            pair_grad_a[a_face:b_face] = pnv_grads["nA_grad_HA"][edge_count_a:]
-            pair_grad_b[a_face:b_face] = pnv_grads["nA_grad_HB"][edge_count_a:]
-            pair_grad_a[b_face:] = pnv_grads["nB_grad_HA"][edge_count_b:]
-            pair_grad_b[b_face:] = pnv_grads["nB_grad_HB"][edge_count_b:]
-
-            grad_pnv = result.grad_pnv[0, local_index].reshape(
-                direction_count, vertex_count_a, vertex_count_b
-            )
-            grad_a[0] += torch.einsum("dab,dabk->k", grad_pnv, pair_grad_a)
-            grad_b[global_index] += torch.einsum(
-                "dab,dabk->k", grad_pnv, pair_grad_b
-            )
-    return grad_a, grad_b
-
-
-def benchmark(
-    iterations: int = N,
-    seed: int = RANDOM_SEED,
-    gamma: float = GAMMA,
-    epsilon: float = EPSILON,
-    device: str = "cuda",
-) -> tuple[int, float, float]:
-    """Profile setup and benchmark all three distance/gradient modes."""
-    if iterations <= 0:
-        raise ValueError("iterations must be greater than zero")
-
-    torch_device = torch.device(device)
-    if torch_device.type == "cuda" and not torch.cuda.is_available():
-        raise RuntimeError(
-            "CUDA is unavailable to PyTorch. Check `nvidia-smi` and the NVIDIA "
-            "driver; use `--device cpu` only for a non-GPU smoke test."
-        )
-
-    # Scene construction and primitive conversion remain outside the requested
-    # V/E/F profile and all per-query measurements.
-    print(f"Using device: {torch_device}", flush=True)
-    print("Creating house (not timed)...", flush=True)
-    house_obstacles = create_house(build_plan_data())
-    print(
-        f"Converting {len(house_obstacles)} house obstacles (not timed)...",
-        flush=True,
-    )
-    house_polyhedra = [_as_gpu_compatible_polyhedron(obj) for obj in house_obstacles]
-
-    query_obstacle = ub.Box(
-        htm=np.identity(4),
-        name="benchmark_query_obstacle",
-        width=QUERY_OBSTACLE_SIZE[0],
-        depth=QUERY_OBSTACLE_SIZE[1],
-        height=QUERY_OBSTACLE_SIZE[2],
-        color="red",
-    )
-    query_poses = _make_query_poses(iterations, seed)
-
-    # Extract once. No call to extract_VEF occurs below this point.
-    extract_start = perf_counter()
-    house_components = [extract_VEF(obj) for obj in house_polyhedra]
-    house_extract_time = perf_counter() - extract_start
-    query_extract_start = perf_counter()
-    query_components = [extract_VEF(query_obstacle, pose) for pose in query_poses]
-    query_extract_time = perf_counter() - query_extract_start
-    extract_time = house_extract_time + query_extract_time
-
-    stack_start = perf_counter()
-    house_cpu_batches = _group_and_stack(house_components)
-    query_cpu_batches = _group_and_stack(query_components)
-    if len(query_cpu_batches) != 1:
-        raise RuntimeError("All query boxes should have one V/E/F signature")
-    query_cpu_batch = query_cpu_batches[0]
-    stack_time = perf_counter() - stack_start
-
-    transfer_time, transferred = _timed(
-        torch_device,
-        lambda: (
-            [_batch_to_device(batch, torch_device) for batch in house_cpu_batches],
-            _batch_to_device(query_cpu_batch, torch_device),
-        ),
-    )
-    house_batches, query_batch = transferred
-
-    print(
-        "Static house V/E/F cache: "
-        f"{len(house_batches)} homogeneous batch(es), extracted once, "
-        "transferred once in float32/float64; "
-        "per-iteration extraction/transfers: 0",
-        flush=True,
-    )
-    for batch in house_batches:
-        print(
-            "  batch: "
-            f"objects={len(batch.indices)}, V={batch.vertices.shape[1]}, "
-            f"E={batch.edges.shape[1]}, F={batch.normals.shape[1]}",
-            flush=True,
-        )
-
-    # Warm up every measured path, including the new batched SE(3) chain rule.
-    print("Warming up distance/gradient kernels (not timed)...", flush=True)
-    warm_query = _query_at(query_batch, 0)
-    _distance_only(warm_query, house_batches, gamma, epsilon)
-    warm_pnv = _distance_and_pnv_gradient(
-        warm_query, house_batches, gamma, epsilon
-    )
-    _vectorized_pose_gradients(warm_query, warm_pnv, len(house_polyhedra))
-    _synchronize(torch_device)
-
-    # Decompose one cached query. The legacy loop is measured once, solely to
-    # identify its cost and validate the vectorized replacement numerically.
-    forward_time, _ = _timed(
-        torch_device,
-        lambda: _distance_only(warm_query, house_batches, gamma, epsilon),
-    )
-    pnv_time, profile_pnv = _timed(
-        torch_device,
-        lambda: _distance_and_pnv_gradient(
-            warm_query, house_batches, gamma, epsilon
-        ),
-    )
-    legacy_pose_time, legacy_gradients = _timed(
-        torch_device,
-        lambda: _legacy_python_pose_gradients(
-            warm_query, profile_pnv, len(house_polyhedra)
-        ),
-    )
-    vector_pose_time, vector_gradients = _timed(
-        torch_device,
-        lambda: _vectorized_pose_gradients(
-            warm_query, profile_pnv, len(house_polyhedra)
-        ),
-    )
-    torch.testing.assert_close(
-        vector_gradients[0], legacy_gradients[0], rtol=2e-4, atol=2e-4
-    )
-    torch.testing.assert_close(
-        vector_gradients[1], legacy_gradients[1], rtol=2e-4, atol=2e-4
-    )
-
-    total_profile_time = pnv_time + vector_pose_time
-    autograd_overhead = pnv_time - forward_time
-    first_call_with_setup = extract_time + stack_time + transfer_time + total_profile_time
-    print("\nOne-call timing decomposition:")
-    print(
-        f"Original SE(3) path: {len(house_polyhedra)} Python pair iterations; "
-        f"vectorized path: 0 pair iterations across {len(house_batches)} batches"
-    )
-    print(f"1. extract_VEF / geometry preparation: {extract_time:.6f} s (one-time)")
-    print(f"   static house extract_VEF:             {house_extract_time:.6f} s")
-    print(f"   all pre-sampled query extract_VEF:    {query_extract_time:.6f} s")
-    print(f"2. grouping and torch.stack:            {stack_time:.6f} s (one-time)")
-    transfer_name = (
-        "CPU -> GPU transfer" if torch_device.type == "cuda" else "CPU tensor placement"
-    )
-    print(f"3. {transfer_name + ':':<36}{transfer_time:.6f} s (one-time)")
-    print(f"4. Holder distance forward only:        {forward_time:.6f} s")
-    print(f"5. holder_distance_with_grad total:      {pnv_time:.6f} s")
-    print(f"   autograd/pnv overhead vs. forward:    {autograd_overhead:.6f} s")
-    print(f"6a. SE(3) pose gradient, Python loop:    {legacy_pose_time:.6f} s")
-    print(f"6b. SE(3) pose gradient, vectorized:     {vector_pose_time:.6f} s")
-    print(f"7. total cached full-gradient query:     {total_profile_time:.6f} s")
-    print(f"   first query including V/E/F setup:    {first_call_with_setup:.6f} s")
-    print(
-        "   vectorized/legacy SE(3) speedup:     "
-        f"{legacy_pose_time / vector_pose_time:.2f}x"
-    )
-
-    print(f"\nRunning {iterations} timed iteration(s) in all modes...", flush=True)
-    distance_times = []
-    pnv_times = []
-    pose_times = []
-    for index in range(iterations):
-        query = _query_at(query_batch, index)
-        elapsed, distances = _timed(
-            torch_device,
-            lambda: _distance_only(query, house_batches, gamma, epsilon),
-        )
-        distance_times.append(elapsed)
-
-        elapsed, pnv_results = _timed(
-            torch_device,
-            lambda: _distance_and_pnv_gradient(
-                query, house_batches, gamma, epsilon
-            ),
-        )
-        pnv_times.append(elapsed)
-
-        elapsed, pose_gradients = _timed(
-            torch_device,
-            lambda: _vectorized_pose_gradients(
-                query, pnv_results, len(house_polyhedra)
-            ),
-        )
-        pose_times.append(elapsed)
-        _ = distances, pose_gradients
-
-    full_times = [
-        pnv_elapsed + pose_elapsed
-        for pnv_elapsed, pose_elapsed in zip(pnv_times, pose_times)
-    ]
-    evaluation_count = iterations * len(house_polyhedra)
-    print(f"\nDistance/gradient evaluations: {evaluation_count}")
-    print(
-        "Distance only:              "
-        f"{statistics.fmean(distance_times):.6f} s avg, "
-        f"{statistics.pstdev(distance_times):.6f} s std"
-    )
-    print(
-        "Distance + pnv gradient:    "
-        f"{statistics.fmean(pnv_times):.6f} s avg, "
-        f"{statistics.pstdev(pnv_times):.6f} s std"
-    )
-    print(
-        "SE(3) gradient (vectorized): "
-        f"{statistics.fmean(pose_times):.6f} s avg, "
-        f"{statistics.pstdev(pose_times):.6f} s std"
-    )
-    average = statistics.fmean(full_times)
-    standard_deviation = statistics.pstdev(full_times)
-    print(
-        "Distance + full SE(3):      "
-        f"{average:.6f} s avg, {standard_deviation:.6f} s std"
-    )
-    return evaluation_count, average, standard_deviation
-
-
-def _parse_args() -> argparse.Namespace:
-    parser = argparse.ArgumentParser(description=__doc__)
-    parser.add_argument("-n", "--iterations", type=int, default=N)
-    parser.add_argument("--seed", type=int, default=RANDOM_SEED)
-    parser.add_argument("--gamma", type=float, default=GAMMA)
-    parser.add_argument("--epsilon", type=float, default=EPSILON)
-    parser.add_argument("--device", default="cuda")
-    return parser.parse_args()
-
-
-def main() -> None:
-    args = _parse_args()
-    benchmark(
-        iterations=args.iterations,
-        seed=args.seed,
-        gamma=args.gamma,
-        epsilon=args.epsilon,
-        device=args.device,
-    )
-
-
-if __name__ == "__main__":
-    main()

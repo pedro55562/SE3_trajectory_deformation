@@ -218,3 +218,10 @@ __marimo__/
 .streamlit/secrets.toml
 .vscode/
 .venv/
+
+# Generated house plan
+/house/house_registry.json
+
+# Generated simulation pages
+*.html
+*.htlm

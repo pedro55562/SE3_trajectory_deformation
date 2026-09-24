@@ -8,7 +8,7 @@ from pathlib import Path
 import torch
 
 
-PROJECT_DIR = Path(__file__).resolve().parents[1]
+PROJECT_DIR = Path(__file__).resolve().parents[2]
 sys.path.insert(0, str(PROJECT_DIR / "UAIbotPy"))
 
 from uaibot.gpu.functional import holder_min, holder_min_optimized

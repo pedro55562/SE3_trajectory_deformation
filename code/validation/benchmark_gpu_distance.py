@@ -6,6 +6,8 @@ import argparse
 import gc
 import statistics
 import sys
+from dataclasses import dataclass
+from typing import Callable
 from collections import defaultdict
 from pathlib import Path
 
@@ -14,20 +16,107 @@ import torch
 from torch.profiler import ProfilerActivity, profile
 
 
-PROJECT_DIR = Path(__file__).resolve().parents[1]
+PROJECT_DIR = Path(__file__).resolve().parents[2]
 UAIBOT_DIR = PROJECT_DIR / "UAIbotPy"
-for path in (PROJECT_DIR, UAIBOT_DIR):
+VALIDATION_DIR = Path(__file__).resolve().parent
+for path in (PROJECT_DIR, UAIBOT_DIR, VALIDATION_DIR):
     if str(path) not in sys.path:
         sys.path.insert(0, str(path))
 
-import benchmark_gpu_house_distance as base
-from gpu_distance_bottlenecks import ErrorAccumulator, _build_caches, _cuda_time
+import _gpu_house_distance as base
 from uaibot.gpu.distance import (
     holder_distance_optimized,
     holder_distance_with_grad_optimized,
     se3_generators_cached,
 )
 
+
+
+@dataclass
+class ErrorAccumulator:
+    count: int = 0
+    finite_count: int = 0
+    actual_nonfinite: int = 0
+    reference_nonfinite: int = 0
+    nonfinite_mismatch: int = 0
+    absolute_sum: float = 0.0
+    relative_sum: float = 0.0
+    absolute_max: float = 0.0
+    relative_max: float = 0.0
+
+    def update(self, actual: torch.Tensor, reference: torch.Tensor) -> None:
+        actual64 = actual.detach().to(dtype=torch.float64)
+        reference64 = reference.detach().to(dtype=torch.float64)
+        actual_finite = torch.isfinite(actual64)
+        reference_finite = torch.isfinite(reference64)
+        finite = actual_finite & reference_finite
+        self.count += actual64.numel()
+        self.actual_nonfinite += (~actual_finite).sum().item()
+        self.reference_nonfinite += (~reference_finite).sum().item()
+        self.nonfinite_mismatch += (actual_finite != reference_finite).sum().item()
+        self.finite_count += finite.sum().item()
+        if not finite.any():
+            return
+        absolute = (actual64[finite] - reference64[finite]).abs()
+        # A documented floor prevents division by zero while still exposing
+        # errors on reference values close to zero.
+        relative = absolute / reference64[finite].abs().clamp_min(1e-12)
+        self.absolute_sum += absolute.sum().item()
+        self.relative_sum += relative.sum().item()
+        self.absolute_max = max(self.absolute_max, absolute.max().item())
+        self.relative_max = max(self.relative_max, relative.max().item())
+
+    def summary(self) -> dict[str, float]:
+        return {
+            "mean_abs": self.absolute_sum / self.finite_count,
+            "max_abs": self.absolute_max,
+            "mean_rel": self.relative_sum / self.finite_count,
+            "max_rel": self.relative_max,
+            "actual_nonfinite": self.actual_nonfinite,
+            "reference_nonfinite": self.reference_nonfinite,
+            "nonfinite_mismatch": self.nonfinite_mismatch,
+        }
+
+def _cuda_time(operation: Callable[[], object]) -> tuple[float, object]:
+    start = torch.cuda.Event(enable_timing=True)
+    end = torch.cuda.Event(enable_timing=True)
+    start.record()
+    result = operation()
+    end.record()
+    end.synchronize()
+    return start.elapsed_time(end), result
+
+def _build_caches(query_count: int, device: torch.device):
+    house_objects = base.create_house(
+        base.build_plan_data()
+    )
+    house_polyhedra = [
+        base._as_gpu_compatible_polyhedron(obj)
+        for obj in house_objects
+    ]
+    query_obstacle = base.ub.Box(
+        htm=np.identity(4),
+        name="precision_experiment_query",
+        width=base.QUERY_OBSTACLE_SIZE[0],
+        depth=base.QUERY_OBSTACLE_SIZE[1],
+        height=base.QUERY_OBSTACLE_SIZE[2],
+        color="red",
+    )
+    query_poses = base._make_query_poses(query_count, seed=0)
+    house_components = [
+        base.extract_VEF(obj) for obj in house_polyhedra
+    ]
+    query_components = [
+        base.extract_VEF(query_obstacle, pose) for pose in query_poses
+    ]
+    house_cpu = base._group_and_stack(house_components)
+    query_cpu = base._group_and_stack(query_components)[0]
+    house_cached = [
+        base._batch_to_device(batch, device) for batch in house_cpu
+    ]
+    query_cached = base._batch_to_device(query_cpu, device)
+    torch.cuda.synchronize(device)
+    return house_polyhedra, house_cpu, query_cpu, house_cached, query_cached
 
 def _dtype_batch(batch, dtype: torch.dtype):
     if dtype == torch.float32:
@@ -385,50 +474,6 @@ def main():
     reference = ReferenceVariant(houses, queries, object_count)
     variants = [
         Variant(
-            "optimized_eager_f64",
-            torch.float64,
-            False,
-            torch.float32,
-            False,
-            False,
-            houses,
-            queries,
-            object_count,
-        ),
-        Variant(
-            "optimized_compiled_f64",
-            torch.float64,
-            True,
-            torch.float32,
-            False,
-            False,
-            houses,
-            queries,
-            object_count,
-        ),
-        Variant(
-            "optimized_eager_f32",
-            torch.float32,
-            False,
-            None,
-            False,
-            False,
-            houses,
-            queries,
-            object_count,
-        ),
-        Variant(
-            "optimized_compiled_f32",
-            torch.float32,
-            True,
-            None,
-            False,
-            False,
-            houses,
-            queries,
-            object_count,
-        ),
-        Variant(
             "optimized_compiled_f32_cached",
             torch.float32,
             True,
@@ -439,24 +484,13 @@ def main():
             queries,
             object_count,
         ),
-        Variant(
-            "optimized_f32_cached_compiled_pose",
-            torch.float32,
-            True,
-            None,
-            True,
-            True,
-            houses,
-            queries,
-            object_count,
-        ),
     ]
 
     selected = [reference, *variants]
     if args.selection == "reference":
         selected = [reference]
     elif args.selection == "final":
-        selected = [variants[-2]]
+        selected = [variants[0]]
 
     all_times = {}
     for variant in selected:
@@ -489,7 +523,7 @@ def main():
     if not args.skip_validation:
         validation_variants = variants if args.selection == "all" else []
         if args.selection == "final":
-            validation_variants = [variants[-2]]
+            validation_variants = [variants[0]]
         if validation_variants:
             validate_variants(
                 reference,

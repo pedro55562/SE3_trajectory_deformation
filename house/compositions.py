@@ -29,7 +29,7 @@ Exemplo:
 import numpy as np
 import uaibot as ub
 
-from furniture import (
+from house.furniture import (
     create_armchair,
     create_bookshelf,
     create_floor_lamp,
@@ -45,7 +45,7 @@ from furniture import (
     create_tv_stand,
     create_wall_shelf,
 )
-from props import (
+from house.props import (
     create_book_row,
     create_book_stack,
     create_box_package,

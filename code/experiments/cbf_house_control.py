@@ -10,15 +10,16 @@ import torch
 from scipy.linalg import expm
 
 
-PROJECT_DIR = Path(__file__).resolve().parents[1]
+PROJECT_DIR = Path(__file__).resolve().parents[2]
 UAIBOT_DIR = PROJECT_DIR / "UAIbotPy"
-for path in (PROJECT_DIR, UAIBOT_DIR):
+VALIDATION_DIR = PROJECT_DIR / "code" / "validation"
+for path in (PROJECT_DIR, UAIBOT_DIR, VALIDATION_DIR):
     if str(path) not in sys.path:
         sys.path.insert(0, str(path))
 
-import benchmark_gpu_house_distance as gpu_house
+import _gpu_house_distance as gpu_house
 import uaibot as ub
-from l_house_uaibot import build_plan_data, build_uaibot_objects
+from house.l_house_uaibot import build_plan_data, build_uaibot_objects
 from uaibot.gpu.distance import (
     holder_distance_with_grad_optimized,
     se3_generators_cached,
@@ -274,7 +275,9 @@ def run(save_animation: bool = True, max_steps: int | None = None):
     goal_reached = goal_reached or final_error <= GOAL_TOLERANCE
 
     if save_animation:
-        simulation.save(str(PROJECT_DIR / "validation"), "cbf_house_control")
+        html_dir = PROJECT_DIR / "code" / "html"
+        html_dir.mkdir(parents=True, exist_ok=True)
+        simulation.save(str(html_dir), "cbf_house_control")
 
     print(f"Goal reached: {goal_reached}")
     print(f"Final task error: {final_error:.6f}")
