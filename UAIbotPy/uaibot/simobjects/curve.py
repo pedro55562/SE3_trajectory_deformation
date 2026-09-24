@@ -682,7 +682,7 @@ class CurveSE3:
         # Create a Curve for the positions (translations)
         point_curve = Curve(
             name=self.name + "_points",
-            points=self._points[:, :3, 3],  # Nx3 translations
+            points=self._initial_points[:, :3, 3],  # Nx3 translations at time 0
             size=self.size,
             color=self.color,
         )
